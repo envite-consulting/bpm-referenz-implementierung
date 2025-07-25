@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="316px"
+    preserveAspectRatio="none" style="width:572px;height:316px;background:#FFFFFF;" version="1.1"
+    viewBox="0 0 572 316" width="572px" zoomAndPan="magnify">
+    <defs />
+    <g><!--cluster
+        frontend-->
+        <g class="cluster" data-entity="frontend" data-source-line="1" data-uid="ent0002"
+            id="cluster_frontend">
+            <rect fill="none" height="97.3" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1;"
+                width="168" x="7" y="7" />
+            <rect fill="none" height="10" style="stroke:#181818;stroke-width:1;" width="15" x="155"
+                y="12" />
+            <rect fill="none" height="2" style="stroke:#181818;stroke-width:1;" width="4" x="153"
+                y="14" />
+            <rect fill="none" height="2" style="stroke:#181818;stroke-width:1;" width="4" x="153"
+                y="18" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold"
+                lengthAdjust="spacing" textLength="72.2285" x="54.8857" y="32.9951">Frontend</text>
+        </g><!--cluster
+        backend-->
+        <g class="cluster" data-entity="backend" data-source-line="5" data-uid="ent0004"
+            id="cluster_backend">
+            <rect fill="none" height="203.59" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:1;" width="204" x="199" y="7" />
+            <rect fill="none" height="10" style="stroke:#181818;stroke-width:1;" width="15" x="383"
+                y="12" />
+            <rect fill="none" height="2" style="stroke:#181818;stroke-width:1;" width="4" x="381"
+                y="14" />
+            <rect fill="none" height="2" style="stroke:#181818;stroke-width:1;" width="4" x="381"
+                y="18" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold"
+                lengthAdjust="spacing" textLength="188.8564" x="206.5718" y="32.9951">
+                business-logic-modulith</text>
+        </g><!--entity
+        frontend.aufgabenliste-->
+        <g class="entity" data-entity="frontend.aufgabenliste" data-source-line="2"
+            data-uid="ent0003" id="entity_frontend.aufgabenliste">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="136.3936" x="22.8" y="42" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="139.1936" y="47" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="137.1936" y="49" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="137.1936" y="53" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="96.3936" x="37.8" y="74.9951">Aufgabenliste</text>
+        </g><!--entity
+        backend.aufgabenliste-->
+        <g class="entity" data-entity="backend.aufgabenliste" data-source-line="6"
+            data-uid="ent0005" id="entity_backend.aufgabenliste">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="136.3936" x="231.8" y="42" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="348.1936" y="47" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="346.1936" y="49" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="346.1936" y="53" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="96.3936" x="246.8" y="74.9951">Aufgabenliste</text>
+        </g><!--entity
+        backend.fachbaustein-->
+        <g class="entity" data-entity="backend.fachbaustein" data-source-line="8" data-uid="ent0006"
+            id="entity_backend.fachbaustein">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="133.7002" x="233.15" y="148.3" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="346.8502" y="153.3" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="344.8502" y="155.3" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="344.8502" y="159.3" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="93.7002" x="248.15" y="181.2951">Fachbaustein</text>
+        </g><!--entity
+        engine-->
+        <g class="entity" data-entity="engine" data-source-line="11" data-uid="ent0007"
+            id="entity_engine">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="147.6797" x="419.16" y="148.3" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="546.8397" y="153.3" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="544.8397" y="155.3" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="544.8397" y="159.3" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="107.6797" x="434.16" y="181.2951">Remote-Engine</text>
+        </g><!--entity
+        business.db-->
+        <g class="entity" data-entity="business.db" data-source-line="13" data-uid="ent0008"
+            id="entity_business.db">
+            <path
+                d="M223.51,264.59 C223.51,254.59 300.0032,254.59 300.0032,254.59 C300.0032,254.59 376.4963,254.59 376.4963,264.59 L376.4963,289.8869 C376.4963,299.8869 300.0032,299.8869 300.0032,299.8869 C300.0032,299.8869 223.51,299.8869 223.51,289.8869 L223.51,264.59"
+                fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" />
+            <path
+                d="M223.51,264.59 C223.51,274.59 300.0032,274.59 300.0032,274.59 C300.0032,274.59 376.4963,274.59 376.4963,264.59"
+                fill="none" style="stroke:#181818;stroke-width:0.5;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="132.9863" x="233.51" y="291.5851">Business Database</text>
+        </g><!--link
+        frontend.aufgabenliste to backend.aufgabenliste-->
+        <g class="link" data-entity-1="frontend.aufgabenliste" data-entity-2="backend.aufgabenliste"
+            data-source-line="16" data-uid="lnk9"
+            id="link_frontend.aufgabenliste_backend.aufgabenliste">
+            <path d="M159.58,65.15 C183.53,65.15 201.48,65.15 225.43,65.15" fill="none"
+                id="frontend.aufgabenliste-to-backend.aufgabenliste"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="231.43,65.15,222.43,61.15,226.43,65.15,222.43,69.15,231.43,65.15"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        backend.aufgabenliste to engine-->
+        <g class="link" data-entity-1="backend.aufgabenliste" data-entity-2="engine"
+            data-source-line="18" data-uid="lnk10" id="link_backend.aufgabenliste_engine">
+            <path d="M341.88,88.78 C374.25,106.27 413.5713,127.5277 445.9213,145.0077" fill="none"
+                id="backend.aufgabenliste-to-engine" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="451.2,147.86,445.1835,140.0625,446.8011,145.4831,441.3805,147.1007,451.2,147.86"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        backend.aufgabenliste to backend.fachbaustein-->
+        <g class="link" data-entity-1="backend.aufgabenliste" data-entity-2="backend.fachbaustein"
+            data-source-line="19" data-uid="lnk11"
+            id="link_backend.aufgabenliste_backend.fachbaustein">
+            <path d="M300,88.78 C300,106.27 300,124.38 300,141.86" fill="none"
+                id="backend.aufgabenliste-to-backend.fachbaustein"
+                style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818" points="300,147.86,304,138.86,300,142.86,296,138.86,300,147.86"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        backend.fachbaustein to business.db-->
+        <g class="link" data-entity-1="backend.fachbaustein" data-entity-2="business.db"
+            data-source-line="20" data-uid="lnk12" id="link_backend.fachbaustein_business.db">
+            <path d="M300,194.97 C300,212.5 300,230.69 300,248.12" fill="none"
+                id="backend.fachbaustein-to-business.db" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818" points="300,254.12,304,245.12,300,249.12,296,245.12,300,254.12"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--SRC=[ZL1T3i8W37xlAPgzioEOQ7G7y0O5kesuWH5uCjvTCb5nOObzQhwVzckLcw_EiWtOtPmDR3MIn_xTtm5JgO-esST-8CbsCZvmKsfRAYbu01Gs6RsnxBsOt62Kc9sEamdZCa2IklovAqjNgzQ-ZjGeAIRAs1zRNn2hW6UUNM1niaFAkPXuQG4q1PBa6Pj3FWAF6NeDpsYh9G3Klu5YjvMz2gD8XXnWMr0x2w6ABl9lq2S0]-->
+    </g>
+</svg>

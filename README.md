@@ -31,6 +31,7 @@ contributors. Siehe <https://arc42.org>.
 - [Lösungsstrategie](#lösungsstrategie)
 - [Bausteinsicht](#bausteinsicht)
   - [Whitebox Gesamtsystem](#whitebox-gesamtsystem)
+    - [Eben 1: Aufgabenliste](#eben-1-aufgabenliste)
 - [Laufzeitsicht](#laufzeitsicht)
 - [Verteilungssicht](#verteilungssicht)
 - [Querschnittliche Konzepte](#querschnittliche-konzepte)
@@ -93,9 +94,11 @@ Falls zur Lösung Fremdsoftware hinzugezogen wird, sollte diese idealerweise fre
 
 ### Whitebox Gesamtsystem
 
-![Whitebox System](./assets/whitebox-gesamtsystem.svg)
+![Whitebox System](./assets/bausteinsicht/whitebox-gesamtsystem.svg)
 
+#### Eben 1: Aufgabenliste
 
+![Whitebox System](./assets/bausteinsicht/aufgabenliste/whitebox-gesamtsystem.svg)
 
 ## Laufzeitsicht
 

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.rest.FahrzeugControllerTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.221 s -- in de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.rest.FahrzeugControllerTest

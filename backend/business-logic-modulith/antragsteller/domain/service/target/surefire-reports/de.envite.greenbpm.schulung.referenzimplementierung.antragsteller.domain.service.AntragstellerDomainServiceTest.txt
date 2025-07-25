@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.service.AntragstellerDomainServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.562 s -- in de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.service.AntragstellerDomainServiceTest

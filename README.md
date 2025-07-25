@@ -38,7 +38,8 @@ contributors. Siehe <https://arc42.org>.
     - [Domain Driven Design](#domain-driven-design)
 - [Bausteinsicht](#bausteinsicht-1)
   - [Whitebox Gesamtsystem](#whitebox-gesamtsystem)
-- [Laufzeitsicht](#laufzeitsicht-1)
+      - [Eben 1: Aufgabenliste](#eben-1-aufgabenliste)
+- [Laufzeitsicht](#laufzeitsicht)
 - [Verteilungssicht](#verteilungssicht)
 - [Querschnittliche Konzepte](#querschnittliche-konzepte)
 - [Architekturentscheidungen](#architekturentscheidungen)
@@ -171,9 +172,11 @@ Die funktionale Strukturierung des Codes und die Einbringung von mehr Kontext in
 
 ### Whitebox Gesamtsystem
 
-![Whitebox System](./assets/whitebox-gesamtsystem.svg)
+![Whitebox System](./assets/bausteinsicht/whitebox-gesamtsystem.svg)
 
+#### Eben 1: Aufgabenliste
 
+![Whitebox System](./assets/bausteinsicht/aufgabenliste/whitebox-gesamtsystem.svg)
 
 ## Laufzeitsicht
 

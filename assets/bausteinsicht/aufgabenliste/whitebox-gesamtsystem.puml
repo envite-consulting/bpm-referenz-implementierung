@@ -1,0 +1,25 @@
+@startuml
+
+component Frontend as frontend {
+    component "Aufgabenliste" as frontend.aufgabenliste
+}
+
+component "business-logic-modulith" as backend {
+    component "Aufgabenliste" as backend.aufgabenliste
+
+    component "Fachbaustein" as backend.fachbaustein
+}
+
+component "Remote-Engine" as engine
+
+database "Business Database" as business.db
+
+
+frontend.aufgabenliste -> backend.aufgabenliste
+
+backend.aufgabenliste --> engine
+backend.aufgabenliste --> backend.fachbaustein 
+backend.fachbaustein --> business.db
+
+
+@enduml

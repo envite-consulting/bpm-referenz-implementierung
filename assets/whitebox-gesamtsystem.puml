@@ -1,0 +1,24 @@
+@startuml
+
+actor User as user
+
+component Frontend as frontend
+
+component "business-logic-modulith" as backend
+
+component "Remote-Engine" as engine
+
+database "Business Database" as business.db
+
+database "Engine Database" as engine.db
+
+
+user -> frontend
+user -> engine
+frontend -> backend
+backend --> engine
+backend --> business.db
+engine --> engine.db
+
+
+@enduml

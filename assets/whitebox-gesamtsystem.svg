@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    contentStyleType="text/css" data-diagram-type="DESCRIPTION" height="310px"
+    preserveAspectRatio="none" style="width:428px;height:310px;background:#FFFFFF;" version="1.1"
+    viewBox="0 0 428 310" width="428px" zoomAndPan="magnify">
+    <defs />
+    <g><!--entity
+        user-->
+        <g class="entity" data-entity="user" data-source-line="1" data-uid="ent0002"
+            id="entity_user">
+            <ellipse cx="26.8351" cy="14" fill="#F1F1F1" rx="8" ry="8"
+                style="stroke:#181818;stroke-width:0.5;" />
+            <path
+                d="M26.8351,22 L26.8351,49 M13.8351,30 L39.8351,30 M26.8351,49 L13.8351,64 M26.8351,49 L39.8351,64"
+                fill="none" style="stroke:#181818;stroke-width:0.5;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="31.9102" x="10.88" y="78.4951">User</text>
+        </g><!--entity
+        frontend-->
+        <g class="entity" data-entity="frontend" data-source-line="3" data-uid="ent0003"
+            id="entity_frontend">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="103.1094" x="78.29" y="20.5" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="161.3994" y="25.5" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="159.3994" y="27.5" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="159.3994" y="31.5" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="63.1094" x="93.29" y="53.4951">Frontend</text>
+        </g><!--entity
+        backend-->
+        <g class="entity" data-entity="backend" data-source-line="5" data-uid="ent0004"
+            id="entity_backend">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="206.1543" x="216.76" y="20.5" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="402.9143" y="25.5" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="400.9143" y="27.5" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="400.9143" y="31.5" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="166.1543" x="231.76" y="53.4951">business-logic-modulith</text>
+        </g><!--entity
+        engine-->
+        <g class="entity" data-entity="engine" data-source-line="7" data-uid="ent0005"
+            id="entity_engine">
+            <rect fill="#F1F1F1" height="46.2969" rx="2.5" ry="2.5"
+                style="stroke:#181818;stroke-width:0.5;" width="147.6797" x="7" y="141.8" />
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                x="134.6797" y="146.8" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="132.6797" y="148.8" />
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                x="132.6797" y="152.8" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="107.6797" x="22" y="174.7951">Remote-Engine</text>
+        </g><!--entity
+        business.db-->
+        <g class="entity" data-entity="business.db" data-source-line="9" data-uid="ent0006"
+            id="entity_business.db">
+            <path
+                d="M243.35,152.3 C243.35,142.3 319.8432,142.3 319.8432,142.3 C319.8432,142.3 396.3363,142.3 396.3363,152.3 L396.3363,177.5969 C396.3363,187.5969 319.8432,187.5969 319.8432,187.5969 C319.8432,187.5969 243.35,187.5969 243.35,177.5969 L243.35,152.3"
+                fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" />
+            <path
+                d="M243.35,152.3 C243.35,162.3 319.8432,162.3 319.8432,162.3 C319.8432,162.3 396.3363,162.3 396.3363,152.3"
+                fill="none" style="stroke:#181818;stroke-width:0.5;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="132.9863" x="253.35" y="179.2951">Business Database</text>
+        </g><!--entity
+        engine.db-->
+        <g class="entity" data-entity="engine.db" data-source-line="11" data-uid="ent0007"
+            id="entity_engine.db">
+            <path
+                d="M11.22,258.09 C11.22,248.09 80.8362,248.09 80.8362,248.09 C80.8362,248.09 150.4524,248.09 150.4524,258.09 L150.4524,283.3869 C150.4524,293.3869 80.8362,293.3869 80.8362,293.3869 C80.8362,293.3869 11.22,293.3869 11.22,283.3869 L11.22,258.09"
+                fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;" />
+            <path
+                d="M11.22,258.09 C11.22,268.09 80.8362,268.09 80.8362,268.09 C80.8362,268.09 150.4524,268.09 150.4524,258.09"
+                fill="none" style="stroke:#181818;stroke-width:0.5;" />
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                textLength="119.2324" x="21.22" y="285.0851">Engine Database</text>
+        </g><!--link
+        user to frontend-->
+        <g class="link" data-entity-1="user" data-entity-2="frontend" data-source-line="14"
+            data-uid="lnk8" id="link_user_frontend">
+            <path d="M42.93,43.65 C54.59,43.65 60.24,43.65 71.9,43.65" fill="none"
+                id="user-to-frontend" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818" points="77.9,43.65,68.9,39.65,72.9,43.65,68.9,47.65,77.9,43.65"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        user to engine-->
+        <g class="link" data-entity-1="user" data-entity-2="engine" data-source-line="15"
+            data-uid="lnk9" id="link_user_engine">
+            <path d="M43.19,80.76 C52.13,100.52 60.4435,118.905 68.1835,135.985" fill="none"
+                id="user-to-engine" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="70.66,141.45,70.5885,131.6014,68.5962,136.8958,63.3018,134.9035,70.66,141.45"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        frontend to backend-->
+        <g class="link" data-entity-1="frontend" data-entity-2="backend" data-source-line="16"
+            data-uid="lnk10" id="link_frontend_backend">
+            <path d="M181.79,43.65 C193.3,43.65 198.8,43.65 210.3,43.65" fill="none"
+                id="frontend-to-backend" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="216.3,43.65,207.3,39.65,211.3,43.65,207.3,47.65,216.3,43.65"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        backend to engine-->
+        <g class="link" data-entity-1="backend" data-entity-2="engine" data-source-line="17"
+            data-uid="lnk11" id="link_backend_engine">
+            <path d="M274.6,67.23 C231.98,88.51 173.8283,117.5302 131.2583,138.7802" fill="none"
+                id="backend-to-engine" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="125.89,141.46,135.729,141.0193,130.3636,139.2269,132.156,133.8615,125.89,141.46"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        backend to business.db-->
+        <g class="link" data-entity-1="backend" data-entity-2="business.db" data-source-line="18"
+            data-uid="lnk12" id="link_backend_business.db">
+            <path d="M319.84,67.09 C319.84,88.55 319.84,114.72 319.84,136.01" fill="none"
+                id="backend-to-business.db" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="319.84,142.01,323.84,133.01,319.84,137.01,315.84,133.01,319.84,142.01"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--link
+        engine to engine.db-->
+        <g class="link" data-entity-1="engine" data-entity-2="engine.db" data-source-line="19"
+            data-uid="lnk13" id="link_engine_engine.db">
+            <path d="M80.84,188.47 C80.84,206 80.84,224.19 80.84,241.62" fill="none"
+                id="engine-to-engine.db" style="stroke:#181818;stroke-width:1;" />
+            <polygon fill="#181818"
+                points="80.84,247.62,84.84,238.62,80.84,242.62,76.84,238.62,80.84,247.62"
+                style="stroke:#181818;stroke-width:1;" />
+        </g><!--SRC=[NO_93G8n34NlgSAQUoY10m8AGAA0B6Q8cCGeI_-JLHCusNf-_d64YkJX6T23291oPKoH_P935-7koKLqkinUlP_dYqp1E0o1RxGQnItfj9duNig25Ehpxp_GKaH-SsjUgnRMbZ4jef0Y82oNdWdNZbfQfoSjPxab_Qejiegi_0Zu-RX-WFxku0MDWti5VcWpcYzfuydCS0S0]-->
+    </g>
+</svg>

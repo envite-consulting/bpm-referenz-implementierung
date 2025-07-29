@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>bestellung-adapter-in</artifactId>
-    <packaging>pom</packaging>
     <name>bestellung-adapter-in</name>
     <description>Input Adapter für die Fachlichkeit Bestellung</description>
 
@@ -19,10 +18,12 @@
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-usecase-in</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

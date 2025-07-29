@@ -9,7 +9,6 @@
     </parent>
 
     <artifactId>bestellung-domain-model</artifactId>
-    <packaging>pom</packaging>
     <name>bestellung-domain-model</name>
     <description>Domain-Model für die Fachlichkeit Bestellung</description>
 

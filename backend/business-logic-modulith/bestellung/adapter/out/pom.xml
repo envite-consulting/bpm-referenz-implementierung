@@ -5,24 +5,28 @@
 
     <parent>
         <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-        <artifactId>bestellung-domain</artifactId>
+        <artifactId>bestellung-adapter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bestellung-domain-service</artifactId>
-    <name>Bestellung Domain Service</name>
-    <description>Domain-Services für die Fachlichkeit Bestellung</description>
+    <artifactId>bestellung-adapter-out</artifactId>
+    <name>bestellung-adapter-out</name>
+    <description>Output Adapter für die Fachlichkeit Bestellung</description>
 
     <dependencies>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>bestellung-usecase-in</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-usecase-out</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -5,23 +5,18 @@
 
     <parent>
         <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-        <artifactId>bestellung-domain</artifactId>
+        <artifactId>bestellung-usecase</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bestellung-domain-service</artifactId>
-    <name>Bestellung Domain Service</name>
-    <description>Domain-Services für die Fachlichkeit Bestellung</description>
+    <artifactId>bestellung-usecase-out</artifactId>
+    <name>bestellung-usecase-out</name>
+    <description>Output Usecases für die Fachlichkeit Bestellung</description>
 
     <dependencies>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>bestellung-usecase-in</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>bestellung-usecase-out</artifactId>
+            <artifactId>bestellung-domain-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

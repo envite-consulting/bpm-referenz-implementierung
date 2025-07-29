@@ -5,34 +5,30 @@
 
     <parent>
         <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-        <artifactId>backend</artifactId>
+        <artifactId>bestellung-adapter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>business-logic-modulith</artifactId>
+    <artifactId>bestellung-adapter-in</artifactId>
     <packaging>pom</packaging>
-    <name>business-logic-modulith</name>
-    <description>Abbildung der Fachlichkeit</description>
+    <name>bestellung-adapter-in</name>
+    <description>Input Adapter für die Fachlichkeit Bestellung</description>
 
-    <modules>
-        <module>bestellung</module>
-    </modules>
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-domain-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase-in</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
 </project>

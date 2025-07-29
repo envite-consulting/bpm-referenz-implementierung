@@ -10,7 +10,6 @@
     </parent>
     
     <artifactId>bestellung-domain-prozessmodell</artifactId>
-    <packaging>pom</packaging>
     <name>bestellung-domain-prozessmodell</name>
     <description>Prozessmodelle für die Fachlichkeit Bestellung</description>
 </project>

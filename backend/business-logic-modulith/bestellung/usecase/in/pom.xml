@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>bestellung-usecase-in</artifactId>
-    <packaging>pom</packaging>
     <name>bestellung-usecase-in</name>
     <description>Input Usecases für die Fachlichkeit Bestellung</description>
 
@@ -18,6 +17,12 @@
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+    </build>
 </project>

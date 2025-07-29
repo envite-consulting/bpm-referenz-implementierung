@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+        <artifactId>bestellung-domain</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>bestellung-domain-model</artifactId>
+    <packaging>pom</packaging>
+    <name>bestellung-domain-model</name>
+    <description>Domain-Model für die Fachlichkeit Bestellung</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.domain-primitives</groupId>
+            <artifactId>domainprimitives-java</artifactId>
+        </dependency>
+    </dependencies>
+</project>

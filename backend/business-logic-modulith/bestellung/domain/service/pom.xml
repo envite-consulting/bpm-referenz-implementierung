@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+        <artifactId>bestellung-domain</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>bestellung-domain-service</artifactId>
+    <packaging>pom</packaging>
+    <name>Bestellung Domain Service</name>
+    <description>Domain-Services für die Fachlichkeit Bestellung</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase-in</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase-out</artifactId>
+        </dependency>
+    </dependencies>
+</project>

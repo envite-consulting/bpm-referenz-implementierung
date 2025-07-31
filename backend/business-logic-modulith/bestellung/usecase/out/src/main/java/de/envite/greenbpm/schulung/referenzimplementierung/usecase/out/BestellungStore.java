@@ -1,12 +1,12 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.usecase.out;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellung;
-
-import java.util.UUID;
+import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.BestellungId;
+import de.envite.greenbpm.schulung.referenzimplementierung.usecase.exception.BestellungNotFoundException;
 
 public interface BestellungStore {
 
-    Bestellung persist(Bestellung bestellung);
+  Bestellung persist(Bestellung bestellung);
 
-    Bestellung query(UUID bestellungsId);
+  Bestellung query(BestellungId bestellungId) throws BestellungNotFoundException;
 }

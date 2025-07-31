@@ -4,21 +4,18 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @Entity
 public class BestellungEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "fahrzeug_id", referencedColumnName = "id")
-    FahrzeugEntity fahrzeug;
-
-    UUID antragstellerId;
-    LocalDateTime bestelldatum;
-    String status;
+  @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+  @JoinColumn(name = "fahrzeug_id", referencedColumnName = "id")
+  FahrzeugEntity fahrzeug;
+  Long antragstellerId;
+  LocalDateTime bestelldatum;
+  String status;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 }

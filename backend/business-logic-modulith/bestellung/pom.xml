@@ -18,6 +18,7 @@
         <module>adapter</module>
         <module>domain</module>
         <module>usecase</module>
+        <module>usecase/exception</module>
     </modules>
 
     <dependencies>

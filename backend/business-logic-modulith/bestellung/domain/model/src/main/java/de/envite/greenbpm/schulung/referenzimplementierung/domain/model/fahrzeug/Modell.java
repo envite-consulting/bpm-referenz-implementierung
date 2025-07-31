@@ -1,8 +1,8 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug;
 
-import io.github.domainprimitives.type.ValueObject;
-
 import static io.github.domainprimitives.validation.Constraints.hasMinLength;
+
+import io.github.domainprimitives.type.ValueObject;
 
 public class Modell extends ValueObject<String> {
 

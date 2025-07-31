@@ -6,16 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 @Entity
 public class FahrzeugEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    String hersteller;
-    String modell;
-    Integer jahr;
+  String hersteller;
+  String modell;
+  Integer jahr;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 }

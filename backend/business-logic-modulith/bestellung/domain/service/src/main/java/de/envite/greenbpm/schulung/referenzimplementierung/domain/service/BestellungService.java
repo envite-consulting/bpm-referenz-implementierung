@@ -5,16 +5,14 @@ import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellu
 import de.envite.greenbpm.schulung.referenzimplementierung.usecase.in.BestellungsAbfrage;
 import de.envite.greenbpm.schulung.referenzimplementierung.usecase.in.BestellungsErfassung;
 import de.envite.greenbpm.schulung.referenzimplementierung.usecase.out.BestellungStore;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BestellungService implements BestellungsAbfrage, BestellungsErfassung {
+@RequiredArgsConstructor
+class BestellungService implements BestellungsAbfrage, BestellungsErfassung {
 
   private final BestellungStore bestellungStore;
-
-  public BestellungService(BestellungStore bestellungStore) {
-    this.bestellungStore = bestellungStore;
-  }
 
   @Override
   public Bestellung erfassen(Bestellung bestellung) {

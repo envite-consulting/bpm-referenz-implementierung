@@ -6,6 +6,7 @@ import de.envite.greenbpm.schulung.referenzimplementierung.usecase.exception.Bes
 
 public interface BestellungStore {
 
+  // TODO: Throw Custom Exception?
   Bestellung persist(Bestellung bestellung);
 
   Bestellung query(BestellungId bestellungId) throws BestellungNotFoundException;

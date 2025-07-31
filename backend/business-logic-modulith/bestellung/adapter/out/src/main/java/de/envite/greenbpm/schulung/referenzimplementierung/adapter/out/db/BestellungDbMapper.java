@@ -2,15 +2,19 @@ package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity.BestellungEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
-import java.time.LocalDateTime;
 import org.mapstruct.Mapper;
+
+import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring", uses = FahrzeugDbMapper.class)
 public interface BestellungDbMapper {
 
   BestellungEntity toEntity(Bestellung bestellung);
 
-  Bestellung toDomain(BestellungEntity bestellungEntity);
+  default Bestellung toDomain(BestellungEntity bestellungEntity) {
+    // TODO: Impl
+    return null;
+  }
 
   default Long mapBestellungId(BestellungId bestellungId) {
     return bestellungId.getValue();

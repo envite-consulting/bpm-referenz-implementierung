@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BestellungCrudRepository extends CrudRepository<BestellungEntity, Long> {}
+interface BestellungCrudRepository extends CrudRepository<BestellungEntity, Long> {
+
+}

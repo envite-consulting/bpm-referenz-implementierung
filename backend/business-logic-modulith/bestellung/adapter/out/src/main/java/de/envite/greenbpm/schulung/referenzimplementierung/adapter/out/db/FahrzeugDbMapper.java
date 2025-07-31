@@ -9,7 +9,10 @@ public interface FahrzeugDbMapper {
 
   FahrzeugEntity toEntity(Fahrzeug fahrzeug);
 
-  Fahrzeug toDomain(FahrzeugEntity fahrzeugResource);
+  default Fahrzeug toDomain(FahrzeugEntity fahrzeugResource) {
+    // TODO: impl
+    return null;
+  }
 
   default Long mapFahrzeugId(FahrzeugId fahrzeugId) {
     return fahrzeugId.getValue();

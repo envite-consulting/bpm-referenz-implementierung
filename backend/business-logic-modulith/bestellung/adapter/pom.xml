@@ -18,4 +18,11 @@
         <module>in</module>
         <module>out</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+    </dependencies>
 </project>

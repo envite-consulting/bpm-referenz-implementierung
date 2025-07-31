@@ -18,12 +18,4 @@
         <module>in</module>
         <module>out</module>
     </modules>
-    <dependencies>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>bestellung-domain-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>

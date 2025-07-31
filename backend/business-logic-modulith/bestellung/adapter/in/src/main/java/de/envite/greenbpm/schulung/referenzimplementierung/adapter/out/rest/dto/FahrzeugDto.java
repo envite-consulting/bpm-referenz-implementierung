@@ -1,4 +1,4 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.dto;
 
-public record ProduktDto(String hersteller, String modell) {
+public record FahrzeugDto(String hersteller, String modell, Integer jahr) {
 }

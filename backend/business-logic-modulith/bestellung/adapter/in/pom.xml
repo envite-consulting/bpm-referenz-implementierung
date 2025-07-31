@@ -13,17 +13,16 @@
     <name>bestellung-adapter-in</name>
     <description>Input Adapter für die Fachlichkeit Bestellung</description>
 
-
     <dependencies>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-usecase-in</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -31,5 +30,4 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
-
 </project>

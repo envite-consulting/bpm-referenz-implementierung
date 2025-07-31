@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.domain.model.produkt;
+package de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug;
 
 import io.github.domainprimitives.object.ComposedValueObject;
 import lombok.EqualsAndHashCode;
@@ -6,14 +6,16 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class Produkt extends ComposedValueObject {
+public class Fahrzeug extends ComposedValueObject {
 
     private final Hersteller hersteller;
     private final Modell modell;
+    private final Jahr jahr;
 
-    public Produkt(Hersteller hersteller, Modell modell) {
+    public Fahrzeug(Hersteller hersteller, Modell modell, Jahr jahr) {
         this.hersteller = hersteller;
         this.modell = modell;
+        this.jahr = jahr;
         this.validate();
     }
 
@@ -21,6 +23,7 @@ public class Produkt extends ComposedValueObject {
     protected void validate() {
         validateNotNull(hersteller, "Hersteller");
         validateNotNull(modell, "Modell");
+        validateNotNull(jahr, "Jahr");
         evaluateValidations();
     }
 }

@@ -4,7 +4,6 @@ import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.reso
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
 import java.time.LocalDateTime;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
 
@@ -18,10 +17,9 @@ public interface BestellungRestMapper {
   Bestellung toDomain(BestellungResource bestellungResource);
 
   @ObjectFactory
-  default Bestellung createBestellung(
-      BestellungResource resource, @Context FahrzeugRestMapper fahrzeugMapper) {
+  default Bestellung createBestellung(BestellungResource resource) {
 
-    Fahrzeug fahrzeug = fahrzeugMapper.toDomain(resource.fahrzeug());
+    Fahrzeug fahrzeug = FahrzeugRestMapper.INSTANCE.toDomain(resource.fahrzeug());
 
     if (resource.bestellungId() == null) {
       return new Bestellung(

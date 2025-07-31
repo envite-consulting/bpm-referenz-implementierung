@@ -20,6 +20,7 @@
 
         <bestellung.version>0.0.1-SNAPSHOT</bestellung.version>
         <h2.version>2.3.232</h2.version>
+        <liquibase-core.version>4.33.0</liquibase-core.version>
     </properties>
 
     <dependencies>
@@ -33,6 +34,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-core.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

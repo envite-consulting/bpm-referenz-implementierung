@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.4</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>app</artifactId>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <bestellung.version>0.0.1-SNAPSHOT</bestellung.version>
+        <h2.version>2.3.232</h2.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>business-logic-modulith</artifactId>
+            <version>${bestellung.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung</artifactId>
+            <version>${bestellung.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-adapter</artifactId>
+            <version>${bestellung.version}</version>
+            <type>pom</type>
+
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-adapter-out</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-adapter-in</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-domain</artifactId>
+            <version>${bestellung.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-domain-service</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-domain-model</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-domain-prozessmodell</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase</artifactId>
+            <version>${bestellung.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase-out</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase-in</artifactId>
+            <version>${bestellung.version}</version>
+        </dependency>
+    </dependencies>
+</project>

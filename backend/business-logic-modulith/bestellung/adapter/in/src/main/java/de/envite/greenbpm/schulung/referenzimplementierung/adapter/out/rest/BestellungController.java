@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BestellungController {
 
     private final Bestellungsverwaltung bestellungsverwaltung;
-    private final BestellungMapper bestellungMapper;
+    private final BestellungRestMapper bestellungMapper;
 
 
     @PostMapping("/")

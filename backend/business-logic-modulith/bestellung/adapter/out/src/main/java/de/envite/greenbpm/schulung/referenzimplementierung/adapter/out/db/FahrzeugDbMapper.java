@@ -3,15 +3,26 @@ package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db;
 import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity.FahrzeugEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.ObjectFactory;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface FahrzeugDbMapper {
 
+  FahrzeugDbMapper INSTANCE = Mappers.getMapper(FahrzeugDbMapper.class);
+
   FahrzeugEntity toEntity(Fahrzeug fahrzeug);
 
-  default Fahrzeug toDomain(FahrzeugEntity fahrzeugResource) {
-    // TODO: impl
-    return null;
+  Fahrzeug toDomain(FahrzeugEntity fahrzeugResource);
+
+  @ObjectFactory
+  default Fahrzeug createFahrzeug(FahrzeugEntity entity) {
+
+    return new Fahrzeug(
+        mapFahrzeugId(entity.id()),
+        mapHersteller(entity.hersteller()),
+        mapModell(entity.modell()),
+        mapJahr(entity.jahr()));
   }
 
   default Long mapFahrzeugId(FahrzeugId fahrzeugId) {

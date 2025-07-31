@@ -1,21 +1,16 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
 
-@Data
-// TODO: Data JDBC
-//@Entity
-public class BestellungEntity {
+public record BestellungEntity(
+    Long id,
+    FahrzeugEntity fahrzeug,
+    Long antragstellerId,
+    LocalDateTime bestelldatum,
+    String status) {
 
-//  @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-//  @JoinColumn(name = "fahrzeug_id", referencedColumnName = "id")
-  FahrzeugEntity fahrzeug;
-  Long antragstellerId;
-  LocalDateTime bestelldatum;
-  String status;
-//  @Id
-//  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Long id;
+  public BestellungEntity withFahrzeug(FahrzeugEntity neuesFahrzeug) {
+    return new BestellungEntity(
+        this.id, neuesFahrzeug, this.antragstellerId, this.bestelldatum, this.status);
+  }
 }

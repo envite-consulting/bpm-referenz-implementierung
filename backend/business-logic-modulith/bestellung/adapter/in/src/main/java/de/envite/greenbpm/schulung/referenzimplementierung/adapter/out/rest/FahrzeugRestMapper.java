@@ -4,9 +4,12 @@ import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.reso
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface FahrzeugRestMapper {
+
+  FahrzeugRestMapper INSTANCE = Mappers.getMapper(FahrzeugRestMapper.class);
 
   FahrzeugResource toResource(Fahrzeug fahrzeug);
 

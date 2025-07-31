@@ -1,45 +1,73 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest;
 
-
-import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.dto.BestellungDto;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.AntragstellerId;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestelldatum;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellung;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Status;
-import org.mapstruct.Mapper;
-
+import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.resource.BestellungResource;
+import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
+import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import org.mapstruct.Context;
+import org.mapstruct.Mapper;
+import org.mapstruct.ObjectFactory;
 
-@Mapper(componentModel = "spring", uses = {FahrzeugRestMapper.class})
+@Mapper(
+    componentModel = "spring",
+    uses = {FahrzeugRestMapper.class})
 public interface BestellungRestMapper {
 
-    BestellungDto toDto(Bestellung bestellung);
+  BestellungResource toResource(Bestellung bestellung);
 
-    Bestellung toDomain(BestellungDto bestellungDto);
+  Bestellung toDomain(BestellungResource bestellungResource);
 
-    default UUID mapAntragstellerId(AntragstellerId id) {
-        return id == null ? null : id.getValue(); // getValue() liefert UUID
+  @ObjectFactory
+  default Bestellung createBestellung(
+      BestellungResource resource, @Context FahrzeugRestMapper fahrzeugMapper) {
+
+    Fahrzeug fahrzeug = fahrzeugMapper.toDomain(resource.fahrzeug());
+
+    if (resource.bestellungId() == null) {
+      return new Bestellung(
+          mapAntragstellerId(resource.antragstellerId()),
+          fahrzeug,
+          mapBestelldatum(resource.bestelldatum()),
+          mapStatus(resource.status()));
+    } else {
+      return new Bestellung(
+          mapBestellungId(resource.bestellungId()),
+          mapAntragstellerId(resource.antragstellerId()),
+          fahrzeug,
+          mapBestelldatum(resource.bestelldatum()),
+          mapStatus(resource.status()));
     }
+  }
 
-    default AntragstellerId mapAntragstellerId(UUID id) {
-        return id == null ? null : new AntragstellerId(id);
-    }
+  default Long mapBestellungId(BestellungId bestellungId) {
+    return bestellungId.getValue();
+  }
 
-    default LocalDateTime mapBestelldatum(Bestelldatum datum) {
-        return datum == null ? null : datum.getValue(); // getValue liefert LocalDateTime
-    }
+  default BestellungId mapBestellungId(Long bestellungId) {
+    return new BestellungId(bestellungId);
+  }
 
-    default Bestelldatum mapBestelldatum(LocalDateTime datum) {
-        return datum == null ? null : new Bestelldatum(datum);
-    }
+  default Long mapAntragstellerId(AntragstellerId id) {
+    return id.getValue();
+  }
 
-    default String mapStatus(Status status) {
-        return status == null ? null : status.toString(); // oder status.getName() etc.
-    }
+  default AntragstellerId mapAntragstellerId(Long id) {
+    return new AntragstellerId(id);
+  }
 
-    default Status mapStatus(String status) {
-        return status == null ? null : Status.valueOf(status); // falls Enum
-    }
+  default LocalDateTime mapBestelldatum(Bestelldatum datum) {
+    return datum.getValue();
+  }
+
+  default Bestelldatum mapBestelldatum(LocalDateTime datum) {
+    return new Bestelldatum(datum);
+  }
+
+  default String mapStatus(Status status) {
+    return status.toString();
+  }
+
+  default Status mapStatus(String status) {
+    return Status.valueOf(status);
+  }
 }
-

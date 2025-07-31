@@ -1,41 +1,45 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity.FahrzeugEntity;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Hersteller;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Jahr;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Modell;
+import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.*;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface FahrzeugDbMapper {
 
-    FahrzeugEntity toEntity(Fahrzeug fahrzeug);
+  FahrzeugEntity toEntity(Fahrzeug fahrzeug);
 
-    Fahrzeug toDomain(FahrzeugEntity fahrzeugDto);
+  Fahrzeug toDomain(FahrzeugEntity fahrzeugResource);
 
-    default String mapHersteller(Hersteller hersteller) {
-        return hersteller == null ? null : hersteller.getValue();
-    }
+  default Long mapFahrzeugId(FahrzeugId fahrzeugId) {
+    return fahrzeugId.getValue();
+  }
 
-    default Hersteller mapHersteller(String hersteller) {
-        return hersteller == null ? null : new Hersteller(hersteller);
-    }
+  default FahrzeugId mapFahrzeugId(Long fahrzeugId) {
+    return new FahrzeugId(fahrzeugId);
+  }
 
-    default String mapModell(Modell modell) {
-        return modell == null ? null : modell.getValue();
-    }
+  default String mapHersteller(Hersteller hersteller) {
+    return hersteller.getValue();
+  }
 
-    default Modell mapModell(String modell) {
-        return modell == null ? null : new Modell(modell);
-    }
+  default Hersteller mapHersteller(String hersteller) {
+    return new Hersteller(hersteller);
+  }
 
-    default Integer mapJahr(Jahr jahr) {
-        return jahr == null ? null : jahr.getValue();
-    }
+  default String mapModell(Modell modell) {
+    return modell.getValue();
+  }
 
-    default Jahr mapJahr(Integer jahr) {
-        return jahr == null ? null : new Jahr(jahr);
-    }
+  default Modell mapModell(String modell) {
+    return new Modell(modell);
+  }
+
+  default Integer mapJahr(Jahr jahr) {
+    return jahr.getValue();
+  }
+
+  default Jahr mapJahr(Integer jahr) {
+    return new Jahr(jahr);
+  }
 }
-

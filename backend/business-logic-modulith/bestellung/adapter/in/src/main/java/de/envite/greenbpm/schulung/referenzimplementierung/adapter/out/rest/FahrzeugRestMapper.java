@@ -1,40 +1,63 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.dto.FahrzeugDto;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Hersteller;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Jahr;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Modell;
+import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.resource.FahrzeugResource;
+import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.ObjectFactory;
 
 @Mapper(componentModel = "spring")
 public interface FahrzeugRestMapper {
 
-    FahrzeugDto toDto(Fahrzeug fahrzeug);
+  FahrzeugResource toResource(Fahrzeug fahrzeug);
 
-    Fahrzeug toDomain(FahrzeugDto fahrzeugDto);
+  Fahrzeug toDomain(FahrzeugResource fahrzeugResource);
 
-    default String mapHersteller(Hersteller hersteller) {
-        return hersteller == null ? null : hersteller.getValue();
+  @ObjectFactory
+  default Fahrzeug createFahrzeug(FahrzeugResource resource) {
+
+    if (resource.fahrzeugId() == null) {
+      return new Fahrzeug(
+          mapHersteller(resource.hersteller()),
+          mapModell(resource.modell()),
+          mapJahr(resource.jahr()));
+    } else {
+      return new Fahrzeug(
+          mapFahrzeugId(resource.fahrzeugId()),
+          mapHersteller(resource.hersteller()),
+          mapModell(resource.modell()),
+          mapJahr(resource.jahr()));
     }
+  }
 
-    default Hersteller mapHersteller(String hersteller) {
-        return hersteller == null ? null : new Hersteller(hersteller);
-    }
+  default Long mapFahrzeugId(FahrzeugId fahrzeugId) {
+    return fahrzeugId.getValue();
+  }
 
-    default String mapModell(Modell modell) {
-        return modell == null ? null : modell.getValue();
-    }
+  default FahrzeugId mapFahrzeugId(Long fahrzeugId) {
+    return new FahrzeugId(fahrzeugId);
+  }
 
-    default Modell mapModell(String modell) {
-        return modell == null ? null : new Modell(modell);
-    }
+  default String mapHersteller(Hersteller hersteller) {
+    return hersteller.getValue();
+  }
 
-    default Integer mapJahr(Jahr jahr) {
-        return jahr == null ? null : jahr.getValue();
-    }
+  default Hersteller mapHersteller(String hersteller) {
+    return new Hersteller(hersteller);
+  }
 
-    default Jahr mapJahr(Integer jahr) {
-        return jahr == null ? null : new Jahr(jahr);
-    }
+  default String mapModell(Modell modell) {
+    return modell.getValue();
+  }
+
+  default Modell mapModell(String modell) {
+    return new Modell(modell);
+  }
+
+  default Integer mapJahr(Jahr jahr) {
+    return jahr.getValue();
+  }
+
+  default Jahr mapJahr(Integer jahr) {
+    return new Jahr(jahr);
+  }
 }

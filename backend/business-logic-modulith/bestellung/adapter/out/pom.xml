@@ -19,6 +19,11 @@
             <artifactId>bestellung-usecase-out</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-usecase-exception</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,44 +1,46 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity.BestellungEntity;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.AntragstellerId;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestelldatum;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellung;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Status;
-import org.mapstruct.Mapper;
-
+import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", uses = FahrzeugDbMapper.class)
 public interface BestellungDbMapper {
 
-    BestellungEntity toEntity(Bestellung bestellung);
+  BestellungEntity toEntity(Bestellung bestellung);
 
-    Bestellung toDomain(BestellungEntity bestellungEntity);
+  Bestellung toDomain(BestellungEntity bestellungEntity);
 
-    default UUID mapAntragstellerId(AntragstellerId id) {
-        return id == null ? null : id.getValue();
-    }
+  default Long mapBestellungId(BestellungId bestellungId) {
+    return bestellungId.getValue();
+  }
 
-    default AntragstellerId mapAntragstellerId(UUID id) {
-        return id == null ? null : new AntragstellerId(id);
-    }
+  default BestellungId mapBestellungId(Long bestellungId) {
+    return new BestellungId(bestellungId);
+  }
 
-    default LocalDateTime mapBestelldatum(Bestelldatum datum) {
-        return datum == null ? null : datum.getValue();
-    }
+  default Long mapAntragstellerId(AntragstellerId id) {
+    return id.getValue();
+  }
 
-    default Bestelldatum mapBestelldatum(LocalDateTime datum) {
-        return datum == null ? null : new Bestelldatum(datum);
-    }
+  default AntragstellerId mapAntragstellerId(Long id) {
+    return new AntragstellerId(id);
+  }
 
-    default String mapStatus(Status status) {
-        return status == null ? null : status.toString();
-    }
+  default LocalDateTime mapBestelldatum(Bestelldatum datum) {
+    return datum.getValue();
+  }
 
-    default Status mapStatus(String status) {
-        return status == null ? null : Status.valueOf(status); // falls Enum
-    }
+  default Bestelldatum mapBestelldatum(LocalDateTime datum) {
+    return new Bestelldatum(datum);
+  }
+
+  default String mapStatus(Status status) {
+    return status.toString();
+  }
+
+  default Status mapStatus(String status) {
+    return Status.valueOf(status);
+  }
 }
-

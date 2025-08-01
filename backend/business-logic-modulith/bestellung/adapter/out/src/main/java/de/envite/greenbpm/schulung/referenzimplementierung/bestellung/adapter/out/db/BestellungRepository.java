@@ -1,41 +1,26 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.BestellungEntity;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.FahrzeugEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.BestellungStore;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
+// TODO: Muss wirklich alles Transaktional sein?
 @Transactional
+@RequiredArgsConstructor
 public class BestellungRepository implements BestellungStore {
 
   private final BestellungJdbcRepository bestellungJdbcRepository;
-  private final FahrzeugJdbcRepository fahrzeugJdbcRepository;
   private final BestellungDbMapper bestellungDbMapper;
-
-  public BestellungRepository(
-      BestellungJdbcRepository bestellungJdbcRepository,
-      FahrzeugJdbcRepository fahrzeugJdbcRepository,
-      BestellungDbMapper bestellungDbMapper) {
-    this.bestellungJdbcRepository = bestellungJdbcRepository;
-    this.fahrzeugJdbcRepository = fahrzeugJdbcRepository;
-    this.bestellungDbMapper = bestellungDbMapper;
-  }
 
   @Override
   public Bestellung persist(Bestellung bestellung) {
-
     BestellungEntity bestellungEntity = bestellungDbMapper.toEntity(bestellung);
-
-    FahrzeugEntity gespeichertesFahrzeug = fahrzeugJdbcRepository.save(bestellungEntity.getFahrzeug());
-
-    BestellungEntity bestellungMitFahrzeug = bestellungEntity.withFahrzeug(gespeichertesFahrzeug);
-
-    return bestellungDbMapper.toDomain(bestellungJdbcRepository.save(bestellungMitFahrzeug));
+    return bestellungDbMapper.toDomain(bestellungJdbcRepository.save(bestellungEntity));
   }
 
   @Override

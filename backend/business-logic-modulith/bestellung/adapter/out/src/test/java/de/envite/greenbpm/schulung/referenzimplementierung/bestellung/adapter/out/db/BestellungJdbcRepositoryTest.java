@@ -1,7 +1,5 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.BestellungEntity;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.FahrzeugEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UUIDGenerator;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
@@ -21,26 +19,13 @@ class BestellungJdbcRepositoryTest {
     @Autowired
     private BestellungJdbcRepository classUnderTest;
 
-    @Autowired
-    private FahrzeugJdbcRepository fahrzeugJdbcRepository;
-
-    private String createFahrzeug() {
-        FahrzeugEntity entity =  new FahrzeugEntity();
-        entity.setModell("Test Modell");
-        entity.setHersteller("Test Hersteller");
-        entity.setJahr(2022);
-        return fahrzeugJdbcRepository.save(entity).getId();
-    }
-
     @Test
     void should_save_with_uuid() {
         BestellungEntity entity = new BestellungEntity();
         entity.setAntragstellerId(12L);
         entity.setStatus("test");
         entity.setBestelldatum(LocalDateTime.MIN);
-        // TODO: Use @MappedCollection in Entity to automaticall create the relation or insert some sample Fahrzeug via Liquibase
-        // FahrzeugEntity fahrzeug = createFahrzeug();
-        // entity.setFahrzeug(fahrzeug);
+        entity.setFahrzeugreferenz("ref-1");
 
         BestellungEntity result = classUnderTest.save(entity);
 
@@ -48,7 +33,7 @@ class BestellungJdbcRepositoryTest {
         softAssertions.assertThat(result.getId()).isNotNull();
         softAssertions.assertThat(result.getStatus()).isEqualTo(entity.getStatus());
         softAssertions.assertThat(result.getBestelldatum()).isEqualTo(entity.getBestelldatum());
-        softAssertions.assertThat(result.getFahrzeug()).isEqualTo(entity.getFahrzeug());
+        softAssertions.assertThat(result.getFahrzeugreferenz()).isEqualTo(entity.getFahrzeugreferenz());
         softAssertions.assertAll();
     }
 

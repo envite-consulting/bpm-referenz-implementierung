@@ -1,7 +1,6 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
+package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.FahrzeugEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.*;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Nested;

@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest;
+package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest.config;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
 import org.springframework.http.HttpHeaders;

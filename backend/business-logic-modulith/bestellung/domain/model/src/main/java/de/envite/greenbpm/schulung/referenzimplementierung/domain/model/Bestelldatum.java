@@ -1,9 +1,10 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.domain.model;
 
-import static io.github.domainprimitives.validation.Constraints.isInPast;
-
 import io.github.domainprimitives.type.ValueObject;
+
 import java.time.LocalDateTime;
+
+import static io.github.domainprimitives.validation.Constraints.isInPast;
 
 public class Bestelldatum extends ValueObject<LocalDateTime> {
     public Bestelldatum(LocalDateTime value) {

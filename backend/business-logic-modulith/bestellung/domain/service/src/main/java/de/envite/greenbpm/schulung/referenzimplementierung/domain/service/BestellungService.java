@@ -1,10 +1,10 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.domain.service;
 
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.BestellungsAbfrage;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.BestellungsErfassung;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.BestellungStore;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.BestellungId;
-import de.envite.greenbpm.schulung.referenzimplementierung.usecase.in.BestellungsAbfrage;
-import de.envite.greenbpm.schulung.referenzimplementierung.usecase.in.BestellungsErfassung;
-import de.envite.greenbpm.schulung.referenzimplementierung.usecase.out.BestellungStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

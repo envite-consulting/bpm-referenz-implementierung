@@ -2,10 +2,10 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.o
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.BestellungEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.FahrzeugEntity;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.BestellungStore;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellung;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.BestellungId;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

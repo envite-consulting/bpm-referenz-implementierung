@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.domain.model;
+package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model;
 
 public enum Status {
   ANGELEGT,

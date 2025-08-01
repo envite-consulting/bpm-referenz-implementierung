@@ -1,9 +1,9 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.domain.service;
+package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.service;
 
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.BestellungStore;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.Bestellung;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.BestellungId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

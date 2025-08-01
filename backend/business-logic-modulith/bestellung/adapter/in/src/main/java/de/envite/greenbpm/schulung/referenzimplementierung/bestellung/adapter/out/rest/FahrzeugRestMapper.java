@@ -1,7 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest.resource.FahrzeugResource;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.*;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
 import org.mapstruct.factory.Mappers;

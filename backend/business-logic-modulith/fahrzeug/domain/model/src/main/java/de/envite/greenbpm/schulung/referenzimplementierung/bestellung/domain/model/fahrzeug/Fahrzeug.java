@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug;
+package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug;
 
 import io.github.domainprimitives.object.ComposedValueObject;
 import lombok.EqualsAndHashCode;

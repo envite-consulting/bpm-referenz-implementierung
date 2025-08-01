@@ -2,7 +2,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.o
 
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity.FahrzeugEntity;
-import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.*;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.*;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

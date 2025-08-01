@@ -5,20 +5,24 @@ import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring", uses = FahrzeugDbMapper.class)
-public interface BestellungDbMapper {
+public abstract class BestellungDbMapper {
 
-  BestellungEntity toEntity(Bestellung bestellung);
+  @Autowired
+  protected FahrzeugDbMapper fahrzeugmapper;
 
-  Bestellung toDomain(BestellungEntity bestellungEntity);
+  abstract BestellungEntity toEntity(Bestellung bestellung);
+
+  abstract Bestellung toDomain(BestellungEntity bestellungEntity);
 
   @ObjectFactory
-  default Bestellung createBestellung(BestellungEntity entity) {
+  Bestellung createBestellung(BestellungEntity entity) {
 
-    Fahrzeug fahrzeug = FahrzeugDbMapper.INSTANCE.toDomain(entity.getFahrzeug());
+    Fahrzeug fahrzeug = fahrzeugmapper.toDomain(entity.getFahrzeug());
 
     return new Bestellung(
         mapBestellungId(entity.getId()),
@@ -28,35 +32,35 @@ public interface BestellungDbMapper {
         mapStatus(entity.getStatus()));
   }
 
-  default String mapBestellungId(BestellungId bestellungId) {
+  String mapBestellungId(BestellungId bestellungId) {
     return bestellungId.getValue();
   }
 
-  default BestellungId mapBestellungId(String bestellungId) {
+  BestellungId mapBestellungId(String bestellungId) {
     return new BestellungId(bestellungId);
   }
 
-  default Long mapAntragstellerId(AntragstellerId id) {
+  Long mapAntragstellerId(AntragstellerId id) {
     return id.getValue();
   }
 
-  default AntragstellerId mapAntragstellerId(Long id) {
+  AntragstellerId mapAntragstellerId(Long id) {
     return new AntragstellerId(id);
   }
 
-  default LocalDateTime mapBestelldatum(Bestelldatum datum) {
+  LocalDateTime mapBestelldatum(Bestelldatum datum) {
     return datum.getValue();
   }
 
-  default Bestelldatum mapBestelldatum(LocalDateTime datum) {
+  Bestelldatum mapBestelldatum(LocalDateTime datum) {
     return new Bestelldatum(datum);
   }
 
-  default String mapStatus(Status status) {
+  String mapStatus(Status status) {
     return status.toString();
   }
 
-  default Status mapStatus(String status) {
+  Status mapStatus(String status) {
     return Status.valueOf(status);
   }
 }

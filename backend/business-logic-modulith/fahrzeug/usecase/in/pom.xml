@@ -18,5 +18,9 @@
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-domain-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>fahrzeug-usecase-exception</artifactId>
+        </dependency>
     </dependencies>
 </project>

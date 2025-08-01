@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("bestellung/")
-public class BestellungController {
+@RequestMapping("bestellung")
+class BestellungController {
 
   private final BestellungsAbfrage bestellungsAbfrage;
   private final BestellungsErfassung bestellungsErfassung;

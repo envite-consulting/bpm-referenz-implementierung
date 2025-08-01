@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db.entity;
+package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
 
 import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UuidEntity;

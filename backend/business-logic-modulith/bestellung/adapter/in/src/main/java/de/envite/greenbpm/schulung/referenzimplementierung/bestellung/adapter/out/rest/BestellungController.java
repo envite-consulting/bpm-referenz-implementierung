@@ -1,6 +1,5 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest.resource.BestellungResource;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.BestellungsAbfrage;

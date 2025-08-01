@@ -1,16 +1,12 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest.resource.BestellungResource;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.*;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.Fahrzeug;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
 
 import java.time.LocalDateTime;
 
-@Mapper(
-    componentModel = "spring",
-    uses = {FahrzeugRestMapper.class})
+@Mapper(componentModel = "spring")
 public interface BestellungRestMapper {
 
   BestellungResource toResource(Bestellung bestellung);
@@ -20,19 +16,18 @@ public interface BestellungRestMapper {
   @ObjectFactory
   default Bestellung createBestellung(BestellungResource resource) {
 
-    Fahrzeug fahrzeug = FahrzeugRestMapper.INSTANCE.toDomain(resource.fahrzeug());
 
     if (resource.bestellungId() == null) {
       return new Bestellung(
           mapAntragstellerId(resource.antragstellerId()),
-          fahrzeug,
+          null,
           mapBestelldatum(resource.bestelldatum()),
           mapStatus(resource.status()));
     } else {
       return new Bestellung(
           mapBestellungId(resource.bestellungId()),
           mapAntragstellerId(resource.antragstellerId()),
-          fahrzeug,
+          null,
           mapBestelldatum(resource.bestelldatum()),
           mapStatus(resource.status()));
     }

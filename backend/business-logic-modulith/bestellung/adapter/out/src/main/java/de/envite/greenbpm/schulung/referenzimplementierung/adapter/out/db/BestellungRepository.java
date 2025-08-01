@@ -31,7 +31,7 @@ public class BestellungRepository implements BestellungStore {
 
     BestellungEntity bestellungEntity = bestellungDbMapper.toEntity(bestellung);
 
-    FahrzeugEntity gespeichertesFahrzeug = fahrzeugJdbcRepository.save(bestellungEntity.fahrzeug());
+    FahrzeugEntity gespeichertesFahrzeug = fahrzeugJdbcRepository.save(bestellungEntity.getFahrzeug());
 
     BestellungEntity bestellungMitFahrzeug = bestellungEntity.withFahrzeug(gespeichertesFahrzeug);
 

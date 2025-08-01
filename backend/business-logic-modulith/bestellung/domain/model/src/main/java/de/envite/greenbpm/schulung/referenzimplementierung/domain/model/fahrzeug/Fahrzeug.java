@@ -20,8 +20,7 @@ public class Fahrzeug extends ComposedValueObject {
     this.validate();
   }
 
-  public Fahrzeug(FahrzeugId fahrzeugId, Hersteller hersteller, Modell modell, Jahr jahr) {
-    this(hersteller, modell, jahr);
+  public void setFahrzeugId(FahrzeugId fahrzeugId) {
     this.fahrzeugId = fahrzeugId;
     validateNotNull(fahrzeugId, "Fahrzeug ID");
     evaluateValidations();

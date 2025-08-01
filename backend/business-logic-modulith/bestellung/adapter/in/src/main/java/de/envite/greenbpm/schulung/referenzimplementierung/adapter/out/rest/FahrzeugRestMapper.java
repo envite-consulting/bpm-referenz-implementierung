@@ -24,19 +24,20 @@ public interface FahrzeugRestMapper {
           mapModell(resource.modell()),
           mapJahr(resource.jahr()));
     } else {
-      return new Fahrzeug(
-          mapFahrzeugId(resource.fahrzeugId()),
+      Fahrzeug fahrzeug= new Fahrzeug(
           mapHersteller(resource.hersteller()),
           mapModell(resource.modell()),
           mapJahr(resource.jahr()));
+      fahrzeug.setFahrzeugId(mapFahrzeugId(resource.fahrzeugId()));
+      return fahrzeug;
     }
   }
 
-  default Long mapFahrzeugId(FahrzeugId fahrzeugId) {
+  default String mapFahrzeugId(FahrzeugId fahrzeugId) {
     return fahrzeugId.getValue();
   }
 
-  default FahrzeugId mapFahrzeugId(Long fahrzeugId) {
+  default FahrzeugId mapFahrzeugId(String fahrzeugId) {
     return new FahrzeugId(fahrzeugId);
   }
 

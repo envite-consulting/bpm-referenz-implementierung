@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
-public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
+class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BestellungNotFoundException.class)
     ResponseEntity<Object> handleBestellungNotFound(RuntimeException ex, WebRequest request) {

@@ -7,7 +7,7 @@ import org.mapstruct.ObjectFactory;
 import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
-public interface BestellungRestMapper {
+interface BestellungRestMapper {
 
   BestellungResource toResource(Bestellung bestellung);
 

@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-        <artifactId>bestellung</artifactId>
+        <artifactId>bestellung-usecase</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 

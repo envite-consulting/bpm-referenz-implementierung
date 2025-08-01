@@ -41,6 +41,53 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-domain-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-domain-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-domain-prozessmodell</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-usecase-in</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-usecase-out</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-usecase-exception</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-adapter-in</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-adapter-out</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>uuid-generator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>

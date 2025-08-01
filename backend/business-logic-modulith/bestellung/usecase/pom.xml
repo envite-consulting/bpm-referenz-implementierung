@@ -17,5 +17,6 @@
     <modules>
         <module>in</module>
         <module>out</module>
+        <module>exception</module>
     </modules>
 </project>

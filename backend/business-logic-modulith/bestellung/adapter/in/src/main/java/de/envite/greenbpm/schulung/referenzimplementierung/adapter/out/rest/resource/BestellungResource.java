@@ -3,7 +3,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.res
 import java.time.LocalDateTime;
 
 public record BestellungResource(
-    Long bestellungId,
+    String bestellungId,
     Long antragstellerId,
     FahrzeugResource fahrzeug,
     LocalDateTime bestelldatum,

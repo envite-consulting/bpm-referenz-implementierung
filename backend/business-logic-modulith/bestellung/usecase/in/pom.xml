@@ -17,7 +17,6 @@
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-model</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

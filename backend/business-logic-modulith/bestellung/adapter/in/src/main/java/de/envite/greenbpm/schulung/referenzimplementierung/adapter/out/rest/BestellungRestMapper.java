@@ -3,9 +3,10 @@ package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest;
 import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.rest.resource.BestellungResource;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
-import java.time.LocalDateTime;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
+
+import java.time.LocalDateTime;
 
 @Mapper(
     componentModel = "spring",
@@ -37,11 +38,11 @@ public interface BestellungRestMapper {
     }
   }
 
-  default Long mapBestellungId(BestellungId bestellungId) {
+  default String mapBestellungId(BestellungId bestellungId) {
     return bestellungId.getValue();
   }
 
-  default BestellungId mapBestellungId(Long bestellungId) {
+  default BestellungId mapBestellungId(String bestellungId) {
     return new BestellungId(bestellungId);
   }
 

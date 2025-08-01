@@ -29,7 +29,7 @@ public class BestellungController {
   }
 
   @GetMapping("/{bestellungId}")
-  public ResponseEntity<BestellungResource> anzeigen(@PathVariable Long bestellungId) {
+  public ResponseEntity<BestellungResource> anzeigen(@PathVariable String bestellungId) {
 
     Bestellung bestellung = bestellungsAbfrage.abfragen(new BestellungId(bestellungId));
 

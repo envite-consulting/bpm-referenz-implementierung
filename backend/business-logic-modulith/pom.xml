@@ -19,6 +19,7 @@
 
     <modules>
         <module>bestellung</module>
+        <module>uuid-generator</module>
     </modules>
 
     <properties>

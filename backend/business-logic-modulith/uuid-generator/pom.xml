@@ -5,32 +5,18 @@
 
     <parent>
         <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-        <artifactId>bestellung-adapter</artifactId>
+        <artifactId>business-logic-modulith</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bestellung-adapter-out</artifactId>
-    <name>bestellung-adapter-out</name>
-    <description>Output Adapter für die Fachlichkeit Bestellung</description>
-
+    <artifactId>uuid-generator</artifactId>
+    <name>uuid-generator</name>
     <dependencies>
         <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>bestellung-usecase-out</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>bestellung-usecase-exception</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>uuid-generator</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>

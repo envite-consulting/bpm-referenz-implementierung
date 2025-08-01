@@ -3,9 +3,10 @@ package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db;
 import de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity.BestellungEntity;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.*;
 import de.envite.greenbpm.schulung.referenzimplementierung.domain.model.fahrzeug.Fahrzeug;
-import java.time.LocalDateTime;
 import org.mapstruct.Mapper;
 import org.mapstruct.ObjectFactory;
+
+import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring", uses = FahrzeugDbMapper.class)
 public interface BestellungDbMapper {
@@ -17,21 +18,21 @@ public interface BestellungDbMapper {
   @ObjectFactory
   default Bestellung createBestellung(BestellungEntity entity) {
 
-    Fahrzeug fahrzeug = FahrzeugDbMapper.INSTANCE.toDomain(entity.fahrzeug());
+    Fahrzeug fahrzeug = FahrzeugDbMapper.INSTANCE.toDomain(entity.getFahrzeug());
 
     return new Bestellung(
-        mapBestellungId(entity.id()),
-        mapAntragstellerId(entity.antragstellerId()),
+        mapBestellungId(entity.getId()),
+        mapAntragstellerId(entity.getAntragstellerId()),
         fahrzeug,
-        mapBestelldatum(entity.bestelldatum()),
-        mapStatus(entity.status()));
+        mapBestelldatum(entity.getBestelldatum()),
+        mapStatus(entity.getStatus()));
   }
 
-  default Long mapBestellungId(BestellungId bestellungId) {
+  default String mapBestellungId(BestellungId bestellungId) {
     return bestellungId.getValue();
   }
 
-  default BestellungId mapBestellungId(Long bestellungId) {
+  default BestellungId mapBestellungId(String bestellungId) {
     return new BestellungId(bestellungId);
   }
 

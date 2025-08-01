@@ -1,16 +1,21 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.adapter.out.db.entity;
 
+import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UuidEntity;
+import lombok.Data;
+import org.springframework.data.relational.core.mapping.Table;
+
 import java.time.LocalDateTime;
 
-public record BestellungEntity(
-    Long id,
-    FahrzeugEntity fahrzeug,
-    Long antragstellerId,
-    LocalDateTime bestelldatum,
-    String status) {
+@Table("BESTELLUNG")
+@Data
+public class BestellungEntity extends UuidEntity {
+  private FahrzeugEntity fahrzeug;
+  private Long antragstellerId;
+  private LocalDateTime bestelldatum;
+  private String status;
 
   public BestellungEntity withFahrzeug(FahrzeugEntity neuesFahrzeug) {
-    return new BestellungEntity(
-        this.id, neuesFahrzeug, this.antragstellerId, this.bestelldatum, this.status);
+    this.setFahrzeug(neuesFahrzeug);
+    return this;
   }
 }

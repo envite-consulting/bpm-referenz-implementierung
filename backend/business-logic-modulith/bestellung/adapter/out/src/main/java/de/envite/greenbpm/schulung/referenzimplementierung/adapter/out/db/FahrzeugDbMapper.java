@@ -19,17 +19,17 @@ public interface FahrzeugDbMapper {
   default Fahrzeug createFahrzeug(FahrzeugEntity entity) {
 
     return new Fahrzeug(
-        mapFahrzeugId(entity.id()),
-        mapHersteller(entity.hersteller()),
-        mapModell(entity.modell()),
-        mapJahr(entity.jahr()));
+        mapFahrzeugId(entity.getId()),
+        mapHersteller(entity.getHersteller()),
+        mapModell(entity.getModell()),
+        mapJahr(entity.getJahr()));
   }
 
-  default Long mapFahrzeugId(FahrzeugId fahrzeugId) {
+  default String mapFahrzeugId(FahrzeugId fahrzeugId) {
     return fahrzeugId.getValue();
   }
 
-  default FahrzeugId mapFahrzeugId(Long fahrzeugId) {
+  default FahrzeugId mapFahrzeugId(String fahrzeugId) {
     return new FahrzeugId(fahrzeugId);
   }
 

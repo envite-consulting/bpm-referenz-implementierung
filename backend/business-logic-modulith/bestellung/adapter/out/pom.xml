@@ -27,10 +27,6 @@
             <artifactId>uuid-generator</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>fahrzeug-usecase-in</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
         </dependency>

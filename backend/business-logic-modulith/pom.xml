@@ -19,7 +19,6 @@
 
     <modules>
         <module>bestellung</module>
-        <module>fahrzeug</module>
         <module>uuid-generator</module>
     </modules>
 

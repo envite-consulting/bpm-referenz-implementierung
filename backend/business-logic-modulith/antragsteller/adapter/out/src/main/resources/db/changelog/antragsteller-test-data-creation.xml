@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-createantragsteller-table" author="developer">
+        <comment>Erstelle Antragsteller Tabelle</comment>
+
+        <insert tableName="antragsteller">
+            <column name="id" value="df2ee843-6d3c-4c69-921d-86078c4fa3db"/>
+            <column name="vorname" value="Lisa"/>
+            <column name="nachname" value="Schreiber"/>
+            <column name="abteilung" value="Marketing"/>
+        </insert>
+
+        <insert tableName="antragsteller">
+            <column name="id" value="206d7500-42ff-42f2-a52d-52615a189690"/>
+            <column name="vorname" value="Jonas"/>
+            <column name="nachname" value="Becker"/>
+            <column name="abteilung" value="IT-Support"/>
+        </insert>
+
+        <insert tableName="antragsteller">
+            <column name="id" value="8503c574-8034-415a-b1c1-081f3ecaa2bc"/>
+            <column name="vorname" value="Aylin"/>
+            <column name="nachname" value="König"/>
+            <column name="abteilung" value="Personalwesen"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="antragsteller">
+                <where>id IN (
+                    'df2ee843-6d3c-4c69-921d-86078c4fa3db',
+                    '206d7500-42ff-42f2-a52d-52615a189690',
+                    '8503c574-8034-415a-b1c1-081f3ecaa2bc'
+                    )
+                </where>
+            </delete>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

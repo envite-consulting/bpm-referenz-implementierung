@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.rest;
+package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.in.rest;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
@@ -17,7 +17,7 @@ class BestellungController {
   private final BestellungsErfassung bestellungsErfassung;
   private final BestellungRestMapper bestellungMapper;
 
-  @PostMapping("/")
+  @PostMapping("")
   public ResponseEntity<BestellungResource> erfassen(
       @RequestBody BestellungResource bestellungResource) {
 

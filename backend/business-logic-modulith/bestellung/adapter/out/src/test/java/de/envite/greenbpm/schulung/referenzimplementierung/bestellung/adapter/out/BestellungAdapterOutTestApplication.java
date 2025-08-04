@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-class BestellungAdaoterOutTestApplication {
+class BestellungAdapterOutTestApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(BestellungAdaoterOutTestApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(BestellungAdapterOutTestApplication.class, args);
+  }
 }

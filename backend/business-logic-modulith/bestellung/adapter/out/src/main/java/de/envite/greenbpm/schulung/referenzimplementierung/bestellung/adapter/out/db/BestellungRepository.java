@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-// TODO: Muss wirklich alles Transaktional sein?
-@Transactional
 @RequiredArgsConstructor
 public class BestellungRepository implements BestellungStore {
 
@@ -18,13 +16,16 @@ public class BestellungRepository implements BestellungStore {
   private final BestellungDbMapper bestellungDbMapper;
 
   @Override
+  @Transactional
   public Bestellung persist(Bestellung bestellung) {
+
     BestellungEntity bestellungEntity = bestellungDbMapper.toEntity(bestellung);
     return bestellungDbMapper.toDomain(bestellungJdbcRepository.save(bestellungEntity));
   }
 
   @Override
   public Bestellung query(BestellungId bestellungId) throws BestellungNotFoundException {
+
     return bestellungDbMapper.toDomain(
         bestellungJdbcRepository
             .findById(bestellungId.getValue())

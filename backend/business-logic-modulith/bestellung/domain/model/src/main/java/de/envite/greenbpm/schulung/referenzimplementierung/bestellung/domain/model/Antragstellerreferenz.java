@@ -4,8 +4,8 @@ import static io.github.domainprimitives.validation.Constraints.isUUID;
 
 import io.github.domainprimitives.type.ValueObject;
 
-public class Fahrzeugreferenz extends ValueObject<String> {
-  public Fahrzeugreferenz(String value) {
+public class Antragstellerreferenz extends ValueObject<String> {
+  public Antragstellerreferenz(String value) {
     super(value, isUUID());
   }
 }

@@ -10,22 +10,22 @@ import lombok.ToString;
 @ToString
 public class Bestellung extends Aggregate {
 
-    private final AntragstellerId antragstellerId;
-    private final Fahrzeugreferenz fahrzeugReferenz;
+    private final Antragstellerreferenz antragstellerreferenz;
+    private final Fahrzeugreferenz fahrzeugreferenz;
     private final Bestelldatum bestelldatum;
     private final Status status;
     private BestellungId bestellungId;
 
-    public Bestellung(AntragstellerId antragstellerId, Fahrzeugreferenz fahrzeugReferenz, Bestelldatum bestelldatum, Status status) {
-        this.antragstellerId = antragstellerId;
-        this.fahrzeugReferenz = fahrzeugReferenz;
+    public Bestellung(Antragstellerreferenz antragstellerreferenz, Fahrzeugreferenz fahrzeugreferenz, Bestelldatum bestelldatum, Status status) {
+        this.antragstellerreferenz = antragstellerreferenz;
+        this.fahrzeugreferenz = fahrzeugreferenz;
         this.bestelldatum = bestelldatum;
         this.status = status;
         this.validate();
     }
 
-    public Bestellung(BestellungId bestellungId, AntragstellerId antragstellerId, Fahrzeugreferenz fahrzeugReferenz, Bestelldatum bestelldatum, Status status) {
-        this(antragstellerId, fahrzeugReferenz, bestelldatum, status);
+    public Bestellung(BestellungId bestellungId, Antragstellerreferenz antragstellerreferenz, Fahrzeugreferenz fahrzeugreferenz, Bestelldatum bestelldatum, Status status) {
+        this(antragstellerreferenz, fahrzeugreferenz, bestelldatum, status);
         this.bestellungId = bestellungId;
 
         validateNotNull(bestellungId, "Bestellung ID");
@@ -35,8 +35,8 @@ public class Bestellung extends Aggregate {
     @Override
     protected void validate() {
 
-        validateNotNull(antragstellerId, "Antragsteller ID");
-        validateNotNull(fahrzeugReferenz, "Fahrzeugreferenz");
+        validateNotNull(antragstellerreferenz, "Antragsteller ID");
+        validateNotNull(fahrzeugreferenz, "Fahrzeugreferenz");
         validateNotNull(bestelldatum, "Bestelldatum");
         validateNotNull(status, "Status");
         evaluateValidations();

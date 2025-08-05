@@ -3,24 +3,30 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.o
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungPersistenceException;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.BestellungStore;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-public class BestellungRepository implements BestellungStore {
+class BestellungRepository implements BestellungStore {
 
   private final BestellungJdbcRepository bestellungJdbcRepository;
   private final BestellungDbMapper bestellungDbMapper;
 
   @Override
   @Transactional
-  public Bestellung persist(Bestellung bestellung) {
+  public Bestellung persist(Bestellung bestellung) throws BestellungPersistenceException {
 
-    BestellungEntity bestellungEntity = bestellungDbMapper.toEntity(bestellung);
-    return bestellungDbMapper.toDomain(bestellungJdbcRepository.save(bestellungEntity));
+    try {
+      BestellungEntity bestellungEntity = bestellungDbMapper.toEntity(bestellung);
+      return bestellungDbMapper.toDomain(bestellungJdbcRepository.save(bestellungEntity));
+    } catch (DataAccessException e) {
+      throw new BestellungPersistenceException("Fehler beim Speichern der Bestellung", e);
+    }
   }
 
   @Override

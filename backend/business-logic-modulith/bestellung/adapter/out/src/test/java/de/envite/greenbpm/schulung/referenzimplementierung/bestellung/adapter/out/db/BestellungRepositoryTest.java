@@ -1,5 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
@@ -8,11 +9,9 @@ import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.mod
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 class BestellungRepositoryTest {
 
@@ -43,9 +42,7 @@ class BestellungRepositoryTest {
 
       Bestellung result = classUnderTest.persist(inputBestellung);
 
-      SoftAssertions softly = new SoftAssertions();
-      softly.assertThat(result).isEqualTo(returnedBestellung);
-      softly.assertAll();
+      assertThat(result).isEqualTo(returnedBestellung);
 
       verify(bestellungDbMapperMock).toEntity(inputBestellung);
       verify(bestellungJdbcRepositoryMock).save(bestellungToPersist);
@@ -70,9 +67,7 @@ class BestellungRepositoryTest {
 
       Bestellung result = classUnderTest.query(bestellungId);
 
-      SoftAssertions softly = new SoftAssertions();
-      softly.assertThat(result).isEqualTo(returnedBestellung);
-      softly.assertAll();
+      assertThat(result).isEqualTo(returnedBestellung);
 
       verify(bestellungJdbcRepositoryMock).findById(bestellungId.getValue());
       verify(bestellungDbMapperMock).toDomain(persistedBestellung);

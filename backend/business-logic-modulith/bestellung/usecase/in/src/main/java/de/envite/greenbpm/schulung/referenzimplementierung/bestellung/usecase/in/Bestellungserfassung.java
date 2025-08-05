@@ -2,7 +2,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.i
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 
-public interface BestellungsErfassung {
+public interface Bestellungserfassung {
 
   Bestellung erfassen(Bestellung bestellung);
 }

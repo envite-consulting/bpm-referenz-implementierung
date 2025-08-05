@@ -1,6 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller.Antragsteller;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("ANTRAGSTELLER")
 @Data
-public class AntragstellerEntity extends UuidEntity {
+class AntragstellerEntity extends UuidEntity {
   private String vorname;
   private String nachname;
   private String abteilung;

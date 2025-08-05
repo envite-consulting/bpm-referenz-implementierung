@@ -1,11 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller.Antragsteller;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface AntragstellerDbMapper {
+interface AntragstellerDbMapper {
 
   @Mapping(source = "antragsteller.antragstellerId.value", target = "id")
   @Mapping(source = "antragsteller.vorname.value", target = "vorname")

@@ -1,9 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller.Antragsteller;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller.AntragstellerId;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,15 +19,27 @@ class AntragstellerRepository implements AntragstellerStore {
   @Override
   public Antragsteller query(AntragstellerId antragstellerId)
       throws AntragstellerNotFoundException {
-    AntragstellerEntity entity =
-        antragstellerJdbcRepository
-            .findById(antragstellerId.getValue())
-            .orElseThrow(
-                () ->
-                    new AntragstellerNotFoundException(
-                        String.format(
-                            "Antragsteller mit der ID %s nicht gefunden",
-                            antragstellerId.getValue())));
-    return antragstellerDbMapper.toDomain(entity);
+
+    return antragstellerJdbcRepository
+        .findById(antragstellerId.getValue())
+        .map(antragstellerDbMapper::toDomain)
+        .orElseThrow(
+            () ->
+                new AntragstellerNotFoundException(
+                    String.format(
+                        "Antragsteller mit der ID %s nicht gefunden", antragstellerId.getValue())));
+  }
+
+  @Override
+  public List<Antragsteller> queryAll() {
+
+    Iterable<AntragstellerEntity> entities = antragstellerJdbcRepository.findAll();
+
+    List<Antragsteller> result = new ArrayList<>();
+    for (AntragstellerEntity entity : entities) {
+      result.add(antragstellerDbMapper.toDomain(entity));
+    }
+
+    return result;
   }
 }

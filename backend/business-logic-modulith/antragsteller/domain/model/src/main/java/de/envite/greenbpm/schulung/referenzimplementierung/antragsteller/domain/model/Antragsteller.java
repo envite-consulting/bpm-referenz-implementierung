@@ -1,12 +1,12 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller;
+package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model;
 
-import io.github.domainprimitives.object.ComposedValueObject;
+import io.github.domainprimitives.object.Aggregate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class Antragsteller extends ComposedValueObject {
+public class Antragsteller extends Aggregate {
 
   private AntragstellerId antragstellerId;
   private final Vorname vorname;

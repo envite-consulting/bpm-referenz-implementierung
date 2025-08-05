@@ -1,6 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller.*;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.*;
+
 import java.util.UUID;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.antragsteller;
+package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model;
 
 import static io.github.domainprimitives.validation.Constraints.hasMinLength;
 import static io.github.domainprimitives.validation.Constraints.isNotNull;

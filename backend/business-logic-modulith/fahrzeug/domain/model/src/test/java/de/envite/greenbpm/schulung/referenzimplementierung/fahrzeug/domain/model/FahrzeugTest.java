@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug;
+package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

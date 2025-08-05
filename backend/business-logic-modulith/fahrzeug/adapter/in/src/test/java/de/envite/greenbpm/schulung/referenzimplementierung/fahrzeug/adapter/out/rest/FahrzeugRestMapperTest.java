@@ -1,6 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.*;
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.*;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

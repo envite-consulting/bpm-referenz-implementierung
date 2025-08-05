@@ -26,16 +26,4 @@
             <dropTable tableName="bestellung"/>
         </rollback>
     </changeSet>
-
-    <changeSet id="002-create-indexes" author="developer">
-        <comment>Erstelle Indizes für bessere Query Performance</comment>
-
-        <createIndex indexName="idx_fahrzeug_id" tableName="fahrzeug">
-            <column name="id"/>
-        </createIndex>
-
-        <rollback>
-            <dropIndex indexName="idx_fahrzeug_id" tableName="fahrzeug"/>
-        </rollback>
-    </changeSet>
 </databaseChangeLog>

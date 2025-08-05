@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug;
+package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model;
 
 import io.github.domainprimitives.type.ValueObject;
 

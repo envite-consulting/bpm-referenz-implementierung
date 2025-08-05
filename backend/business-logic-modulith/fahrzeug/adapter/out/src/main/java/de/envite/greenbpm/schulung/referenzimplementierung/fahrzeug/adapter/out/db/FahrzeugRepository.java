@@ -1,9 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.Fahrzeug;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.FahrzeugId;
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.Fahrzeug;
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.FahrzeugId;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.exception.FahrzeugNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.out.FahrzeugStore;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,18 +13,31 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 class FahrzeugRepository implements FahrzeugStore {
 
-    private final FahrzeugJdbcRepository fahrzeugJdbcRepository;
-    private final FahrzeugDbMapper fahrzeugDbMapper;
+  private final FahrzeugJdbcRepository fahrzeugJdbcRepository;
+  private final FahrzeugDbMapper fahrzeugDbMapper;
 
-    @Override
-    public Fahrzeug query(FahrzeugId fahrzeugId) throws FahrzeugNotFoundException {
-        FahrzeugEntity entity = fahrzeugJdbcRepository.findById(fahrzeugId.getValue())
-                .orElseThrow(() -> new FahrzeugNotFoundException(
-                        String.format(
-                                "Fahrzeug mit der ID %s nicht gefunden",
-                                fahrzeugId.getValue()
-                        )
-                ));
-        return fahrzeugDbMapper.toDomain(entity);
+  @Override
+  public Fahrzeug query(FahrzeugId fahrzeugId) throws FahrzeugNotFoundException {
+
+    return fahrzeugJdbcRepository
+        .findById(fahrzeugId.getValue())
+        .map(fahrzeugDbMapper::toDomain)
+        .orElseThrow(
+            () ->
+                new FahrzeugNotFoundException(
+                    String.format("Fahrzeug mit der ID %s nicht gefunden", fahrzeugId.getValue())));
+  }
+
+  @Override
+  public List<Fahrzeug> queryAll() {
+
+    Iterable<FahrzeugEntity> entities = fahrzeugJdbcRepository.findAll();
+
+    List<Fahrzeug> result = new ArrayList<>();
+    for (FahrzeugEntity entity : entities) {
+      result.add(fahrzeugDbMapper.toDomain(entity));
     }
+
+    return result;
+  }
 }

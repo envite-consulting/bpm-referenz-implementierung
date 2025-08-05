@@ -1,12 +1,12 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug;
+package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model;
 
-import io.github.domainprimitives.object.ComposedValueObject;
+import io.github.domainprimitives.object.Aggregate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class Fahrzeug extends ComposedValueObject {
+public class Fahrzeug extends Aggregate {
 
   private FahrzeugId fahrzeugId;
   private final Hersteller hersteller;

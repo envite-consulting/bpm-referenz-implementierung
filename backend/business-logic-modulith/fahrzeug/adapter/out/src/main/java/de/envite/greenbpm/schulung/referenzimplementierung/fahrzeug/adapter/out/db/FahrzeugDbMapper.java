@@ -1,11 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.fahrzeug.Fahrzeug;
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.Fahrzeug;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface FahrzeugDbMapper {
+interface FahrzeugDbMapper {
 
   @Mapping(source = "fahrzeug.fahrzeugId.value", target = "id")
   @Mapping(source = "fahrzeug.hersteller.value", target = "hersteller")

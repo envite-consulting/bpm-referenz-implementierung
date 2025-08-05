@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.BestellungsAbfrage;
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.BestellungsErfassung;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.Bestellungsabfrage;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.Bestellungserfassung;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,9 +24,10 @@ public class BestellungControllerTest {
 
   @Autowired private MockMvc mockMvc;
 
-  @MockitoBean private BestellungsAbfrage bestellungsAbfrageMock;
-  @MockitoBean private BestellungsErfassung bestellungsErfassungMock;
-  @MockitoBean private BestellungRestMapper bestellungMapperMock;
+  @MockitoBean private Bestellungsabfrage bestellungsabfrageMock;
+  @MockitoBean private Bestellungserfassung bestellungserfassungMock;
+  @MockitoBean private BestellungserfassungRestMapper bestellungserfassungMapperMock;
+  @MockitoBean private BestellungsabfrageRestMapper bestellungsabfrageMapperMock;
 
   @Nested
   class Erfassung {
@@ -35,9 +36,8 @@ public class BestellungControllerTest {
     void should_erfassen() throws Exception {
       final String bestellungId = "d370e9d6-03f6-4b4c-b71d-aba53b83f341";
 
-      final BestellungResource requestResource =
-          new BestellungResource(
-              null,
+      final BestellungserfassungResource requestResource =
+          new BestellungserfassungResource(
               "76a9edf1-6570-4d7e-b34b-e0dc3e73527e",
               "bf76eacc-dbcf-4bf2-ad9f-8f52a48c2709",
               LocalDateTime.of(2023, 1, 2, 0, 0),
@@ -46,17 +46,18 @@ public class BestellungControllerTest {
       final Bestellung mappedDomain = mock(Bestellung.class);
       final Bestellung erfassteBestellung = mock(Bestellung.class);
 
-      final BestellungResource responseResource =
-          new BestellungResource(
+      final BestellungsabfrageResource responseResource =
+          new BestellungsabfrageResource(
               bestellungId,
               requestResource.antragstellerreferenz(),
               requestResource.fahrzeugreferenz(),
               requestResource.bestelldatum(),
               requestResource.status());
 
-      when(bestellungMapperMock.toDomain(requestResource)).thenReturn(mappedDomain);
-      when(bestellungsErfassungMock.erfassen(mappedDomain)).thenReturn(erfassteBestellung);
-      when(bestellungMapperMock.toResource(erfassteBestellung)).thenReturn(responseResource);
+      when(bestellungserfassungMapperMock.toDomain(requestResource)).thenReturn(mappedDomain);
+      when(bestellungserfassungMock.erfassen(mappedDomain)).thenReturn(erfassteBestellung);
+      when(bestellungsabfrageMapperMock.toResource(erfassteBestellung))
+          .thenReturn(responseResource);
 
       mockMvc
           .perform(
@@ -85,9 +86,9 @@ public class BestellungControllerTest {
                                                           }
                                                           """));
 
-      verify(bestellungMapperMock).toDomain(requestResource);
-      verify(bestellungsErfassungMock).erfassen(mappedDomain);
-      verify(bestellungMapperMock).toResource(erfassteBestellung);
+      verify(bestellungserfassungMapperMock).toDomain(requestResource);
+      verify(bestellungserfassungMock).erfassen(mappedDomain);
+      verify(bestellungsabfrageMapperMock).toResource(erfassteBestellung);
     }
   }
 
@@ -100,17 +101,18 @@ public class BestellungControllerTest {
 
       final Bestellung abgefragteBestellung = mock(Bestellung.class);
 
-      final BestellungResource responseResource =
-          new BestellungResource(
+      final BestellungsabfrageResource responseResource =
+          new BestellungsabfrageResource(
               bestellungId,
               "76a9edf1-6570-4d7e-b34b-e0dc3e73527e",
               "bf76eacc-dbcf-4bf2-ad9f-8f52a48c2709",
               LocalDateTime.of(2023, 1, 2, 0, 0),
               "ANGELEGT");
 
-      when(bestellungsAbfrageMock.abfragen(new BestellungId(bestellungId)))
+      when(bestellungsabfrageMock.abfragen(new BestellungId(bestellungId)))
           .thenReturn(abgefragteBestellung);
-      when(bestellungMapperMock.toResource(abgefragteBestellung)).thenReturn(responseResource);
+      when(bestellungsabfrageMapperMock.toResource(abgefragteBestellung))
+          .thenReturn(responseResource);
 
       mockMvc
           .perform(get("/bestellung/%s".formatted(bestellungId)))
@@ -127,8 +129,8 @@ public class BestellungControllerTest {
                                               "status":"ANGELEGT"}
                                             """));
 
-      verify(bestellungsAbfrageMock).abfragen(new BestellungId(bestellungId));
-      verify(bestellungMapperMock).toResource(abgefragteBestellung);
+      verify(bestellungsabfrageMock).abfragen(new BestellungId(bestellungId));
+      verify(bestellungsabfrageMapperMock).toResource(abgefragteBestellung);
     }
   }
 }

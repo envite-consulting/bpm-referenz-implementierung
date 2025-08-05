@@ -2,8 +2,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.i
 
 import java.time.LocalDateTime;
 
-public record BestellungResource(
-    String id,
+record BestellungserfassungResource(
     String antragstellerreferenz,
     String fahrzeugreferenz,
     LocalDateTime bestelldatum,

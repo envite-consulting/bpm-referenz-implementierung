@@ -3,7 +3,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.i
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 
-public interface BestellungsAbfrage {
+public interface Bestellungsabfrage {
 
   Bestellung abfragen(BestellungId bestellungId);
 }

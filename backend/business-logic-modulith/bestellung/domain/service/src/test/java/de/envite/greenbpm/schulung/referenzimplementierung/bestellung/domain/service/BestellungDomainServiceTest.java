@@ -9,6 +9,7 @@ import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.mod
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Fahrzeugreferenz;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungPersistenceException;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.AntragstellerQuery;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.BestellungStore;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.FahrzeugQuery;
@@ -55,7 +56,7 @@ class BestellungDomainServiceTest {
     }
 
     @Test
-    void should_throw_on_erfassen_if_fahzeug_does_not_exists() {
+    void should_throw_on_erfassen_if_fahrzeug_does_not_exist() {
       Fahrzeugreferenz fahrzeugreferenzInput = mock(Fahrzeugreferenz.class);
       Antragstellerreferenz antragstellerreferenzInput = mock(Antragstellerreferenz.class);
       final Bestellung bestellungInput = mock(Bestellung.class);
@@ -67,13 +68,14 @@ class BestellungDomainServiceTest {
 
       assertThatThrownBy(() -> classUnderTest.erfassen(bestellungInput))
           .isInstanceOf(InvariantException.class)
-          .hasMessage("Value of Fahrzeug is not valid: Fahrzeug mit der ID 11 existiert nicht.");
+          .hasMessageContaining("Value(s) of Bestellung is not valid")
+          .hasMessageContaining("Fahrzeug mit der ID 11 existiert nicht");
 
       verifyNoInteractions(bestellungStoreMock);
     }
 
     @Test
-    void should_throw_on_erfassen_if_antragsteller_does_not_exists() {
+    void should_throw_on_erfassen_if_antragsteller_does_not_exist() {
       Fahrzeugreferenz fahrzeugreferenzInput = mock(Fahrzeugreferenz.class);
       Antragstellerreferenz antragstellerreferenzInput = mock(Antragstellerreferenz.class);
       final Bestellung bestellungInput = mock(Bestellung.class);
@@ -85,10 +87,42 @@ class BestellungDomainServiceTest {
 
       assertThatThrownBy(() -> classUnderTest.erfassen(bestellungInput))
           .isInstanceOf(InvariantException.class)
-          .hasMessage(
-              "Value of Antragsteller is not valid: Antragsteller mit der ID 11 existiert nicht.");
+          .hasMessageContaining("Value(s) of Bestellung is not valid")
+          .hasMessageContaining("Antragsteller mit der ID 11 existiert nicht");
 
       verifyNoInteractions(bestellungStoreMock);
+    }
+
+    @Test
+    void should_throw_on_erfassen_with_multiple_errors() {
+      Fahrzeugreferenz fahrzeugreferenzInput = mock(Fahrzeugreferenz.class);
+      Antragstellerreferenz antragstellerreferenzInput = mock(Antragstellerreferenz.class);
+      final Bestellung bestellungInput = mock(Bestellung.class);
+      when(fahrzeugreferenzInput.getValue()).thenReturn("11");
+      when(antragstellerreferenzInput.getValue()).thenReturn("22");
+      when(bestellungInput.getFahrzeugreferenz()).thenReturn(fahrzeugreferenzInput);
+      when(bestellungInput.getAntragstellerreferenz()).thenReturn(antragstellerreferenzInput);
+      when(fahrzeugQueryMock.validateExistence(fahrzeugreferenzInput)).thenReturn(false);
+      when(antragstellerQueryMock.validateExistence(antragstellerreferenzInput)).thenReturn(false);
+
+      assertThatThrownBy(() -> classUnderTest.erfassen(bestellungInput))
+          .isInstanceOf(InvariantException.class)
+          .hasMessageContaining("Value(s) of Bestellung is not valid")
+          .hasMessageContaining("Fahrzeug mit der ID 11 existiert nicht")
+          .hasMessageContaining("Antragsteller mit der ID 22 existiert nicht");
+
+      verifyNoInteractions(bestellungStoreMock);
+    }
+
+    @Test
+    void should_not_catch_custom_exception() {
+      final Bestellung bestellungInput = mock(Bestellung.class);
+      final BestellungPersistenceException exception = mock(BestellungPersistenceException.class);
+      when(bestellungStoreMock.persist(bestellungInput)).thenThrow(exception);
+      when(fahrzeugQueryMock.validateExistence(any())).thenReturn(true);
+      when(antragstellerQueryMock.validateExistence(any())).thenReturn(true);
+
+      assertThatThrownBy(() -> classUnderTest.erfassen(bestellungInput)).isEqualTo(exception);
     }
   }
 

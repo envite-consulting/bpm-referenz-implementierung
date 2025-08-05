@@ -30,19 +30,7 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="002-create-indexes" author="developer">
-        <comment>Erstelle Indizes für bessere Query Performance</comment>
-
-        <createIndex indexName="idx_bestellung_id" tableName="bestellung">
-            <column name="id"/>
-        </createIndex>
-
-        <rollback>
-            <dropIndex indexName="idx_bestellung_id" tableName="bestellung"/>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="003-add-data-constraints" author="developer">
+    <changeSet id="002-add-data-constraints" author="developer">
         <comment>Füge zusätzliche Constraints für Datenintegrität hinzu</comment>
 
         <sql>

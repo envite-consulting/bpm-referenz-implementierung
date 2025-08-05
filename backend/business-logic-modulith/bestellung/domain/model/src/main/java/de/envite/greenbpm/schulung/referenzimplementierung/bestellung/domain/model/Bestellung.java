@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
-@ToString
 public class Bestellung extends Aggregate {
 
     private final Antragstellerreferenz antragstellerreferenz;

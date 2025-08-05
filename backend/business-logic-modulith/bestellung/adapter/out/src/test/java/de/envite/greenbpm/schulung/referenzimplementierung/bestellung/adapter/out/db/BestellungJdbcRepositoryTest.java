@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UUIDGenerator;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,33 @@ class BestellungJdbcRepositoryTest {
     assertThatThrownBy(() -> classUnderTest.save(entity))
         .isInstanceOf(DbActionExecutionException.class)
         .hasStackTraceContaining("Bedingung verletzt: \"CHK_BESTELLUNG_STATUS:");
+  }
+
+  @Test
+  void should_find_by_id_after_save() {
+    BestellungEntity entity =
+        saveAntragsteller("ref-1", "ref-2", LocalDateTime.of(2023, 1, 2, 0, 0), "ANGELEGT");
+
+    BestellungEntity saved = classUnderTest.save(entity);
+    Optional<BestellungEntity> result = classUnderTest.findById(saved.getId());
+
+    SoftAssertions softAssertions = new SoftAssertions();
+    softAssertions.assertThat(result).isPresent();
+    softAssertions.assertThat(result.get()).usingRecursiveComparison().isEqualTo(saved);
+    softAssertions.assertAll();
+  }
+
+  private BestellungEntity saveAntragsteller(
+      String fahrzeugreferenz,
+      String antragstellerreferenz,
+      LocalDateTime bestelldatum,
+      String status) {
+
+    BestellungEntity entity = new BestellungEntity();
+    entity.setFahrzeugreferenz(fahrzeugreferenz);
+    entity.setAntragstellerreferenz(antragstellerreferenz);
+    entity.setBestelldatum(bestelldatum);
+    entity.setStatus(status);
+    return classUnderTest.save(entity);
   }
 }

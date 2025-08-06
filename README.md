@@ -45,7 +45,7 @@ contributors. Siehe <https://arc42.org>.
 - [Bausteinsicht](#bausteinsicht-1)
     - [Blackbox Gesamtsystem](#blackbox-gesamtsystem)
         - [Ebene 1: Graybox Gesamtsystem](#ebene-1-graybox-gesamtsystem)
-          - [Ebene 2: Whitebox Fachbausteine](#ebene-2-whitebox-fachbausteine)
+            - [Ebene 2: Whitebox Fachbausteine](#ebene-2-whitebox-fachbausteine)
 - [Laufzeitsicht](#laufzeitsicht)
 - [Verteilungssicht](#verteilungssicht)
 - [Querschnittliche Konzepte](#querschnittliche-konzepte)
@@ -154,15 +154,16 @@ unter Verwendung der Clean Architecture in Bausteine sowie deren Abhängigkeiten
 ![Clean-Architecture-Building-Block-View](assets/loesungsstrategie/clean_architecture_building_blocks.svg)
 *Building Block View of Clean Architecture*
 
-Da die Bausteinsicht einen schnellen, abstrahierten Überblick über ein Projekt oder Modul vermitteln soll, ist eine
-bewusst gewählte, sinnvolle Abstraktion entscheidend. Insbesondere deshalb, weil diese Ansicht derzeit nicht
-automatisiert generiert wird und daher potenziell schnell veralten kann.
+> [!NOTE]  
+> Da die Bausteinsicht einen schnellen, abstrahierten Überblick über ein Projekt oder Modul vermitteln soll, ist eine
+> bewusst gewählte, sinnvolle Abstraktion entscheidend. Insbesondere deshalb, weil diese Ansicht derzeit nicht
+> automatisiert generiert wird und daher potenziell schnell veralten kann.
+>
+>Ein zu hoher Detailgrad wie etwa in der folgenden Darstellung sollte also vermieden werden.
 
-Ein zu hoher Detailgrad wie etwa in den folgenden Darstellungen sollte also vermieden werden.
+###### Beispiel: Zu detaillierte Darstellung
 
-###### Bestellung
-
-![Blackbox_Bestellung](assets/bausteinsicht/fachbausteinfalscherdetailgrad/whitebox-bestellung.svg)
+![Blackbox_Bestellung](assets/bausteinsicht/fachbausteinfalscherdetailgrad/whitebox-bestellung-falscher-detailgrad.svg)
 
 ##### Laufzeitsicht
 
@@ -171,6 +172,11 @@ der stereotypen Bausteine eines Systems, das Clean Architecture verwendet.
 
 ![Clean-Architecture-Runtime-Block-View](assets/loesungsstrategie/clean_architecture_runtime_view.svg)
 *Building Block View of Clean Architecture*
+
+> [!NOTE]  
+> Da die Laufzeitansicht eng an konkrete Implementierungsdetails gekoppelt ist, ist ihr Pflegeaufwand entsprechend hoch.
+> Sie sollte daher gezielt für fachlich relevante oder komplexe Abläufe eingesetzt werden. 
+> Einfache CRUD-Operationen hingegen sollten nicht in Laufzeitdiagrammen dargestellt werden.
 
 #### Dependency Inversion Principle
 

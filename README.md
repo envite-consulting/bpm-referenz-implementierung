@@ -1,11 +1,14 @@
 <!-- omit in toc -->
+
 # BPM Projekt Referenz-Implementierung
 
-Dieses Repo soll als Blaupause für BPM Projekte dienen. Dabei soll es möglich sein unterschiedliche Technologien wie Camunda, React, Vue etc. nach und nach zu ergänzen.
+Dieses Repo soll als Blaupause für BPM Projekte dienen. Dabei soll es möglich sein unterschiedliche Technologien wie
+Camunda, React, Vue etc. nach und nach zu ergänzen.
 
 Die Dokumentation des Projekts erfolgt nach [arc42](https://arc42.org/).
 
 <!-- omit in toc -->
+
 ## Architekturdokumentation
 
 **Über arc42**
@@ -19,15 +22,15 @@ Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
 contributors. Siehe <https://arc42.org>.
 
 - [Einführung und Ziele](#einführung-und-ziele)
-  - [Qualitätsziele](#qualitätsziele)
-  - [Stakeholder](#stakeholder)
+    - [Qualitätsziele](#qualitätsziele)
+    - [Stakeholder](#stakeholder)
 - [Randbedingungen](#randbedingungen)
-  - [Technisch](#technisch)
-    - [Verwaltung von Dependencies](#verwaltung-von-dependencies)
-    - [Fremdsoftware frei verfügbar](#fremdsoftware-frei-verfügbar)
+    - [Technisch](#technisch)
+        - [Verwaltung von Dependencies](#verwaltung-von-dependencies)
+        - [Fremdsoftware frei verfügbar](#fremdsoftware-frei-verfügbar)
 - [Kontextabgrenzung](#kontextabgrenzung)
-  - [Fachlicher Kontext](#fachlicher-kontext)
-  - [Technischer Kontext](#technischer-kontext)
+    - [Fachlicher Kontext](#fachlicher-kontext)
+    - [Technischer Kontext](#technischer-kontext)
 - [Lösungsstrategie](#lösungsstrategie)
   - [Backend](#backend)
     - [Clean Architecture](#clean-architecture)
@@ -37,15 +40,15 @@ contributors. Siehe <https://arc42.org>.
     - [Mapping zwischen Schichten](#mapping-zwischen-schichten)
     - [Domain Driven Design](#domain-driven-design)
 - [Bausteinsicht](#bausteinsicht-1)
-  - [Whitebox Gesamtsystem](#whitebox-gesamtsystem)
-      - [Eben 1: Aufgabenliste](#eben-1-aufgabenliste)
+    - [Whitebox Gesamtsystem](#whitebox-gesamtsystem)
+        - [Eben 1: Aufgabenliste](#eben-1-aufgabenliste)
 - [Laufzeitsicht](#laufzeitsicht)
 - [Verteilungssicht](#verteilungssicht)
 - [Querschnittliche Konzepte](#querschnittliche-konzepte)
 - [Architekturentscheidungen](#architekturentscheidungen)
 - [Qualitätsanforderungen](#qualitätsanforderungen)
-  - [Qualitätsbaum](#qualitätsbaum)
-  - [Qualitätsszenarien](#qualitätsszenarien)
+    - [Qualitätsbaum](#qualitätsbaum)
+    - [Qualitätsszenarien](#qualitätsszenarien)
 - [Risiken und technische Schulden](#risiken-und-technische-schulden)
 - [Glossar](#glossar)
 
@@ -53,7 +56,8 @@ contributors. Siehe <https://arc42.org>.
 
 ### Qualitätsziele
 
-Blaupause und Nachschlagewerk für gewisse Fragestellung die in BPM Projekte häufiger auftreten. Zudem soll es dem Onboarding neuer Mitarbeiter dienen.
+Blaupause und Nachschlagewerk für gewisse Fragestellung die in BPM Projekte häufiger auftreten. Zudem soll es dem
+Onboarding neuer Mitarbeiter dienen.
 
 ### Stakeholder
 
@@ -75,9 +79,19 @@ Zur Verwaltung von Dependencies soll
 
 eingesetzt werden.
 
+#### Spezifische technische Randbedingungen
+
+[Spring Boot](https://spring.io/projects/spring-boot): Als Application Framework
+[Spring Data JDBC](https://spring.io/projects/spring-data-jdbc) + [Liquibase](https://www.liquibase.com/): Für
+Datenbankanbindung und Schema-Migration
+[domain-primitives-java](https://github.com/domain-primitives/domain-primitives-java): Für Validierung der
+Domain-Objekte
+[MapStruct](https://mapstruct.org/): Für Mapping zwischen Domain-Objekten und Resources
+
 #### Fremdsoftware frei verfügbar
 
-Falls zur Lösung Fremdsoftware hinzugezogen wird, sollte diese idealerweise frei verfügbar und kostenlos sein. Die Schwelle der Verwendung wird auf diese Weise niedrig gehalten
+Falls zur Lösung Fremdsoftware hinzugezogen wird, sollte diese idealerweise frei verfügbar und kostenlos sein. Die
+Schwelle der Verwendung wird auf diese Weise niedrig gehalten
 
 ## Kontextabgrenzung
 
@@ -174,15 +188,101 @@ Die funktionale Strukturierung des Codes und die Einbringung von mehr Kontext in
 
 ![Whitebox System](./assets/bausteinsicht/whitebox-gesamtsystem.svg)
 
-#### Eben 1: Aufgabenliste
+#### Ebene 1: Aufgabenliste
 
 ![Whitebox System](./assets/bausteinsicht/aufgabenliste/whitebox-gesamtsystem.svg)
 
+#### Ebene 2: Fachbausteine
+
+![Whitebox_Fachbaustein](assets/bausteinsicht/fachbaustein/whitebox-fachbaustein.svg)
+
+##### Bestellung
+
+![Blackbox_Bestellung](assets/bausteinsicht/fachbaustein/bestellung/whitebox-bestellung.svg)
+
 ## Laufzeitsicht
+
+### Bestellung erfassen
+
+![Laufzeitsicht_Bestellung_erfassen](assets/laufzeitsicht/bestellungerfassen/bestellung-erfassen.svg)
+
+### Bestellung abfragen
+
+![Laufzeitsicht_Bestellung_abfragen](assets/laufzeitsicht/bestellungabfragen/bestellung-abfragen.svg)
 
 ## Verteilungssicht
 
 ## Querschnittliche Konzepte
+
+### Validierung mit Domain Primitives
+
+Die Validierung des Domänenmodells erfolgt mithilfe der Bibliothek _domain-primitives-java_, um Validierungslogik direkt
+im Konstruktor von Value Objects und Aggregates zu implementieren und somit einen konsistenten Datenbestand zu
+gewährleisten.
+
+**Value Object Validierung**
+
+Value Objects validieren ihre Werte anhand definierter Invarianten:
+
+```java
+// ValueObjectId: Muss gültige UUID sein
+public class ValueObjectId extends ValueObject<String> {
+    public ValueObjectId(String value) {
+        super(value, isUUID());
+    }
+}
+```
+
+**Aggregate-Validierung**
+
+Aggregates validieren die Vollständigkeit der aggregierten Value Objects und Entitäten:
+
+```java
+// Entity-Validierung auf höchster Ebene
+@Override
+protected void validate() {
+    validateNotNull(referenz1, "Referenz 1");
+    validateNotNull(valueObject2, "Value Object 2");
+    evaluateValidations();
+}
+```
+
+### Mapping-Strategie
+
+Zur Trennung der Ringe und zur Einhaltung des Prinzips der Entkopplung verwendet das System MapStruct zur
+typensicheren und automatisierten Abbildung zwischen:
+
+DTOs der Ein-/Ausgabeschicht (z. B. REST oder DB) und den Domänenobjekten im Kern
+
+Für jede Richtung und jeden Adaptertyp werden separate DTOs definiert. Die Mappings erfolgen über dedizierte
+Mapper-Interfaces.
+
+### Besondere ID-Behandlung:
+
+Beim Persistieren von neuen Entitäten ohne initiale ID kann das ID-Handling nach zwei Varianten gelöst werden:
+
+**Variante 1:** Konstruktorbasierte ID-Initialisierung
+
+- Zwei Konstruktoren: mit und ohne ID
+- Der Mapper entscheidet zur Laufzeit anhand der ID-Präsenz, welcher Konstruktor verwendet wird (@ObjectFactory)
+
+**Variante 2:** Setter-basierte ID-Zuweisung
+
+- Es existiert ein Konstruktor ohne ID
+- Die ID wird nach der Initialisierung per Setter gesetzt
+- Die Zuweisung erfolgt im Mapper implizit durch MapStruct
+
+### Exception Handling
+
+Die Fehlerbehandlung auf REST-Ebene erfolgt über einen @ControllerAdvice[r] pro Fachmodul. Exceptions aus der Domäne
+werden dabei in standardisierte HTTP-Antworten überführt:
+
+- InvariantException → 400 Bad Request
+- EntityNotFoundException → 404 Not Found
+- PersistenceException → 500 Internal Server Error
+
+Jeder Fehlerfall wird in ein strukturiertes Fehlerobjekt umgewandelt, das Name, Nachricht und ggf. Fehlerursache
+enthält.
 
 ## Architekturentscheidungen
 

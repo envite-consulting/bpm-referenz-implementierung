@@ -16,6 +16,7 @@ database "Business Database" as business.db
 
 
 frontend.aufgabenliste -> backend.aufgabenliste
+frontend.aufgabenliste -> backend.fachbaustein
 
 backend.aufgabenliste --> engine
 backend.aufgabenliste --> backend.fachbaustein 

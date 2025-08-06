@@ -1,8 +1,13 @@
 @startuml
 component Fachbausteine as fachbaustein {
+
+    portin Aufgabenliste
+
     component "Bestellungs-Modul" as bestellung
     component "Antragsteller-Modul" as antragsteller
     component "Fahrzeug-Modul" as fahrzeug
+
+    portout Datenbank
 }
 
 bestellung --> antragsteller

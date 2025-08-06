@@ -86,47 +86,6 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-domain-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-domain-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-domain-prozessmodell</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-usecase-in</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-usecase-out</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-usecase-exception</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-adapter-in</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>fahrzeug-adapter-out</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>antragsteller-domain-model</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -1,0 +1,34 @@
+@startuml
+actor "Mitarbeiter" as user
+participant "BestellungController" as controller
+participant "Bestellungserfassung" as usecase
+participant "BestellungDomainService" as service
+participant "FahrzeugQuery" as fahrzeugQuery
+participant "AntragstellerQuery" as antragstellerQuery
+participant "BestellungStore" as store
+participant "BestellungRepository" as repo
+participant "BestellungJdbcRepository" as jdbcRepo
+
+user -> controller : POST /bestellung
+controller -> usecase : erfassen(bestellung)
+usecase -> service : erfassen(bestellung)
+
+service -> fahrzeugQuery : validateExistence(fahrzeugreferenz)
+fahrzeugQuery --> service : boolean
+service -> antragstellerQuery : validateExistence(antragstellerreferenz)
+antragstellerQuery --> service : boolean
+
+alt Referenzen ungültig
+    service -> service : throw InvariantException
+else Referenzen gültig
+    service -> store : persist(bestellung)
+    store -> repo : persist(bestellung)
+    repo -> jdbcRepo : save(bestellungEntity)
+    jdbcRepo --> repo : BestellungEntity mit ID
+    repo --> store : Bestellung mit ID
+    store --> service : Bestellung mit ID
+    service --> usecase : Bestellung mit ID
+    usecase --> controller : Bestellung mit ID
+    controller --> user : 200 OK + BestellungsabfrageResource
+end
+@enduml

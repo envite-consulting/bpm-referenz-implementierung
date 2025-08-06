@@ -1,0 +1,22 @@
+@startuml
+actor "Mitarbeiter" as user
+participant "BestellungController" as controller
+participant "Bestellungsabfrage" as usecase
+participant "BestellungDomainService" as service
+participant "BestellungStore" as store
+participant "BestellungRepository" as repo
+participant "BestellungJdbcRepository" as jdbcRepo
+
+user -> controller : GET /bestellungen/{id}
+controller -> usecase : abfragen(bestellungId)
+usecase -> service : abfragen(bestellungId)
+service -> store : query(bestellungId)
+store -> repo : query(bestellungId)
+repo -> jdbcRepo : findById(bestellungId)
+jdbcRepo --> repo : BestellungEntity
+repo -> store : Bestellung
+store --> service : Bestellung
+service --> usecase : Bestellung
+usecase -> controller : Bestellung
+controller --> user : 200 OK + BestellungsabfrageResource
+@enduml

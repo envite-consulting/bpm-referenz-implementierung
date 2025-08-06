@@ -1,0 +1,46 @@
+@startuml
+
+component Bestellungs-Modul as bestellungModul {
+
+    interface "Bestellungserfassung" as erfassung {
+        +erfassen(bestellung: Bestellung): Bestellung
+    }
+    interface "Bestellungsabfrage" as abfrage {
+        +abfragen(bestellungId: BestellungId): Bestellung
+    }
+    class "Bestellung" as bestellung {
+        -bestellungId: BestellungId
+        -antragstellerreferenz: Antragstellerreferenz
+        -fahrzeugreferenz: Fahrzeugreferenz
+        -bestelldatum: Bestelldatum
+        -status: Status
+    }
+    class "BestellungId" as bestellungId {
+        -value: String
+    }
+    class "Antragstellerreferenz" as antragstellerRef {
+        -value: String
+    }
+    class "Fahrzeugreferenz" as fahrzeugRef {
+        -value: String
+    }
+    class "Bestelldatum" as bestelldatum {
+        -value: LocalDateTime
+    }
+    enum "Status" as status {
+        ANGELEGT
+        GENEHMIGT
+        BESTELLT
+        AUSGELIEFERT
+        STORNIERT
+    }
+}
+
+erfassung ..> bestellung
+abfrage ..> bestellung
+bestellung *-- bestellungId
+bestellung *-- antragstellerRef
+bestellung *-- fahrzeugRef
+bestellung *-- bestelldatum
+bestellung *-- status
+@enduml

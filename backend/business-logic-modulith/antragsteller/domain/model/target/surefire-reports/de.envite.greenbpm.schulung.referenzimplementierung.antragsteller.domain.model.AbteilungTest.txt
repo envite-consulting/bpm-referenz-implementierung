@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AbteilungTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.132 s -- in de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AbteilungTest

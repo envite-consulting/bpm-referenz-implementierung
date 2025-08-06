@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.in.rest.BestellungControllerTest$Anzeige
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.835 s -- in de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.in.rest.BestellungControllerTest$Anzeige

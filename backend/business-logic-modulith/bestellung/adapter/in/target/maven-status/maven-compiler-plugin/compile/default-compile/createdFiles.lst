@@ -1,9 +1,0 @@
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\config\BestellungRestAdvicer.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungController.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungserfassungResource.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungserfassungRestMapper.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\config\BestellungRestAdvicer$ErrorResource.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungsabfrageRestMapper.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungsabfrageResource.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungsabfrageRestMapperImpl.class
-de\envite\greenbpm\schulung\referenzimplementierung\bestellung\adapter\in\rest\BestellungserfassungRestMapperImpl.class

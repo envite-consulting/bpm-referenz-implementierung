@@ -4,7 +4,6 @@ import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.FahrzeugId;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.exception.FahrzeugNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.out.FahrzeugStore;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,13 +30,6 @@ class FahrzeugRepository implements FahrzeugStore {
   @Override
   public List<Fahrzeug> queryAll() {
 
-    Iterable<FahrzeugEntity> entities = fahrzeugJdbcRepository.findAll();
-
-    List<Fahrzeug> result = new ArrayList<>();
-    for (FahrzeugEntity entity : entities) {
-      result.add(fahrzeugDbMapper.toDomain(entity));
-    }
-
-    return result;
+    return fahrzeugJdbcRepository.findAll().stream().map(fahrzeugDbMapper::toDomain).toList();
   }
 }

@@ -1,10 +1,9 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
-import java.util.ArrayList;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -33,13 +32,7 @@ class AntragstellerRepository implements AntragstellerStore {
   @Override
   public List<Antragsteller> queryAll() {
 
-    Iterable<AntragstellerEntity> entities = antragstellerJdbcRepository.findAll();
-
-    List<Antragsteller> result = new ArrayList<>();
-    for (AntragstellerEntity entity : entities) {
-      result.add(antragstellerDbMapper.toDomain(entity));
-    }
-
-    return result;
+    return antragstellerJdbcRepository.findAll().stream()
+            .map(antragstellerDbMapper::toDomain).toList();
   }
 }

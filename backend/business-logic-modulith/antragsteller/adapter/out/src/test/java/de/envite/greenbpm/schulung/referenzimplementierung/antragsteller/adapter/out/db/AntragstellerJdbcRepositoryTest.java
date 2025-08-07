@@ -1,6 +1,8 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UUIDGenerator;
+
+import java.util.List;
 import java.util.Optional;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
@@ -51,14 +53,11 @@ class AntragstellerJdbcRepositoryTest {
 
     AntragstellerEntity saved1 = classUnderTest.save(entity1);
     AntragstellerEntity saved2 = classUnderTest.save(entity2);
-    Optional<AntragstellerEntity> result1 = classUnderTest.findById(saved1.getId());
-    Optional<AntragstellerEntity> result2 = classUnderTest.findById(saved2.getId());
+    List<AntragstellerEntity> result = classUnderTest.findAll();
 
     SoftAssertions softAssertions = new SoftAssertions();
-    softAssertions.assertThat(result1).isPresent();
-    softAssertions.assertThat(result1.get()).usingRecursiveComparison().isEqualTo(saved1);
-    softAssertions.assertThat(result2).isPresent();
-    softAssertions.assertThat(result2.get()).usingRecursiveComparison().isEqualTo(saved2);
+    softAssertions.assertThat(result).isNotEmpty();
+    softAssertions.assertThat(result).containsExactly(saved1, saved2);
     softAssertions.assertAll();
   }
 

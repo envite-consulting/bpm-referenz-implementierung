@@ -1,16 +1,18 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UUIDGenerator;
-import java.time.LocalDateTime;
-import java.util.Optional;
 import org.assertj.core.api.SoftAssertions;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJdbcTest
 @Import(UUIDGenerator.class)
@@ -48,7 +50,8 @@ class BestellungJdbcRepositoryTest {
 
     assertThatThrownBy(() -> classUnderTest.save(entity))
         .isInstanceOf(DbActionExecutionException.class)
-        .hasStackTraceContaining("NULL nicht zulässig für Feld \"FAHRZEUGREFERENZ\"");
+        .hasStackTraceContaining(JdbcSQLIntegrityConstraintViolationException.class.getSimpleName())
+        .hasStackTraceContaining("FAHRZEUGREFERENZ");
   }
 
   @Test
@@ -61,7 +64,8 @@ class BestellungJdbcRepositoryTest {
 
     assertThatThrownBy(() -> classUnderTest.save(entity))
         .isInstanceOf(DbActionExecutionException.class)
-        .hasStackTraceContaining("Bedingung verletzt: \"CHK_BESTELLUNG_STATUS:");
+        .hasStackTraceContaining(JdbcSQLIntegrityConstraintViolationException.class.getSimpleName())
+        .hasStackTraceContaining("CHK_BESTELLUNG_STATUS");
   }
 
   @Test

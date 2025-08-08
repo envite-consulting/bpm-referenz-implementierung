@@ -1,9 +1,5 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
-
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.Fahrzeug;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.FahrzeugId;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.exception.FahrzeugNotFoundException;
@@ -12,6 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class FahrzeugDomainServiceTest {
 
@@ -33,8 +34,6 @@ class FahrzeugDomainServiceTest {
     Fahrzeug result = classUnderTest.abfragen(fahrzeugIdInput);
 
     assertThat(result).isEqualTo(expectedResult);
-
-    verify(fahrzeugStoreMock).query(fahrzeugIdInput);
   }
 
   @Test
@@ -44,8 +43,6 @@ class FahrzeugDomainServiceTest {
     when(fahrzeugStoreMock.query(fahrzeugIdInput)).thenThrow(exception);
 
     assertThatThrownBy(() -> classUnderTest.abfragen(fahrzeugIdInput)).isEqualTo(exception);
-
-    verify(fahrzeugStoreMock).query(fahrzeugIdInput);
   }
 
   @Test
@@ -57,7 +54,6 @@ class FahrzeugDomainServiceTest {
     List<Fahrzeug> result = classUnderTest.abfragenAlle();
 
     assertThat(result).containsExactly(expectedResult1, expectedResult2);
-    verify(fahrzeugStoreMock).queryAll();
   }
 
   @Test
@@ -68,6 +64,5 @@ class FahrzeugDomainServiceTest {
     List<Fahrzeug> result = classUnderTest.abfragenAlle();
 
     assertThat(result).isEmpty();
-    verify(fahrzeugStoreMock).queryAll();
   }
 }

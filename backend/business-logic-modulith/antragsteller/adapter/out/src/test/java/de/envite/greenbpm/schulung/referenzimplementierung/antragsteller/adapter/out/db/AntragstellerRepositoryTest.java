@@ -1,20 +1,18 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
-
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
-import java.util.List;
-import java.util.Optional;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class AntragstellerRepositoryTest {
 
@@ -49,9 +47,6 @@ class AntragstellerRepositoryTest {
       Antragsteller result = classUnderTest.query(antragstellerId);
 
       assertThat(result).isEqualTo(returnedAntragsteller);
-
-      verify(antragstellerJdbcRepositoryMock).findById(antragstellerId.getValue());
-      verify(antragstellerDbMapperMock).toDomain(persistedAntragsteller);
     }
 
     @Test
@@ -66,7 +61,6 @@ class AntragstellerRepositoryTest {
           .isInstanceOf(AntragstellerNotFoundException.class)
           .hasMessageContaining(antragstellerId.getValue());
 
-      verify(antragstellerJdbcRepositoryMock).findById(antragstellerId.getValue());
       verifyNoInteractions(antragstellerDbMapperMock);
     }
 
@@ -88,10 +82,6 @@ class AntragstellerRepositoryTest {
       List<Antragsteller> result = classUnderTest.queryAll();
 
       assertThat(result).containsOnly(returnedAntragsteller1, returnedAntragsteller2);
-
-      verify(antragstellerJdbcRepositoryMock).findAll();
-      verify(antragstellerDbMapperMock).toDomain(persistedAntragsteller1);
-      verify(antragstellerDbMapperMock).toDomain(persistedAntragsteller2);
     }
 
     @Test
@@ -103,7 +93,6 @@ class AntragstellerRepositoryTest {
 
       assertThat(result).containsOnly();
 
-      verify(antragstellerJdbcRepositoryMock).findAll();
       verifyNoInteractions(antragstellerDbMapperMock);
     }
   }

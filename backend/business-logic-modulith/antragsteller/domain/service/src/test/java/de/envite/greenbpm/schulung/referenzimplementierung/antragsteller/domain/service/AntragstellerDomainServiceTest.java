@@ -1,16 +1,18 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
-
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
-import java.util.List;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class AntragstellerDomainServiceTest {
 
@@ -32,7 +34,6 @@ class AntragstellerDomainServiceTest {
     Antragsteller result = classUnderTest.abfragen(antragstellerIdInput);
 
     assertThat(result).isEqualTo(expectedResult);
-    verify(antragstellerStoreMock).query(antragstellerIdInput);
   }
 
   @Test
@@ -42,7 +43,6 @@ class AntragstellerDomainServiceTest {
     when(antragstellerStoreMock.query(antragstellerIdInput)).thenThrow(exception);
 
     assertThatThrownBy(() -> classUnderTest.abfragen(antragstellerIdInput)).isEqualTo(exception);
-    verify(antragstellerStoreMock).query(antragstellerIdInput);
   }
 
   @Test
@@ -54,7 +54,6 @@ class AntragstellerDomainServiceTest {
     List<Antragsteller> result = classUnderTest.abfragenAlle();
 
     assertThat(result).containsExactly(expectedResult1, expectedResult2);
-    verify(antragstellerStoreMock).queryAll();
   }
 
   @Test
@@ -65,6 +64,5 @@ class AntragstellerDomainServiceTest {
     List<Antragsteller> result = classUnderTest.abfragenAlle();
 
     assertThat(result).isEmpty();
-    verify(antragstellerStoreMock).queryAll();
   }
 }

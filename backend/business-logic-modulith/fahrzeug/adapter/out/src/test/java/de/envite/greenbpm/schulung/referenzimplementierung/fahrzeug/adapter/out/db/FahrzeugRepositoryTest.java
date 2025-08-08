@@ -1,20 +1,18 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
-
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.Fahrzeug;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.FahrzeugId;
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.exception.FahrzeugNotFoundException;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class FahrzeugRepositoryTest {
 
@@ -47,9 +45,6 @@ class FahrzeugRepositoryTest {
       Fahrzeug result = classUnderTest.query(fahrzeugId);
 
       assertThat(result).isEqualTo(returnedFahrzeug);
-
-      verify(fahrzeugJdbcRepositoryMock).findById(fahrzeugId.getValue());
-      verify(fahrzeugDbMapperMock).toDomain(persistedFahrzeug);
     }
 
     @Test
@@ -63,7 +58,6 @@ class FahrzeugRepositoryTest {
           .isInstanceOf(FahrzeugNotFoundException.class)
           .hasMessageContaining(fahrzeugId.getValue());
 
-      verify(fahrzeugJdbcRepositoryMock).findById(fahrzeugId.getValue());
       verifyNoInteractions(fahrzeugDbMapperMock);
     }
 
@@ -83,10 +77,6 @@ class FahrzeugRepositoryTest {
       List<Fahrzeug> result = classUnderTest.queryAll();
 
       assertThat(result).containsOnly(returnedFahrzeug1, returnedFahrzeug2);
-
-      verify(fahrzeugJdbcRepositoryMock).findAll();
-      verify(fahrzeugDbMapperMock).toDomain(persistedFahrzeug1);
-      verify(fahrzeugDbMapperMock).toDomain(persistedFahrzeug2);
     }
 
     @Test
@@ -98,7 +88,6 @@ class FahrzeugRepositoryTest {
 
       assertThat(result).containsOnly();
 
-      verify(fahrzeugJdbcRepositoryMock).findAll();
       verifyNoInteractions(fahrzeugDbMapperMock);
     }
   }

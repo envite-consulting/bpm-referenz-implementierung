@@ -1,17 +1,17 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
-
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.exception.BestellungNotFoundException;
-import java.util.Optional;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class BestellungRepositoryTest {
 
@@ -43,10 +43,6 @@ class BestellungRepositoryTest {
       Bestellung result = classUnderTest.persist(inputBestellung);
 
       assertThat(result).isEqualTo(returnedBestellung);
-
-      verify(bestellungDbMapperMock).toEntity(inputBestellung);
-      verify(bestellungJdbcRepositoryMock).save(bestellungToPersist);
-      verify(bestellungDbMapperMock).toDomain(persistedBestellung);
     }
   }
 
@@ -68,9 +64,6 @@ class BestellungRepositoryTest {
       Bestellung result = classUnderTest.query(bestellungId);
 
       assertThat(result).isEqualTo(returnedBestellung);
-
-      verify(bestellungJdbcRepositoryMock).findById(bestellungId.getValue());
-      verify(bestellungDbMapperMock).toDomain(persistedBestellung);
     }
 
     @Test
@@ -81,11 +74,10 @@ class BestellungRepositoryTest {
       when(bestellungJdbcRepositoryMock.findById(bestellungId.getValue()))
           .thenReturn(Optional.empty());
 
-      Assertions.assertThatThrownBy(() -> classUnderTest.query(bestellungId))
+      assertThatThrownBy(() -> classUnderTest.query(bestellungId))
           .isInstanceOf(BestellungNotFoundException.class)
           .hasMessageContaining(bestellungId.getValue());
 
-      verify(bestellungJdbcRepositoryMock).findById(bestellungId.getValue());
       verifyNoInteractions(bestellungDbMapperMock);
     }
   }

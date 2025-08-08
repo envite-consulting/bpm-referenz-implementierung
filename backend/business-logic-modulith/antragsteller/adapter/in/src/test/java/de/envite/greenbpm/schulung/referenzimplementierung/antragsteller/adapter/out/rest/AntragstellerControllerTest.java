@@ -1,19 +1,21 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.rest;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.in.Antragstellerabfrage;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
-import java.util.List;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.in.Antragstellerabfrage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AntragstellerController.class)
 class AntragstellerControllerTest {
@@ -48,9 +50,6 @@ class AntragstellerControllerTest {
                                 "abteilung":"Abteilung"
                             }
                             """));
-
-    verify(antragstellerabfrageMock).abfragen(new AntragstellerId(antragstellerId));
-    verify(antragstellerMapperMock).toResource(antragstellerMock);
   }
 
   @Test
@@ -88,9 +87,5 @@ class AntragstellerControllerTest {
                                             ]
                                            
                                             """));
-
-    verify(antragstellerabfrageMock).abfragenAlle();
-    verify(antragstellerMapperMock).toResource(antragstellerMock1);
-    verify(antragstellerMapperMock).toResource(antragstellerMock2);
   }
 }

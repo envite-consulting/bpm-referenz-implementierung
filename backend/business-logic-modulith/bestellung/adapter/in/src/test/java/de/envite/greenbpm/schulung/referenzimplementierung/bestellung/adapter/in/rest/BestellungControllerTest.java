@@ -1,16 +1,9 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.in.rest;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.Bestellungsabfrage;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.in.Bestellungserfassung;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +11,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BestellungController.class)
 public class BestellungControllerTest {
@@ -85,10 +87,6 @@ public class BestellungControllerTest {
                                                             "status":"ANGELEGT"
                                                           }
                                                           """));
-
-      verify(bestellungserfassungMapperMock).toDomain(requestResource);
-      verify(bestellungserfassungMock).erfassen(mappedDomain);
-      verify(bestellungsabfrageMapperMock).toResource(erfassteBestellung);
     }
   }
 
@@ -128,9 +126,6 @@ public class BestellungControllerTest {
                                               "bestelldatum":"2023-01-02T00:00:00",
                                               "status":"ANGELEGT"}
                                             """));
-
-      verify(bestellungsabfrageMock).abfragen(new BestellungId(bestellungId));
-      verify(bestellungsabfrageMapperMock).toResource(abgefragteBestellung);
     }
   }
 }

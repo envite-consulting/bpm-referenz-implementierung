@@ -3,38 +3,54 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.mo
 import io.github.domainprimitives.object.Aggregate;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+
+import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
 public class Bestellung extends Aggregate {
 
+    private final BestellungId bestellungId;
     private final Antragstellerreferenz antragstellerreferenz;
     private final Fahrzeugreferenz fahrzeugreferenz;
     private final Bestelldatum bestelldatum;
     private final Status status;
-    private BestellungId bestellungId;
 
-    public Bestellung(Antragstellerreferenz antragstellerreferenz, Fahrzeugreferenz fahrzeugreferenz, Bestelldatum bestelldatum, Status status) {
+    public Bestellung(
+            BestellungId bestellungId,
+            Antragstellerreferenz antragstellerreferenz,
+            Fahrzeugreferenz fahrzeugreferenz,
+            Bestelldatum bestelldatum,
+            Status status
+    ) {
+        this.bestellungId = bestellungId;
         this.antragstellerreferenz = antragstellerreferenz;
         this.fahrzeugreferenz = fahrzeugreferenz;
         this.bestelldatum = bestelldatum;
         this.status = status;
-        this.validate();
+
+        validate();
     }
 
-    public Bestellung(BestellungId bestellungId, Antragstellerreferenz antragstellerreferenz, Fahrzeugreferenz fahrzeugreferenz, Bestelldatum bestelldatum, Status status) {
-        this(antragstellerreferenz, fahrzeugreferenz, bestelldatum, status);
-        this.bestellungId = bestellungId;
-
-        validateNotNull(bestellungId, "Bestellung ID");
-        evaluateValidations();
+    public Bestellung(
+            Antragstellerreferenz antragstellerreferenz,
+            Fahrzeugreferenz fahrzeugreferenz,
+            Bestelldatum bestelldatum,
+            Status status
+    ) {
+        this(
+                new BestellungId(UUID.randomUUID().toString()),
+                antragstellerreferenz,
+                fahrzeugreferenz,
+                bestelldatum,
+                status
+                );
     }
 
     @Override
     protected void validate() {
-
-        validateNotNull(antragstellerreferenz, "Antragsteller ID");
+        validateNotNull(bestellungId, "Bestellung ID");
+        validateNotNull(antragstellerreferenz, "Antragstellerreferenz");
         validateNotNull(fahrzeugreferenz, "Fahrzeugreferenz");
         validateNotNull(bestelldatum, "Bestelldatum");
         validateNotNull(status, "Status");

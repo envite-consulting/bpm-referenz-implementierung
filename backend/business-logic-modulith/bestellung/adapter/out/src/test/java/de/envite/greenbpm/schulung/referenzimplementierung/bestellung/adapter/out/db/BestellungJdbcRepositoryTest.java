@@ -1,12 +1,10 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.uuidgenerator.UUIDGenerator;
 import org.assertj.core.api.SoftAssertions;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 
 import java.time.LocalDateTime;
@@ -14,8 +12,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.UUID;
+
 @DataJdbcTest
-@Import(UUIDGenerator.class)
 class BestellungJdbcRepositoryTest {
 
   @Autowired private BestellungJdbcRepository classUnderTest;
@@ -23,6 +22,7 @@ class BestellungJdbcRepositoryTest {
   @Test
   void should_save_with_uuid() {
     BestellungEntity entity = new BestellungEntity();
+    entity.setId(UUID.randomUUID().toString());
     entity.setAntragstellerreferenz("ref-1");
     entity.setFahrzeugreferenz("ref-2");
     entity.setStatus("ANGELEGT");
@@ -44,6 +44,7 @@ class BestellungJdbcRepositoryTest {
   @Test
   void should_throw_on_save_without_fahrzeug() {
     BestellungEntity entity = new BestellungEntity();
+    entity.setId(UUID.randomUUID().toString());
     entity.setAntragstellerreferenz("ref-1");
     entity.setStatus("test");
     entity.setBestelldatum(LocalDateTime.MIN);
@@ -57,6 +58,7 @@ class BestellungJdbcRepositoryTest {
   @Test
   void should_throw_on_save_with_invalid_status() {
     BestellungEntity entity = new BestellungEntity();
+    entity.setId(UUID.randomUUID().toString());
     entity.setAntragstellerreferenz("ref-1");
     entity.setFahrzeugreferenz("ref-2");
     entity.setStatus("invalid");
@@ -70,10 +72,9 @@ class BestellungJdbcRepositoryTest {
 
   @Test
   void should_find_by_id_after_save() {
-    BestellungEntity entity =
-        saveAntragsteller("ref-1", "ref-2", LocalDateTime.of(2023, 1, 2, 0, 0), "ANGELEGT");
+    BestellungEntity saved =
+        saveBestellung("ref-1", "ref-2", LocalDateTime.of(2023, 1, 2, 0, 0), "ANGELEGT");
 
-    BestellungEntity saved = classUnderTest.save(entity);
     Optional<BestellungEntity> result = classUnderTest.findById(saved.getId());
 
     SoftAssertions softAssertions = new SoftAssertions();
@@ -82,13 +83,14 @@ class BestellungJdbcRepositoryTest {
     softAssertions.assertAll();
   }
 
-  private BestellungEntity saveAntragsteller(
+  private BestellungEntity saveBestellung(
       String fahrzeugreferenz,
       String antragstellerreferenz,
       LocalDateTime bestelldatum,
       String status) {
 
     BestellungEntity entity = new BestellungEntity();
+    entity.setId(UUID.randomUUID().toString());
     entity.setFahrzeugreferenz(fahrzeugreferenz);
     entity.setAntragstellerreferenz(antragstellerreferenz);
     entity.setBestelldatum(bestelldatum);

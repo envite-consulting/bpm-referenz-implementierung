@@ -1,10 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.in.rest;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.*;
-import java.time.LocalDateTime;
+import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+
+import java.time.LocalDateTime;
 
 class BestellungserfassungRestMapperTest {
 
@@ -23,7 +24,7 @@ class BestellungserfassungRestMapperTest {
     Bestellung result = classUnderTest.toDomain(resource);
 
     SoftAssertions softAssertions = new SoftAssertions();
-    softAssertions.assertThat(result.getBestellungId()).isNull();
+    softAssertions.assertThat(result.getBestellungId()).isNotNull();
     softAssertions
         .assertThat(result.getAntragstellerreferenz().getValue())
         .isEqualTo(resource.antragstellerreferenz());

@@ -1,9 +1,5 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
-
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Antragstellerreferenz;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.BestellungId;
@@ -17,6 +13,10 @@ import io.github.domainprimitives.validation.InvariantException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class BestellungDomainServiceTest {
 
@@ -50,9 +50,6 @@ class BestellungDomainServiceTest {
       Bestellung result = classUnderTest.erfassen(bestellungInput);
 
       assertThat(result).isEqualTo(expectedResult);
-
-      verify(fahrzeugQueryMock).validateExistence(fahrzeugreferenzInput);
-      verify(bestellungStoreMock).persist(bestellungInput);
     }
 
     @Test

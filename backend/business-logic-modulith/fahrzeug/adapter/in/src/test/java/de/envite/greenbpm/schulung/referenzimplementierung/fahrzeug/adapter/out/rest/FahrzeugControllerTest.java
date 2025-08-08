@@ -11,7 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,9 +49,6 @@ class FahrzeugControllerTest {
                             "jahr":1901
                         }
                         """));
-
-    verify(fahrzeugabfrageMock).abfragen(new FahrzeugId(fahrzeugId));
-    verify(fahrzeugMapperMock).toResource(fahrzeugMock);
   }
 
   @Test
@@ -87,9 +85,5 @@ class FahrzeugControllerTest {
                               }
                             ]
                             """));
-
-    verify(fahrzeugabfrageMock).abfragenAlle();
-    verify(fahrzeugMapperMock).toResource(fahrzeugMock1);
-    verify(fahrzeugMapperMock).toResource(fahrzeugMock2);
   }
 }

@@ -1,11 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.rest;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.*;
-
-import java.util.UUID;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+
+import java.util.UUID;
 
 class AntragstellerRestMapperTest {
 
@@ -14,11 +14,11 @@ class AntragstellerRestMapperTest {
     @Test
     void should_map_all_fields_to_resource() {
         final Antragsteller antragsteller = new Antragsteller(
+                new AntragstellerId(UUID.randomUUID().toString()),
                 new Vorname("Test"),
                 new Nachname("Name"),
                 new Abteilung("Abteilung")
         );
-        antragsteller.setAntragstellerId(new AntragstellerId(UUID.randomUUID().toString()));
 
         AntragstellerResource result = classUnderTest.toResource(antragsteller);
 

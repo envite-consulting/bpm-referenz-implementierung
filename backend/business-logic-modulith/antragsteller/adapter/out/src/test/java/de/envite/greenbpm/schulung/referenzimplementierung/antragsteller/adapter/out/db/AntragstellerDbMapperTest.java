@@ -1,12 +1,12 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.*;
-
-import java.util.UUID;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+
+import java.util.UUID;
 
 class AntragstellerDbMapperTest {
 
@@ -20,8 +20,11 @@ class AntragstellerDbMapperTest {
     void should_map_all_fields() {
       final Antragsteller antragsteller =
           new Antragsteller(
-              new Vorname("Test"), new Nachname("Name"), new Abteilung("Test Abteilung"));
-      antragsteller.setAntragstellerId(new AntragstellerId("3755e2e0-4aa2-43c9-bde4-d7cd98b7f427"));
+                  new AntragstellerId("3755e2e0-4aa2-43c9-bde4-d7cd98b7f427"),
+                  new Vorname("Test"),
+                  new Nachname("Name"),
+                  new Abteilung("Test Abteilung")
+          );
 
       AntragstellerEntity result = classUnderTest.toEntity(antragsteller);
 
@@ -29,28 +32,6 @@ class AntragstellerDbMapperTest {
       softAssertions
           .assertThat(result.getId())
           .isEqualTo(antragsteller.getAntragstellerId().getValue());
-      softAssertions
-          .assertThat(result.getVorname())
-          .isEqualTo(antragsteller.getVorname().getValue());
-      softAssertions
-          .assertThat(result.getNachname())
-          .isEqualTo(antragsteller.getNachname().getValue());
-      softAssertions
-          .assertThat(result.getAbteilung())
-          .isEqualTo(antragsteller.getAbteilung().getValue());
-      softAssertions.assertAll();
-    }
-
-    @Test
-    void should_map_all_fields_without_id() {
-      final Antragsteller antragsteller =
-          new Antragsteller(
-              new Vorname("Test"), new Nachname("Name"), new Abteilung("Test Abteilung"));
-
-      AntragstellerEntity result = classUnderTest.toEntity(antragsteller);
-
-      SoftAssertions softAssertions = new SoftAssertions();
-      softAssertions.assertThat(result.getId()).isNull();
       softAssertions
           .assertThat(result.getVorname())
           .isEqualTo(antragsteller.getVorname().getValue());

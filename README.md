@@ -1,5 +1,4 @@
 <!-- omit in toc -->
-
 # BPM Projekt Referenz-Implementierung
 
 Dieses Repo soll als Blaupause für BPM Projekte dienen. Dabei soll es möglich sein unterschiedliche Technologien wie
@@ -8,7 +7,6 @@ Camunda, React, Vue etc. nach und nach zu ergänzen.
 Die Dokumentation des Projekts erfolgt nach [arc42](https://arc42.org/).
 
 <!-- omit in toc -->
-
 ## Architekturdokumentation
 
 **Über arc42**
@@ -22,37 +20,42 @@ Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
 contributors. Siehe <https://arc42.org>.
 
 - [Einführung und Ziele](#einführung-und-ziele)
-    - [Qualitätsziele](#qualitätsziele)
-    - [Stakeholder](#stakeholder)
+  - [Qualitätsziele](#qualitätsziele)
+  - [Stakeholder](#stakeholder)
 - [Randbedingungen](#randbedingungen)
-    - [Technisch](#technisch)
-        - [Verwaltung von Dependencies](#verwaltung-von-dependencies)
-        - [Spezifische technische Randbedingungen](#spezifische-technische-randbedingungen)
-        - [Fremdsoftware frei verfügbar](#fremdsoftware-frei-verfügbar)
+  - [Technisch](#technisch)
+    - [Verwaltung von Dependencies](#verwaltung-von-dependencies)
+    - [Spezifische technische Randbedingungen](#spezifische-technische-randbedingungen)
+    - [Fremdsoftware frei verfügbar](#fremdsoftware-frei-verfügbar)
 - [Kontextabgrenzung](#kontextabgrenzung)
-    - [Fachlicher Kontext](#fachlicher-kontext)
-    - [Technischer Kontext](#technischer-kontext)
+  - [Fachlicher Kontext](#fachlicher-kontext)
+  - [Technischer Kontext](#technischer-kontext)
 - [Lösungsstrategie](#lösungsstrategie)
-    - [Backend](#backend)
-        - [Clean Architecture](#clean-architecture)
-            - [Bausteinsicht](#bausteinsicht)
-            - [Laufzeitsicht](#laufzeitsicht)
-        - [Dependency Inversion Principle](#dependency-inversion-principle)
-        - [Mapping zwischen Schichten](#mapping-zwischen-schichten)
-        - [Domain Driven Design](#domain-driven-design)
-        - [Besondere ID-Behandlung](#besondere-id-behandlung)
-        - [Exception Handling](#exception-handling)
+  - [Backend](#backend)
+    - [Clean Architecture](#clean-architecture)
+      - [Bausteinsicht](#bausteinsicht)
+        - [Beispiel: Zu detaillierte Darstellung](#beispiel-zu-detaillierte-darstellung)
+      - [Laufzeitsicht](#laufzeitsicht)
+    - [Dependency Inversion Principle](#dependency-inversion-principle)
+    - [Mapping zwischen Schichten](#mapping-zwischen-schichten)
+    - [Domain Driven Design](#domain-driven-design)
+    - [Besondere ID-Behandlung:](#besondere-id-behandlung)
+    - [Exception Handling](#exception-handling)
+  - [Frontend](#frontend)
+    - [Atomic Design](#atomic-design)
+    - [TypeScript Pfad-Aliases](#typescript-pfad-aliases)
+    - [Paketierung](#paketierung)
 - [Bausteinsicht](#bausteinsicht-1)
-    - [Blackbox Gesamtsystem](#blackbox-gesamtsystem)
-        - [Ebene 1: Graybox Gesamtsystem](#ebene-1-graybox-gesamtsystem)
-            - [Ebene 2: Whitebox Fachbausteine](#ebene-2-whitebox-fachbausteine)
-- [Laufzeitsicht](#laufzeitsicht)
+  - [Blackbox Gesamtsystem](#blackbox-gesamtsystem)
+    - [Ebene 1: Graybox Gesamtsystem](#ebene-1-graybox-gesamtsystem)
+      - [Ebene 2: Whitebox Fachbausteine](#ebene-2-whitebox-fachbausteine)
+- [Laufzeitsicht](#laufzeitsicht-1)
 - [Verteilungssicht](#verteilungssicht)
 - [Querschnittliche Konzepte](#querschnittliche-konzepte)
 - [Architekturentscheidungen](#architekturentscheidungen)
 - [Qualitätsanforderungen](#qualitätsanforderungen)
-    - [Qualitätsbaum](#qualitätsbaum)
-    - [Qualitätsszenarien](#qualitätsszenarien)
+  - [Qualitätsbaum](#qualitätsbaum)
+  - [Qualitätsszenarien](#qualitätsszenarien)
 - [Risiken und technische Schulden](#risiken-und-technische-schulden)
 - [Glossar](#glossar)
 
@@ -333,6 +336,48 @@ werden dabei in standardisierte HTTP-Antworten überführt:
 
 Jeder Fehlerfall wird in ein strukturiertes Fehlerobjekt umgewandelt, das Name, Nachricht und ggf. Fehlerursache
 enthält.
+
+### Frontend
+
+#### Atomic Design
+Das Frontend folgt dem [Atomic Design-Prinzip](https://atomicdesign.bradfrost.com/chapter-2/), um eine konsistente, wiederverwendbare und skalierbare UI-Architektur sicherzustellen. Komponenten werden in hierarchische Ebenen (Atoms, Molecules, Organisms, Templates, Pages) unterteilt. Dadurch wird die Wiederverwendung gefördert, die Wartbarkeit erhöht und ein einheitliches Design über die gesamte Anwendung gewährleistet.
+
+#### TypeScript Pfad-Aliases
+Zur Verbesserung der Code-Lesbarkeit und Reduzierung fehleranfälliger relativer Importpfade werden in der tsconfig.json [TypeScript-Aliases](https://blog.logrocket.com/using-path-aliases-cleaner-react-typescript-imports/) definiert. Anstatt komplexer relativer Pfade (z. B. `../../../components/Button`) können eindeutige, projektweite Aliase verwendet werden (z. B. `@components/Button`). Dies erhöht die Navigierbarkeit des Codes und erleichtert Refactorings.
+
+#### Paketierung
+
+Die Projektstruktur ist klar in logische Module gegliedert:
+
+`src/pages` enthält alle als Routen definierte Seitendefinitionen und deren spezifische Kind-Komponenten.
+z.B.
+```
+├── pages
+│   └── Bestellung
+│       ├── Bestellung.test.tsx
+│       ├── Bestellung.tsx
+│       ├── Bestellung.types.ts // Schemata und Type-Ableitung
+│       └── queries
+│           ├── api
+│           │   ├── fetchBestellung.test.ts
+│           │   └── fetchBestellung.ts
+│           ├── useBestellungQuery.test.ts
+│           └── useBestellungQuery.ts
+│       └── components
+│           └── Eintrag
+│               ├── Eintrag.test.tsx
+│               └── Eintrag.tsx
+```
+
+`src/infrastructure` kapselt wiederverwendbare Komponenten, Queries etc. und dient damit quasi als interne Library.
+z.B.
+```
+├── infrastructure/components
+│   └── Button
+│       ├── Button.test.tsx
+│       ├── Button.stories.tsx
+│       └── Button.tsx
+```
 
 ## Bausteinsicht
 

@@ -11,7 +11,6 @@ interface BestellungserfassungRestMapper {
 
   @ObjectFactory
   default Bestellung createBestellung(BestellungserfassungResource resource) {
-
     return new Bestellung(
         new Antragstellerreferenz(resource.antragstellerreferenz()),
         new Fahrzeugreferenz(resource.fahrzeugreferenz()),

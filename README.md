@@ -72,6 +72,12 @@ Onboarding neuer Mitarbeiter dienen.
 
 ## Randbedingungen
 
+### Compliance
+
+#### Keine Kundebeispiele oder -daten
+
+Alle hier verwendeten Lösungsansätze und Muster müssen pseudonymisiert und abstrahiert sein.
+
 ### Technisch
 
 #### Verwaltung von Dependencies
@@ -295,16 +301,22 @@ Die funktionale Strukturierung des Codes und die Einbringung von mehr Kontext in
 hilft nicht nur, den Code ausdrucksstark zu halten, sondern auch, ihn nah an den Geschäft zu halten, wie auch das
 BPMN-Modell.
 
-#### Besondere ID-Behandlung:
+#### Behandlung der ID beim Persistieren in der Domäne:
 
-Beim Persistieren von neuen Entitäten ohne initiale ID kann das ID-Handling nach zwei Varianten gelöst werden:
+Beim Persistieren von neuen Entitäten ohne initiale ID kann das ID-Handling nach 3 Varianten gelöst werden:
 
-**Variante 1:** Konstruktorbasierte ID-Initialisierung
+**Variante 1:** Erzeugen der ID in der Domäne zusammen mit dem Objekt
+
+- Die Domäne bietet 2 Konstruktoren an:
+  -  einen ohne ID: Hier wird erzeugt, das heißt eine ID vergeben.
+  - einen mit ID: Hier kann die ID aus beim Laden gesetzt werden.
+
+**Variante 2:** Externe Erzeugung: Konstruktorbasierte ID-Initialisierung
 
 - Zwei Konstruktoren: mit und ohne ID
 - Der Mapper entscheidet zur Laufzeit anhand der ID-Präsenz, welcher Konstruktor verwendet wird (@ObjectFactory)
 
-**Variante 2:** Setter-basierte ID-Zuweisung
+**Variante 3:** Externe Erzeugung: Setter-basierte ID-Zuweisung
 
 - Es existiert ein Konstruktor ohne ID
 - Die ID wird nach der Initialisierung per Setter gesetzt

@@ -1,16 +1,17 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import io.github.domainprimitives.validation.InvariantException;
-import java.time.LocalDateTime;
-import java.util.stream.Stream;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.time.LocalDateTime;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BestellungTest {
@@ -31,7 +32,7 @@ class BestellungTest {
             validStatus);
 
     SoftAssertions softly = new SoftAssertions();
-    softly.assertThat(bestellung.getBestellungId()).isNull();
+    softly.assertThat(bestellung.getBestellungId()).isNotNull();
     softly
         .assertThat(bestellung.getAntragstellerreferenz().getValue())
         .isEqualTo(validAntragstellerId);
@@ -86,16 +87,30 @@ class BestellungTest {
           Status status
   ) {
     assertThatThrownBy(() -> new Bestellung(antragstellerreferenz, fahrzeugreferenz, bestelldatum, status))
-            .isInstanceOf(InvariantException.class);
+            .isInstanceOf(InvariantException.class)
+            .hasMessageContaining(fieldName);
   }
 
-  private Stream<Arguments> invalidFieldCombinations() {
+    @Test
+    void should_throw_if_bestellung_id_is_presented_but_null() {
+        assertThatThrownBy(() -> new Bestellung(
+                null,
+                new Antragstellerreferenz(validAntragstellerId),
+                new Fahrzeugreferenz(validFahrzeugreferenz),
+                new Bestelldatum(validDatum),
+                Status.ANGELEGT
+        ))
+                .isInstanceOf(InvariantException.class)
+                .hasMessageContaining("Bestellung ID");
+    }
+
+    private Stream<Arguments> invalidFieldCombinations() {
 
     return Stream.of(
-            Arguments.of("antragstellerreferenz",null, new Fahrzeugreferenz(validFahrzeugreferenz), new Bestelldatum(validDatum), Status.ANGELEGT),
-            Arguments.of("fahrzeugreferenz",new Antragstellerreferenz(validAntragstellerId), null, new Bestelldatum(validDatum), Status.ANGELEGT),
-            Arguments.of("bestelldatum",new Antragstellerreferenz(validAntragstellerId), new Fahrzeugreferenz(validFahrzeugreferenz), null, Status.ANGELEGT),
-            Arguments.of("status",new Antragstellerreferenz(validAntragstellerId), new Fahrzeugreferenz(validFahrzeugreferenz), new Bestelldatum(validDatum), null)
+            Arguments.of("Antragstellerreferenz", null, new Fahrzeugreferenz(validFahrzeugreferenz), new Bestelldatum(validDatum), Status.ANGELEGT),
+            Arguments.of("Fahrzeugreferenz", new Antragstellerreferenz(validAntragstellerId), null, new Bestelldatum(validDatum), Status.ANGELEGT),
+            Arguments.of("Bestelldatum", new Antragstellerreferenz(validAntragstellerId), new Fahrzeugreferenz(validFahrzeugreferenz), null, Status.ANGELEGT),
+            Arguments.of("Status", new Antragstellerreferenz(validAntragstellerId), new Fahrzeugreferenz(validFahrzeugreferenz), new Bestelldatum(validDatum), null)
     );
   }
 }

@@ -110,9 +110,9 @@ Schwelle der Verwendung wird auf diese Weise niedrig gehalten
 
 ### Fachlicher Kontext
 
-**\<Diagramm und/oder Tabelle>**
+![Kontext Map](/assets/kontextabgrenzung/context-amp/context-map.svg)
 
-**\<optional: Erläuterung der externen fachlichen Schnittstellen>**
+**TODO: Kurze Beschreibung das es sich um die Bestellung dreht**
 
 ### Technischer Kontext
 

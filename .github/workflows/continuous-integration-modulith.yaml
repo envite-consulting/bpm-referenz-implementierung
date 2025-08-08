@@ -1,0 +1,28 @@
+name: Business Logic Modulith - Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/business-logic-modulith/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/business-logic-modulith/**'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: 'maven'
+      - name: Build Business Logic Modulith
+        working-directory: ./backend/business-logic-modulith/
+        run: ./mvnw clean verify

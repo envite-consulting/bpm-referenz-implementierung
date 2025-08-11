@@ -33,6 +33,12 @@ class AntragstellerRepository implements AntragstellerStore {
   public List<Antragsteller> queryAll() {
 
     return antragstellerJdbcRepository.findAll().stream()
-            .map(antragstellerDbMapper::toDomain).toList();
+        .map(antragstellerDbMapper::toDomain)
+        .toList();
+  }
+
+  @Override
+  public boolean existsById(AntragstellerId antragstellerId) {
+    return antragstellerJdbcRepository.existsById(antragstellerId.getValue());
   }
 }

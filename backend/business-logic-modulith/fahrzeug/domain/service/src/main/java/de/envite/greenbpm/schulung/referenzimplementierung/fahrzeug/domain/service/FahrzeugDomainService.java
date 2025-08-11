@@ -24,4 +24,9 @@ class FahrzeugDomainService implements Fahrzeugabfrage {
   public List<Fahrzeug> abfragenAlle() {
     return fahrzeugStore.queryAll();
   }
+
+  @Override
+  public boolean existiertFahrzeug(FahrzeugId fahrzeugId) {
+    return fahrzeugStore.existsById(fahrzeugId);
+  }
 }

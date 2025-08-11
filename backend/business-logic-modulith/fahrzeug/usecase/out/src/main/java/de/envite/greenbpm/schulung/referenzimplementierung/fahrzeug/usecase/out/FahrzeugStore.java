@@ -10,4 +10,6 @@ public interface FahrzeugStore {
   Fahrzeug query(FahrzeugId fahrzeugId) throws FahrzeugNotFoundException;
 
   List<Fahrzeug> queryAll();
+
+  boolean existsById(FahrzeugId fahrzeugId);
 }

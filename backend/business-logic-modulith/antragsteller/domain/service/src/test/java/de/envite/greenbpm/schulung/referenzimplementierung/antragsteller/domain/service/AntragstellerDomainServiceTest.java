@@ -1,18 +1,19 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.service;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.out.AntragstellerStore;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class AntragstellerDomainServiceTest {
 
@@ -64,5 +65,17 @@ class AntragstellerDomainServiceTest {
     List<Antragsteller> result = classUnderTest.abfragenAlle();
 
     assertThat(result).isEmpty();
+  }
+
+  @ParameterizedTest
+  @CsvSource({"true, true", "false, false"})
+  void should_return_expected_result_when_checking_existence(
+      boolean storeResult, boolean expectedResult) {
+    final AntragstellerId antragstellerIdInput = mock(AntragstellerId.class);
+    when(antragstellerStoreMock.existsById(antragstellerIdInput)).thenReturn(storeResult);
+
+    boolean result = classUnderTest.existiertAntragsteller(antragstellerIdInput);
+
+    assertThat(result).isEqualTo(expectedResult);
   }
 }

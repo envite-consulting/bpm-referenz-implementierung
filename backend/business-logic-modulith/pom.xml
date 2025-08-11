@@ -22,6 +22,7 @@
         <module>antragsteller</module>
         <module>fahrzeug</module>
         <module>uuid-generator</module>
+        <module>app</module>
     </modules>
 
     <properties>

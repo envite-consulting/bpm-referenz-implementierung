@@ -16,3 +16,4 @@ node_modules/
 package-lock.json
 src/styles/kern-styles.ts
 CHANGELOG.md
+public/mockServiceWorker.js

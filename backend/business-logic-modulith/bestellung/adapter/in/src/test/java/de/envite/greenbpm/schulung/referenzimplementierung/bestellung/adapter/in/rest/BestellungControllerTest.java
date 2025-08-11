@@ -40,10 +40,7 @@ public class BestellungControllerTest {
 
       final BestellungserfassungResource requestResource =
           new BestellungserfassungResource(
-              "76a9edf1-6570-4d7e-b34b-e0dc3e73527e",
-              "bf76eacc-dbcf-4bf2-ad9f-8f52a48c2709",
-              LocalDateTime.of(2023, 1, 2, 0, 0),
-              "ANGELEGT");
+              "76a9edf1-6570-4d7e-b34b-e0dc3e73527e", "bf76eacc-dbcf-4bf2-ad9f-8f52a48c2709");
 
       final Bestellung mappedDomain = mock(Bestellung.class);
       final Bestellung erfassteBestellung = mock(Bestellung.class);
@@ -53,8 +50,8 @@ public class BestellungControllerTest {
               bestellungId,
               requestResource.antragstellerreferenz(),
               requestResource.fahrzeugreferenz(),
-              requestResource.bestelldatum(),
-              requestResource.status());
+              LocalDateTime.of(2023, 1, 2, 0, 0),
+              "ANGELEGT");
 
       when(bestellungserfassungMapperMock.toDomain(requestResource)).thenReturn(mappedDomain);
       when(bestellungserfassungMock.erfassen(mappedDomain)).thenReturn(erfassteBestellung);

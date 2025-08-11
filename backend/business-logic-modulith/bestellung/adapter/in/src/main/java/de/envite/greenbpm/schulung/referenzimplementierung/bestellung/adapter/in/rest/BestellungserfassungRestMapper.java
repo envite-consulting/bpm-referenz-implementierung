@@ -13,8 +13,6 @@ interface BestellungserfassungRestMapper {
   default Bestellung createBestellung(BestellungserfassungResource resource) {
     return new Bestellung(
         new Antragstellerreferenz(resource.antragstellerreferenz()),
-        new Fahrzeugreferenz(resource.fahrzeugreferenz()),
-        new Bestelldatum(resource.bestelldatum()),
-        Status.valueOf(resource.status()));
+        new Fahrzeugreferenz(resource.fahrzeugreferenz()));
   }
 }

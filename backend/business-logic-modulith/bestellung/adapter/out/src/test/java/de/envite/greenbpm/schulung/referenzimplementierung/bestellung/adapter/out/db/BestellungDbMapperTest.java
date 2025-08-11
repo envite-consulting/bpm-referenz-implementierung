@@ -16,32 +16,6 @@ class BestellungDbMapperTest {
   class toEntity {
 
     @Test
-    void should_map_all_fields_to_entity_without_id() {
-      Bestellung bestellung =
-          new Bestellung(
-              new Antragstellerreferenz("c30ce400-1244-4056-9954-ee10ce676e70"),
-              new Fahrzeugreferenz("37a9605e-56f1-40dc-a733-7ad5cb8b2b66"),
-              new Bestelldatum(LocalDateTime.of(2023, 5, 20, 0, 0)),
-              Status.ANGELEGT);
-
-      BestellungEntity result = classUnderTest.toEntity(bestellung);
-
-      SoftAssertions softAssertions = new SoftAssertions();
-      softAssertions.assertThat(result.getId()).isNotNull();
-      softAssertions
-          .assertThat(result.getAntragstellerreferenz())
-          .isEqualTo(bestellung.getAntragstellerreferenz().getValue());
-      softAssertions
-          .assertThat(result.getFahrzeugreferenz())
-          .isEqualTo(bestellung.getFahrzeugreferenz().getValue());
-      softAssertions
-          .assertThat(result.getBestelldatum())
-          .isEqualTo(bestellung.getBestelldatum().getValue());
-      softAssertions.assertThat(result.getStatus()).isEqualTo(bestellung.getStatus().name());
-      softAssertions.assertAll();
-    }
-
-    @Test
     void should_map_all_fields_to_entity_with_id() {
       Bestellung bestellung =
           new Bestellung(

@@ -20,19 +20,11 @@ interface BestellungDbMapper {
   @ObjectFactory
   default Bestellung createBestellung(BestellungEntity entity) {
 
-    if (entity.getId() == null) {
-      return new Bestellung(
-          new Antragstellerreferenz(entity.getAntragstellerreferenz()),
-          new Fahrzeugreferenz(entity.getFahrzeugreferenz()),
-          new Bestelldatum(entity.getBestelldatum()),
-          Status.valueOf(entity.getStatus()));
-    } else {
-      return new Bestellung(
-          new BestellungId(entity.getId()),
-          new Antragstellerreferenz(entity.getAntragstellerreferenz()),
-          new Fahrzeugreferenz(entity.getFahrzeugreferenz()),
-          new Bestelldatum(entity.getBestelldatum()),
-          Status.valueOf(entity.getStatus()));
-    }
+    return new Bestellung(
+        new BestellungId(entity.getId()),
+        new Antragstellerreferenz(entity.getAntragstellerreferenz()),
+        new Fahrzeugreferenz(entity.getFahrzeugreferenz()),
+        new Bestelldatum(entity.getBestelldatum()),
+        Status.valueOf(entity.getStatus()));
   }
 }

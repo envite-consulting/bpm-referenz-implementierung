@@ -1,10 +1,10 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model;
 
 import io.github.domainprimitives.object.Aggregate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-
-import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode(callSuper = false)
@@ -34,16 +34,15 @@ public class Bestellung extends Aggregate {
 
     public Bestellung(
             Antragstellerreferenz antragstellerreferenz,
-            Fahrzeugreferenz fahrzeugreferenz,
-            Bestelldatum bestelldatum,
-            Status status
+            Fahrzeugreferenz fahrzeugreferenz
     ) {
         this(
                 new BestellungId(UUID.randomUUID().toString()),
                 antragstellerreferenz,
                 fahrzeugreferenz,
-                bestelldatum,
-                status
+                // Minus 1 Sekunde, um garantiert einen Zeitstempel in der Vergangenheit zu erzeugen
+                new Bestelldatum(LocalDateTime.now().minusSeconds(1)),
+                Status.ANGELEGT
                 );
     }
 

@@ -1,0 +1,18 @@
+# Exclude MDX files and Markdown files from Prettier formatting
+**/*.mdx
+**/*.html
+*.md
+
+# Build output directories
+dist/
+storybook-static/
+coverage/
+
+# Node modules
+node_modules/
+
+# Generated files
+*.generated.*
+package-lock.json
+src/styles/kern-styles.ts
+CHANGELOG.md

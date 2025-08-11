@@ -9,4 +9,6 @@ public interface Fahrzeugabfrage {
   Fahrzeug abfragen(FahrzeugId fahrzeugId) throws FahrzeugNotFoundException;
 
   List<Fahrzeug> abfragenAlle();
+
+  boolean existiertFahrzeug(FahrzeugId fahrzeugId);
 }

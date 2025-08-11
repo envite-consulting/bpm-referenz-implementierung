@@ -32,4 +32,9 @@ class FahrzeugRepository implements FahrzeugStore {
 
     return fahrzeugJdbcRepository.findAll().stream().map(fahrzeugDbMapper::toDomain).toList();
   }
+
+  @Override
+  public boolean existsById(FahrzeugId fahrzeugId) {
+    return fahrzeugJdbcRepository.existsById(fahrzeugId.getValue());
+  }
 }

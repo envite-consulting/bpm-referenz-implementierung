@@ -25,4 +25,9 @@ class AntragstellerDomainService implements Antragstellerabfrage {
   public List<Antragsteller> abfragenAlle() {
     return antragstellerStore.queryAll();
   }
+
+    @Override
+    public boolean existiertAntragsteller(AntragstellerId antragstellerId) {
+        return antragstellerStore.existsById(antragstellerId);
+    }
 }

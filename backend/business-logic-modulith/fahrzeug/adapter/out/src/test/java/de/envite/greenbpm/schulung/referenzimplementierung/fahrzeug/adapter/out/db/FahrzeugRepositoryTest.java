@@ -1,18 +1,19 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.Fahrzeug;
-import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.FahrzeugId;
-import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.exception.FahrzeugNotFoundException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
+
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.Fahrzeug;
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.FahrzeugId;
+import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.exception.FahrzeugNotFoundException;
+import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class FahrzeugRepositoryTest {
 
@@ -89,6 +90,21 @@ class FahrzeugRepositoryTest {
       assertThat(result).containsOnly();
 
       verifyNoInteractions(fahrzeugDbMapperMock);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"true, true", "false, false"})
+    void should_return_expected_result_when_checking_existence(
+        boolean jdbcRepositoryResult, boolean expectedResult) {
+
+      FahrzeugId fahrzeugId = new FahrzeugId("95ac26fd-4680-44a9-be15-32346af5c528");
+
+      when(fahrzeugJdbcRepositoryMock.existsById(fahrzeugId.getValue()))
+          .thenReturn(jdbcRepositoryResult);
+
+      boolean result = classUnderTest.existsById(fahrzeugId);
+
+      assertThat(result).isEqualTo(expectedResult);
     }
   }
 }

@@ -1,18 +1,19 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
-import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
+
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.Antragsteller;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.AntragstellerId;
+import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.usecase.exception.AntragstellerNotFoundException;
+import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class AntragstellerRepositoryTest {
 
@@ -94,6 +95,21 @@ class AntragstellerRepositoryTest {
       assertThat(result).containsOnly();
 
       verifyNoInteractions(antragstellerDbMapperMock);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"true, true", "false, false"})
+    void should_return_expected_result_when_checking_existence(
+        boolean jdbcRepositoryResult, boolean expectedResult) {
+
+      AntragstellerId antragstellerId = new AntragstellerId("884e34b8-5628-48cd-a2a0-d5bc6ca29c55");
+
+      when(antragstellerJdbcRepositoryMock.existsById(antragstellerId.getValue()))
+          .thenReturn(jdbcRepositoryResult);
+
+      boolean result = classUnderTest.existsById(antragstellerId);
+
+      assertThat(result).isEqualTo(expectedResult);
     }
   }
 }

@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "test": "jest",
     "lint": "eslint .",
+    "prettier:check": "npx prettier . --check",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

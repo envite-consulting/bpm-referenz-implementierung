@@ -107,17 +107,22 @@ Schwelle der Verwendung wird auf diese Weise niedrig gehalten
 
 ### Fachlicher Kontext
 
-![Kontext Map](/assets/kontextabgrenzung/context-amp/context-map.svg)
+![Kontext Map](/assets/kontextabgrenzung/fachlicher-kontext-map/fachlicher-kontext-map.svg)
 
-**TODO: Kurze Beschreibung das es sich um die Bestellung dreht**
+Der dargestellte fachliche Kontext zeigt mehrere Bereiche des Unternehmens. In diesem Projekt wird der
+Bestellung-Kontext betrachtet, der die Abwicklung von Firmenwagenbestellungen inklusive Bestelldetails, Antragsteller
+und zugehörigem Fahrzeug umfasst.
 
 ### Technischer Kontext
 
-**\<Diagramm oder Tabelle>**
+![Technischer Kontext Map](assets/kontextabgrenzung/technischer-kontext-map/technischer-kontext-map.svg)
 
-**\<optional: Erläuterung der externen technischen Schnittstellen>**
-
-**\<Mapping fachliche auf technische Schnittstellen>**
+| Fachlicher Kontext        | Technische Schnittstelle     | Technische Details                                                             |
+|---------------------------|------------------------------|--------------------------------------------------------------------------------|
+| Mitarbeiter-Kontext       | Mitarbeiter-Kontext          | In dieser Beispielimplementierung nicht angebunden, Testdaten in DB            |
+| Flottenmanagement-Kontext | Flottenmanagement-Kontext    | In dieser Beispielimplementierung nicht angebunden, Testdaten in DB            |
+| Bestellung-Kontext        | bpm-referenz-implementierung | Kern des aktuellen Systems (business-logic-modulith + Camunda 7 Remote Engine) |
+| Emmisions-Kontext         | CO₂-API                      | REST-API Aufruf an api-carbonsutra.com                                         |
 
 ## Lösungsstrategie
 
@@ -181,7 +186,7 @@ der stereotypen Bausteine eines Systems, das Clean Architecture verwendet.
 
 > [!NOTE]  
 > Da die Laufzeitansicht eng an konkrete Implementierungsdetails gekoppelt ist, ist ihr Pflegeaufwand entsprechend hoch.
-> Sie sollte daher gezielt für fachlich relevante oder komplexe Abläufe eingesetzt werden. 
+> Sie sollte daher gezielt für fachlich relevante oder komplexe Abläufe eingesetzt werden.
 > Einfache CRUD-Operationen hingegen sollten nicht in Laufzeitdiagrammen dargestellt werden.
 
 #### Dependency Inversion Principle
@@ -308,8 +313,8 @@ Beim Persistieren von neuen Entitäten ohne initiale ID kann das ID-Handling nac
 **Variante 1:** Erzeugen der ID in der Domäne zusammen mit dem Objekt
 
 - Die Domäne bietet 2 Konstruktoren an:
-  -  einen ohne ID: Hier wird erzeugt, das heißt eine ID vergeben.
-  - einen mit ID: Hier kann die ID aus beim Laden gesetzt werden.
+    - einen ohne ID: Hier wird erzeugt, das heißt eine ID vergeben.
+    - einen mit ID: Hier kann die ID aus beim Laden gesetzt werden.
 
 **Variante 2:** Externe Erzeugung: Konstruktorbasierte ID-Initialisierung
 

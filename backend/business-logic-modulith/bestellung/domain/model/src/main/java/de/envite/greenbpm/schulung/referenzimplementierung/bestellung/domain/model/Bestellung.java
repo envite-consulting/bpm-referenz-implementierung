@@ -41,6 +41,7 @@ public class Bestellung extends Aggregate {
                 antragstellerreferenz,
                 fahrzeugreferenz,
                 // Minus 1 Sekunde, um garantiert einen Zeitstempel in der Vergangenheit zu erzeugen
+                // TODO: Validierung in Bestelldatum anpassen, um diesen Workaround entfernen zu können
                 new Bestelldatum(LocalDateTime.now().minusSeconds(1)),
                 Status.ANGELEGT
                 );

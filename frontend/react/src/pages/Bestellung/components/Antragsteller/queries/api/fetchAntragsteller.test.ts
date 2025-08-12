@@ -21,7 +21,7 @@ describe('getAntragsteller', () => {
     const result = await getAntragsteller();
 
     expect(result).toEqual(mockData);
-    expect(mockedAxios.get).toHaveBeenCalledWith('/antragsteller');
+    expect(mockedAxios.get).toHaveBeenCalledWith('/api/antragsteller');
   });
 
   it('should throw an error when the request fails', async () => {
@@ -48,6 +48,6 @@ describe('getAntragsteller', () => {
 
     await expect(getAntragsteller()).rejects.toThrow('Invalid input');
 
-    expect(mockedAxios.get).toHaveBeenCalledWith('/antragsteller');
+    expect(mockedAxios.get).toHaveBeenCalledWith('/api/antragsteller');
   });
 });

@@ -29,7 +29,7 @@ describe('createBestellung', () => {
 
     expect(result).toEqual(validResponseData);
     expect(mockedAxios.post).toHaveBeenCalledWith(
-      '/bestellung',
+      '/api/bestellung',
       validBestellung,
     );
   });
@@ -61,7 +61,7 @@ describe('createBestellung', () => {
     await expect(createBestellung(validBestellung)).rejects.toThrow();
 
     expect(mockedAxios.post).toHaveBeenCalledWith(
-      '/bestellung',
+      '/api/bestellung',
       validBestellung,
     );
   });

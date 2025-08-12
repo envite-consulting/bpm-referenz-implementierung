@@ -6,3 +6,6 @@ spring:
     password: password
   liquibase:
     change-log: classpath:db/app.changelog.xml
+server:
+  servlet:
+    context-path: /api

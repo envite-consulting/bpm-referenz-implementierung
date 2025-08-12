@@ -6,7 +6,7 @@ import {
 
 export async function createBestellung(bestellung: Bestellungserfassung) {
   try {
-    const response = await axios.post('/bestellung', bestellung);
+    const response = await axios.post('/api/bestellung', bestellung);
 
     return bestellungsabfrageSchema.parse(response.data);
   } catch (error) {

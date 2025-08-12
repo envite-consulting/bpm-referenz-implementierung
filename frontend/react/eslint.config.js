@@ -7,10 +7,15 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import { globalIgnores } from 'eslint/config';
+import { includeIgnoreFile } from '@eslint/compat';
+import { resolve } from 'node:path';
+
+const gitignorePath = resolve(process.cwd(), '.gitignore');
 
 export default tseslint.config(
   [
     globalIgnores(['dist']),
+    includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
     {
       files: ['**/*.{ts,tsx}'],
       extends: [

@@ -11,11 +11,7 @@ export default defineConfig(({ command }) => {
     ...(isDev && {
       server: {
         proxy: {
-          '/antragsteller': {
-            target: 'http://localhost:8080',
-            changeOrigin: true,
-          },
-          '/bestellung': {
+          '/api': {
             target: 'http://localhost:8080',
             changeOrigin: true,
           },

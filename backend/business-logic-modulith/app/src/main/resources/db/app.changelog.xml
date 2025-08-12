@@ -7,5 +7,6 @@
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <include file="/db/antragsteller.changelog.xml"/>
+    <include file="/db/fahrzeug.changelog.xml"/>
     <include file="/db/bestellung.changelog.xml"/>
 </databaseChangeLog>

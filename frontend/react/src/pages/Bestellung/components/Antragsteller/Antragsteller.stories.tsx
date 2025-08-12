@@ -31,7 +31,7 @@ export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/antragsteller', () => {
+        http.get('/api/antragsteller', () => {
           return new Promise((resolve) => {
             setTimeout(() => {
               resolve(HttpResponse.json(testData));
@@ -47,7 +47,7 @@ export const Error: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/antragsteller', () => {
+        http.get('/api/antragsteller', () => {
           return HttpResponse.json(
             { message: 'Fehler beim Laden der Antragsteller' },
             { status: 500 },
@@ -62,7 +62,7 @@ export const EmptyOptions: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('/antragsteller', () => {
+        http.get('/api/antragsteller', () => {
           return HttpResponse.json([]);
         }),
       ],

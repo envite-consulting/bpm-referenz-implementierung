@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { useAntragstellerQuery } from '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts';
 import { DropdownMenu } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
 import { Antragsteller } from './Antragsteller.tsx';
@@ -32,9 +32,9 @@ describe('Antragsteller', () => {
         isError: false,
       });
 
-      render(<Antragsteller onSelectId={jest.fn()} />);
+      const { getByText } = render(<Antragsteller onSelectId={jest.fn()} />);
 
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      expect(getByText('Loading...')).toBeInTheDocument();
       expect(mockDropdownMenu).not.toHaveBeenCalled();
     });
 
@@ -46,9 +46,9 @@ describe('Antragsteller', () => {
         isError: true,
       });
 
-      render(<Antragsteller onSelectId={jest.fn()} />);
+      const { getByText } = render(<Antragsteller onSelectId={jest.fn()} />);
 
-      expect(screen.getByText('Error: Failed to fetch')).toBeInTheDocument();
+      expect(getByText('Error: Failed to fetch')).toBeInTheDocument();
       expect(mockDropdownMenu).not.toHaveBeenCalled();
     });
 
@@ -60,7 +60,7 @@ describe('Antragsteller', () => {
         isError: false,
       });
 
-      render(<Antragsteller onSelectId={jest.fn()} />);
+      const { getByTestId } = render(<Antragsteller onSelectId={jest.fn()} />);
 
       expect(mockDropdownMenu).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -72,7 +72,7 @@ describe('Antragsteller', () => {
         undefined,
       );
 
-      expect(screen.getByTestId('dropdown-menu-mock')).toBeInTheDocument();
+      expect(getByTestId('dropdown-menu-mock')).toBeInTheDocument();
     });
 
     describe('Event handling', () => {

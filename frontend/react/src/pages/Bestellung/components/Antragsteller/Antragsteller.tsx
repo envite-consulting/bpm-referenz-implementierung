@@ -5,9 +5,7 @@ type AntragstellerauflistungProps = {
   onSelectId: (id: string) => void;
 };
 
-export default function Antragsteller({
-  onSelectId,
-}: AntragstellerauflistungProps) {
+export function Antragsteller({ onSelectId }: AntragstellerauflistungProps) {
   const { antragstellerOptions, isLoading, error, isError } =
     useAntragstellerQuery();
 

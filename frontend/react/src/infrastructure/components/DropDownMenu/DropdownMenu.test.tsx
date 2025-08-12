@@ -10,25 +10,29 @@ describe('DropdownMenu', () => {
 
   describe('Rendering', () => {
     it('should render with required and default props', () => {
-      render(<DropdownMenu options={defaultOptions} onChange={jest.fn()} />);
+      const { container } = render(
+        <DropdownMenu options={defaultOptions} onChange={jest.fn()} />,
+      );
 
-      const selectElement = document.querySelector('kol-select');
+      const kolSelect = container.querySelector(
+        'kol-select',
+      ) as HTMLKolSelectElement;
 
-      expect(selectElement).toBeInTheDocument();
+      expect(kolSelect).toBeInTheDocument();
 
-      expect(selectElement).toHaveAttribute('_label', '');
+      expect(kolSelect).toHaveAttribute('_label', '');
 
-      const options = selectElement?.getAttribute('_options');
+      const options = kolSelect?.getAttribute('_options');
       expect(options).toContain('Bitte auswählen...');
       expect(options).toContain('Option 1');
       expect(options).toContain('Option 2');
       expect(options).toContain('Option 3');
 
-      expect(selectElement).not.toHaveAttribute('_required');
+      expect(kolSelect).not.toHaveAttribute('_required');
     });
 
     it('should render with optional props', () => {
-      render(
+      const { container } = render(
         <DropdownMenu
           options={defaultOptions}
           onChange={jest.fn()}
@@ -38,24 +42,29 @@ describe('DropdownMenu', () => {
         />,
       );
 
-      const selectElement = document.querySelector('kol-select');
+      const kolSelect = container.querySelector(
+        'kol-select',
+      ) as HTMLKolSelectElement;
 
-      expect(selectElement).toBeInTheDocument();
+      expect(kolSelect).toBeInTheDocument();
 
-      expect(selectElement).toHaveAttribute('_label', 'Label Test');
-      expect(selectElement).toHaveAttribute('_required');
-      expect(selectElement?.getAttribute('_options')).toContain(
-        'Placeholder Test',
-      );
+      expect(kolSelect).toHaveAttribute('_label', 'Label Test');
+      expect(kolSelect).toHaveAttribute('_required');
+      expect(kolSelect?.getAttribute('_options')).toContain('Placeholder Test');
     });
   });
 
   describe('Options handling', () => {
     it('should include placeholder as first option', () => {
-      render(<DropdownMenu options={defaultOptions} onChange={jest.fn()} />);
+      const { container } = render(
+        <DropdownMenu options={defaultOptions} onChange={jest.fn()} />,
+      );
 
-      const selectElement = document.querySelector('kol-select');
-      const optionsAttribute = selectElement?.getAttribute('_options');
+      const kolSelect = container.querySelector(
+        'kol-select',
+      ) as HTMLKolSelectElement;
+
+      const optionsAttribute = kolSelect?.getAttribute('_options');
       const options = JSON.parse(optionsAttribute || '[]');
 
       expect(options).toHaveLength(defaultOptions.length + 1);
@@ -66,10 +75,15 @@ describe('DropdownMenu', () => {
     });
 
     it('should include all provided options after placeholder', () => {
-      render(<DropdownMenu options={defaultOptions} onChange={jest.fn()} />);
+      const { container } = render(
+        <DropdownMenu options={defaultOptions} onChange={jest.fn()} />,
+      );
 
-      const selectElement = document.querySelector('kol-select');
-      const optionsAttribute = selectElement?.getAttribute('_options');
+      const kolSelect = container.querySelector(
+        'kol-select',
+      ) as HTMLKolSelectElement;
+
+      const optionsAttribute = kolSelect.getAttribute('_options');
       const options = JSON.parse(optionsAttribute || '[]');
 
       defaultOptions.forEach((option, index) => {
@@ -78,10 +92,15 @@ describe('DropdownMenu', () => {
     });
 
     it('should handle empty options array', () => {
-      render(<DropdownMenu options={[]} onChange={jest.fn()} />);
+      const { container } = render(
+        <DropdownMenu options={[]} onChange={jest.fn()} />,
+      );
 
-      const selectElement = document.querySelector('kol-select');
-      const optionsAttr = selectElement?.getAttribute('_options');
+      const kolSelect = container.querySelector(
+        'kol-select',
+      ) as HTMLKolSelectElement;
+
+      const optionsAttr = kolSelect?.getAttribute('_options');
       const options = JSON.parse(optionsAttr || '[]');
 
       expect(options).toHaveLength(1);
@@ -97,7 +116,7 @@ describe('DropdownMenu', () => {
       it('should call onChange when a value is selected', () => {
         const onChangeMock = jest.fn();
 
-        render(
+        const { container } = render(
           <DropdownMenu
             options={[
               { label: 'Option A', value: 'a' },
@@ -107,7 +126,7 @@ describe('DropdownMenu', () => {
           />,
         );
 
-        const kolSelect = document.querySelector(
+        const kolSelect = container.querySelector(
           'kol-select',
         ) as HTMLKolSelectElement;
 
@@ -119,14 +138,14 @@ describe('DropdownMenu', () => {
       it('should not call onChange when value is not a string', () => {
         const onChangeMock = jest.fn();
 
-        render(
+        const { container } = render(
           <DropdownMenu
             options={[{ label: 'Option 1', value: 123 }]}
             onChange={onChangeMock}
           />,
         );
 
-        const kolSelect = document.querySelector(
+        const kolSelect = container.querySelector(
           'kol-select',
         ) as HTMLKolSelectElement;
 
@@ -138,7 +157,7 @@ describe('DropdownMenu', () => {
       it('should handle empty string selection', () => {
         const onChangeMock = jest.fn();
 
-        render(
+        const { container } = render(
           <DropdownMenu
             options={[
               { label: 'Option A', value: 'a' },
@@ -148,7 +167,7 @@ describe('DropdownMenu', () => {
           />,
         );
 
-        const kolSelect = document.querySelector(
+        const kolSelect = container.querySelector(
           'kol-select',
         ) as HTMLKolSelectElement;
 

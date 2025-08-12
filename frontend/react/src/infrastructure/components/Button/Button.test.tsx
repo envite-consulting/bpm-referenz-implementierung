@@ -13,15 +13,18 @@ describe('Button', () => {
       ['submit', `${baseStyles} ${submitStyles}`],
       ['reset', `${baseStyles} `],
     ])('should render with type=%s', (typeValue, expectedClass) => {
-      render(
+      const { container } = render(
         <Button label='Click me' type={typeValue as ButtonTypePropType} />,
       );
-      const buttonElement = document.querySelector('kol-button');
 
-      expect(buttonElement).toBeInTheDocument();
-      expect(buttonElement).toHaveAttribute('_label', 'Click me');
-      expect(buttonElement).toHaveAttribute('_type', typeValue);
-      expect(buttonElement).toHaveAttribute('class', expectedClass);
+      const kolButton = container.querySelector(
+        'kol-button',
+      ) as HTMLKolButtonElement;
+
+      expect(kolButton).toBeInTheDocument();
+      expect(kolButton).toHaveAttribute('_label', 'Click me');
+      expect(kolButton).toHaveAttribute('_type', typeValue);
+      expect(kolButton).toHaveAttribute('class', expectedClass);
     });
   });
 });

@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createBestellung } from '@/pages/Bestellung/queries/api/createBestellung.ts';
 import { StatusEnum } from './Bestellung.types.ts';
@@ -30,27 +30,25 @@ describe('Bestellung', () => {
   });
 
   it('should render form with heading, Antragsteller and submit button', () => {
-    render(<Bestellung />);
+    const { getByTestId, getByRole } = render(<Bestellung />);
 
     expect(
-      screen.getByRole('heading', { name: 'Mitarbeiter Firmenwagen Formular' }),
+      getByRole('heading', { name: 'Mitarbeiter Firmenwagen Formular' }),
     ).toBeInTheDocument();
-    expect(screen.getByTestId('antragsteller-mock')).toBeInTheDocument();
-    expect(screen.getByTestId('primary-button-mock')).toBeInTheDocument();
+    expect(getByTestId('antragsteller-mock')).toBeInTheDocument();
+    expect(getByTestId('primary-button-mock')).toBeInTheDocument();
   });
 
   it('should show validation error if Antragsteller is not selected and form submitted', async () => {
-    render(<Bestellung />);
+    const { getByTestId, getByText } = render(<Bestellung />);
 
-    const submitButton = screen.getByTestId('primary-button-mock');
+    const submitButton = getByTestId('primary-button-mock');
     await act(async () => {
       userEvent.click(submitButton);
     });
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Mitarbeiter ist erforderlich'),
-      ).toBeInTheDocument();
+      expect(getByText('Mitarbeiter ist erforderlich')).toBeInTheDocument();
     });
 
     expect(mockCreateBestellung).not.toHaveBeenCalled();
@@ -61,11 +59,11 @@ describe('Bestellung', () => {
 
     window.alert = jest.fn();
 
-    render(<Bestellung />);
+    const { getByTestId } = render(<Bestellung />);
 
     await act(async () => {
-      userEvent.click(screen.getByTestId('antragsteller-mock'));
-      userEvent.click(screen.getByTestId('primary-button-mock'));
+      userEvent.click(getByTestId('antragsteller-mock'));
+      userEvent.click(getByTestId('primary-button-mock'));
     });
 
     await waitFor(() => {
@@ -81,11 +79,11 @@ describe('Bestellung', () => {
 
     window.alert = jest.fn();
 
-    render(<Bestellung />);
+    const { getByTestId } = render(<Bestellung />);
 
     await act(async () => {
-      userEvent.click(screen.getByTestId('antragsteller-mock'));
-      userEvent.click(screen.getByTestId('primary-button-mock'));
+      userEvent.click(getByTestId('antragsteller-mock'));
+      userEvent.click(getByTestId('primary-button-mock'));
     });
 
     await waitFor(() => {
@@ -101,11 +99,11 @@ describe('Bestellung', () => {
     window.alert = jest.fn();
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    render(<Bestellung />);
+    const { getByTestId } = render(<Bestellung />);
 
     await act(async () => {
-      userEvent.click(screen.getByTestId('antragsteller-mock'));
-      userEvent.click(screen.getByTestId('primary-button-mock'));
+      userEvent.click(getByTestId('antragsteller-mock'));
+      userEvent.click(getByTestId('primary-button-mock'));
     });
 
     await waitFor(() => {

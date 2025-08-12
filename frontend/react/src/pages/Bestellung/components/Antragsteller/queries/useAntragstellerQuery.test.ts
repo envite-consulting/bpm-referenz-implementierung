@@ -1,16 +1,18 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { getAntragsteller } from '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts';
+import { getAntragstellerOptions } from '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import { useAntragstellerQuery } from '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts';
+import { useAntragstellerQuery } from './useAntragstellerQuery.ts';
+import type { DropdownOption } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
 
 jest.mock(
   '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts',
 );
 
-const mockGetAntragsteller = getAntragsteller as jest.MockedFunction<
-  typeof getAntragsteller
->;
+const mockGetAntragstellerOptions =
+  getAntragstellerOptions as jest.MockedFunction<
+    typeof getAntragstellerOptions
+  >;
 
 let queryClient: QueryClient;
 
@@ -37,7 +39,7 @@ beforeEach(() => {
 
 describe('useAntragstellerQuery', () => {
   it('should return loading state initially', () => {
-    mockGetAntragsteller.mockReturnValue(new Promise(() => {}));
+    mockGetAntragstellerOptions.mockReturnValue(new Promise(() => {}));
 
     const { result } = renderHook(() => useAntragstellerQuery(), {
       wrapper: createWrapper(),
@@ -49,7 +51,7 @@ describe('useAntragstellerQuery', () => {
 
   it('should return error state if query fails', async () => {
     const error = new Error('Failed to fetch');
-    mockGetAntragsteller.mockRejectedValue(error);
+    mockGetAntragstellerOptions.mockRejectedValue(error);
 
     const { result } = renderHook(() => useAntragstellerQuery(), {
       wrapper: createWrapper(),
@@ -63,18 +65,13 @@ describe('useAntragstellerQuery', () => {
     expect(result.current.antragstellerOptions).toEqual([]);
   });
 
-  it('should return mapped options on success', async () => {
-    const mockData = [
-      {
-        id: '1',
-        vorname: 'Max',
-        nachname: 'Mustermann',
-        abteilung: 'Vertrieb',
-      },
-      { id: '2', vorname: 'Anna', nachname: 'Müller', abteilung: 'Marketing' },
+  it('should return dropdown options on success', async () => {
+    const mockOptions: DropdownOption<string>[] = [
+      { label: 'Max Mustermann (Vertrieb)', value: '1' },
+      { label: 'Anna Müller (Marketing)', value: '2' },
     ];
 
-    mockGetAntragsteller.mockResolvedValue(mockData);
+    mockGetAntragstellerOptions.mockResolvedValue(mockOptions);
 
     const { result } = renderHook(() => useAntragstellerQuery(), {
       wrapper: createWrapper(),
@@ -84,15 +81,12 @@ describe('useAntragstellerQuery', () => {
       expect(result.current.isSuccess).toBe(true);
     });
 
-    expect(result.current.data).toEqual(mockData);
-    expect(result.current.antragstellerOptions).toEqual([
-      { label: 'Max Mustermann (Vertrieb)', value: '1' },
-      { label: 'Anna Müller (Marketing)', value: '2' },
-    ]);
+    expect(result.current.data).toEqual(mockOptions);
+    expect(result.current.antragstellerOptions).toEqual(mockOptions);
   });
 
   it('should return empty array when no data', async () => {
-    mockGetAntragsteller.mockResolvedValue([]);
+    mockGetAntragstellerOptions.mockResolvedValue([]);
 
     const { result } = renderHook(() => useAntragstellerQuery(), {
       wrapper: createWrapper(),

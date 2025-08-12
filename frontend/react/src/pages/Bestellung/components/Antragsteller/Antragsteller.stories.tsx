@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Antragsteller from './Antragsteller';
+import { Antragsteller } from './Antragsteller';
 import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof Antragsteller> = {

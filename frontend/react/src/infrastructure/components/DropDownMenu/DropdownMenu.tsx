@@ -1,5 +1,7 @@
 import { KolSelect } from '@public-ui/react';
 
+export type DropdownOption<T> = { label: string; value: T };
+
 type DropdownProps<T> = {
   options: DropdownOption<T>[];
   onChange: (value: string) => void;
@@ -7,8 +9,6 @@ type DropdownProps<T> = {
   placeholderText?: string;
   label?: string;
 };
-
-export type DropdownOption<T> = { label: string; value: T };
 
 export function DropdownMenu<T>({
   options,

@@ -3,11 +3,11 @@ import {
   type Bestellungserfassung,
   bestellungserfassungSchema,
 } from '@/pages/Bestellung/Bestellung.types.ts';
-import { SubmitButton } from '@/infrastructure/components/SubmitButton/SubmitButton.tsx';
-import Antragsteller from '@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx';
+import { Button } from '@/infrastructure/components/Button/Button.tsx';
+import { Antragsteller } from '@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx';
 import { Controller, useForm } from 'react-hook-form';
 
-export default function Bestellung() {
+export function Bestellung() {
   const {
     control,
     handleSubmit,
@@ -58,7 +58,7 @@ export default function Bestellung() {
         </span>
       )}
 
-      <SubmitButton label={'Absenden'} />
+      <Button label={'Absenden'} type={'submit'} />
     </form>
   );
 }

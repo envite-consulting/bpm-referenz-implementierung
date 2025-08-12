@@ -1,4 +1,5 @@
-import 'uno.css';
+import 'virtual:uno.css';
+import '@public-ui/components/dist/kolibri/kolibri.esm.js';
 import type { Preview } from '@storybook/react-vite';
 import { register } from '@public-ui/components';
 import { DEFAULT } from '@public-ui/themes';

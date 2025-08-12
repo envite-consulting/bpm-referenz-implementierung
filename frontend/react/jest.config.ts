@@ -12,7 +12,11 @@ const config: Config = {
   coverageProvider: 'v8',
 
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@ui/(.*)$': '<rootDir>/src/infrastructure/components/$1',
+    '^@bestellung/(.*)$': '<rootDir>/src/pages/Bestellung/$1',
+    '^@antragsteller/(.*)$':
+      '<rootDir>/src/pages/Bestellung/components/Antragsteller/$1',
+    '^@root/(.*)$': '<rootDir>/src/$1',
   },
 
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

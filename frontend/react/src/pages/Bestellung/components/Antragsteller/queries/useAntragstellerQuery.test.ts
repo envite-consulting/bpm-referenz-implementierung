@@ -1,12 +1,12 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { getAntragstellerOptions } from '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts';
+import { getAntragstellerOptions } from '@antragsteller/queries/api/fetchAntragsteller.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { useAntragstellerQuery } from './useAntragstellerQuery.ts';
-import type { DropdownOption } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
+import type { DropdownOption } from '@ui/DropDownMenu/DropdownMenu.tsx';
 
 jest.mock(
-  '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts',
+  '@bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts',
 );
 
 const mockGetAntragstellerOptions =

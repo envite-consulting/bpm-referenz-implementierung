@@ -3,8 +3,8 @@ import { z } from 'zod';
 import {
   type Antragsteller,
   antragstellerSchema,
-} from '@/pages/Bestellung/components/Antragsteller/Antragsteller.types.ts';
-import type { DropdownOption } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
+} from '@antragsteller/Antragsteller.types.ts';
+import type { DropdownOption } from '@ui/DropDownMenu/DropdownMenu.tsx';
 
 export async function getAntragsteller() {
   try {

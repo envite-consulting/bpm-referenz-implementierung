@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   getAntragsteller,
   getAntragstellerOptions,
-} from '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts';
+} from './fetchAntragsteller.ts';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   type Bestellungsabfrage,
   type Bestellungserfassung,
-} from '@/pages/Bestellung/Bestellung.types.ts';
+} from '@bestellung/Bestellung.types.ts';
 import { createBestellung } from './createBestellung.ts';
 import { ZodError } from 'zod';
 

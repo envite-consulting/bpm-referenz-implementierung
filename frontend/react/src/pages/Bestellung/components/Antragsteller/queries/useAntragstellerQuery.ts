@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAntragstellerOptions } from '@/pages/Bestellung/components/Antragsteller/queries/api/fetchAntragsteller.ts';
+import { getAntragstellerOptions } from '@antragsteller/queries/api/fetchAntragsteller.ts';
 
 const QUERY_KEYS = {
   antragsteller: ['antragsteller'] as const,

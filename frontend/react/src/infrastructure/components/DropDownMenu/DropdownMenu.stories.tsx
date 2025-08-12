@@ -1,7 +1,7 @@
 import {
   DropdownMenu,
   type DropdownOption,
-} from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
+} from '@ui/DropDownMenu/DropdownMenu.tsx';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta: Meta<typeof DropdownMenu> = {

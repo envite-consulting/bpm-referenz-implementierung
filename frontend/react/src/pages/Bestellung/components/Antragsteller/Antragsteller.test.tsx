@@ -1,13 +1,11 @@
 import { render } from '@testing-library/react';
-import { useAntragstellerQuery } from '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts';
-import { DropdownMenu } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
+import { useAntragstellerQuery } from '@antragsteller/queries/useAntragstellerQuery.ts';
+import { DropdownMenu } from '@ui/DropDownMenu/DropdownMenu.tsx';
 import { Antragsteller } from './Antragsteller.tsx';
 
-jest.mock(
-  '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts',
-);
+jest.mock('@antragsteller/queries/useAntragstellerQuery.ts');
 
-jest.mock('@/infrastructure/components/DropDownMenu/DropdownMenu.tsx');
+jest.mock('@ui/DropDownMenu/DropdownMenu.tsx');
 
 describe('Antragsteller', () => {
   const mockDropdownMenu = DropdownMenu as jest.MockedFunction<

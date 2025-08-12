@@ -1,5 +1,5 @@
-import { DropdownMenu } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
-import { useAntragstellerQuery } from '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts';
+import { DropdownMenu } from '@ui/DropDownMenu/DropdownMenu.tsx';
+import { useAntragstellerQuery } from '@antragsteller/queries/useAntragstellerQuery.ts';
 
 type AntragstellerauflistungProps = {
   onSelectId: (id: string) => void;

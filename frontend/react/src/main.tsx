@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { register } from '@public-ui/components';
 import { defineCustomElements } from '@public-ui/components/dist/loader';
 import { DEFAULT } from '@public-ui/themes';
-import App from '@/App.tsx';
+import App from '@root/App.tsx';
 
 const queryClient = new QueryClient();
 

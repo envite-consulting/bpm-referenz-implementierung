@@ -1,10 +1,10 @@
-import { createBestellung } from '@/pages/Bestellung/queries/api/createBestellung.ts';
+import { createBestellung } from '@bestellung/queries/api/createBestellung.ts';
 import {
   type Bestellungserfassung,
   bestellungserfassungSchema,
-} from '@/pages/Bestellung/Bestellung.types.ts';
-import { Button } from '@/infrastructure/components/Button/Button.tsx';
-import { Antragsteller } from '@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx';
+} from '@bestellung/Bestellung.types.ts';
+import { Button } from '@ui/Button/Button.tsx';
+import { Antragsteller } from '@antragsteller/Antragsteller.tsx';
 import { Controller, useForm } from 'react-hook-form';
 
 export function Bestellung() {

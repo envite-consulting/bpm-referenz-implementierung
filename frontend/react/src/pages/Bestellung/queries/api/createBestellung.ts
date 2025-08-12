@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   bestellungsabfrageSchema,
   type Bestellungserfassung,
-} from '@/pages/Bestellung/Bestellung.types.ts';
+} from '@bestellung/Bestellung.types.ts';
 
 export async function createBestellung(bestellung: Bestellungserfassung) {
   try {

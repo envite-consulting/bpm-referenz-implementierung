@@ -10,7 +10,10 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@ui/*": ["src/infrastructure/components/*"],
+      "@bestellung/*": ["src/pages/Bestellung/*"],
+      "@antragsteller/*": ["src/pages/Bestellung/components/Antragsteller/*"],
+      "@root/*": ["src/*"]
     },
 
     /* Bundler mode */

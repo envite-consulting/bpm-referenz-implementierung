@@ -1,4 +1,4 @@
-import { Bestellung } from '@/pages/Bestellung/Bestellung.tsx';
+import { Bestellung } from '@bestellung/Bestellung.tsx';
 
 function App() {
   // TODO: Durch Routing-Komponente ersetzen

@@ -1,16 +1,16 @@
 import { act, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createBestellung } from '@/pages/Bestellung/queries/api/createBestellung.ts';
-import { StatusEnum } from './Bestellung.types.ts';
+import { createBestellung } from '@bestellung/queries/api/createBestellung.ts';
+import { StatusEnum } from '@bestellung/Bestellung.types.ts';
 import { Bestellung } from './Bestellung.tsx';
 
-jest.mock('@/pages/Bestellung/queries/api/createBestellung.ts', () => ({
+jest.mock('@bestellung/queries/api/createBestellung.ts', () => ({
   createBestellung: jest.fn(),
 }));
 
-jest.mock('@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx');
+jest.mock('@bestellung/components/Antragsteller/Antragsteller.tsx');
 
-jest.mock('@/infrastructure/components/Button/Button.tsx');
+jest.mock('@ui/Button/Button.tsx');
 
 const mockData = {
   id: 'test-id',

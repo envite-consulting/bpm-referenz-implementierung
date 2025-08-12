@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { Button } from './Button.tsx';
+import type { ButtonTypePropType } from '@public-ui/components';
 
 describe('Button', () => {
   describe('Rendering', () => {
@@ -12,7 +13,9 @@ describe('Button', () => {
       ['submit', `${baseStyles} ${submitStyles}`],
       ['reset', `${baseStyles} `],
     ])('should render with type=%s', (typeValue, expectedClass) => {
-      render(<Button label='Click me' type={typeValue as any} />);
+      render(
+        <Button label='Click me' type={typeValue as ButtonTypePropType} />,
+      );
       const buttonElement = document.querySelector('kol-button');
 
       expect(buttonElement).toBeInTheDocument();

@@ -1,0 +1,16 @@
+@startuml
+
+component "bpm-referenz-implementierung" as system
+
+component "CO₂-API" as co2API #LightGreen
+
+component "Mitarbeiter-Kontext" as mitarbeiter #LightGray
+
+component "Flottenmanagement-Kontext" as flotte #LightGray
+
+system --> co2API: REST
+system --> mitarbeiter
+system --> flotte
+
+
+@enduml

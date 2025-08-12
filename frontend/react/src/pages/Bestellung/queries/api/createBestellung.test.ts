@@ -3,7 +3,8 @@ import {
   type Bestellungsabfrage,
   type Bestellungserfassung,
 } from '@/pages/Bestellung/Bestellung.types.ts';
-import { createBestellung } from '@/pages/Bestellung/queries/api/createBestellung.ts';
+import { createBestellung } from './createBestellung.ts';
+import { ZodError } from 'zod';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -58,7 +59,7 @@ describe('createBestellung', () => {
 
     mockedAxios.post.mockResolvedValue({ data: invalidResponseData });
 
-    await expect(createBestellung(validBestellung)).rejects.toThrow();
+    await expect(createBestellung(validBestellung)).rejects.toThrow(ZodError);
 
     expect(mockedAxios.post).toHaveBeenCalledWith(
       '/api/bestellung',

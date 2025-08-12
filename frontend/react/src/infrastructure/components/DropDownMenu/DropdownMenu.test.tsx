@@ -1,25 +1,16 @@
-import {
-  DropdownMenu,
-  type DropdownOption,
-} from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
 import { render } from '@testing-library/react';
+import { DropdownMenu, type DropdownOption } from './DropdownMenu.tsx';
 
 describe('DropdownMenu', () => {
-  const mockOnChange = jest.fn();
-
   const defaultOptions: DropdownOption<string>[] = [
     { label: 'Option 1', value: 'option1' },
     { label: 'Option 2', value: 'option2' },
     { label: 'Option 3', value: 'option3' },
   ];
 
-  beforeEach(() => {
-    mockOnChange.mockClear();
-  });
-
   describe('Rendering', () => {
     it('should render with required and default props', () => {
-      render(<DropdownMenu options={defaultOptions} onChange={mockOnChange} />);
+      render(<DropdownMenu options={defaultOptions} onChange={jest.fn()} />);
 
       const selectElement = document.querySelector('kol-select');
 
@@ -40,7 +31,7 @@ describe('DropdownMenu', () => {
       render(
         <DropdownMenu
           options={defaultOptions}
-          onChange={mockOnChange}
+          onChange={jest.fn()}
           required={true}
           placeholderText={'Placeholder Test'}
           label={'Label Test'}
@@ -61,7 +52,7 @@ describe('DropdownMenu', () => {
 
   describe('Options handling', () => {
     it('should include placeholder as first option', () => {
-      render(<DropdownMenu options={defaultOptions} onChange={mockOnChange} />);
+      render(<DropdownMenu options={defaultOptions} onChange={jest.fn()} />);
 
       const selectElement = document.querySelector('kol-select');
       const optionsAttribute = selectElement?.getAttribute('_options');
@@ -75,7 +66,7 @@ describe('DropdownMenu', () => {
     });
 
     it('should include all provided options after placeholder', () => {
-      render(<DropdownMenu options={defaultOptions} onChange={mockOnChange} />);
+      render(<DropdownMenu options={defaultOptions} onChange={jest.fn()} />);
 
       const selectElement = document.querySelector('kol-select');
       const optionsAttribute = selectElement?.getAttribute('_options');
@@ -87,7 +78,7 @@ describe('DropdownMenu', () => {
     });
 
     it('should handle empty options array', () => {
-      render(<DropdownMenu options={[]} onChange={mockOnChange} />);
+      render(<DropdownMenu options={[]} onChange={jest.fn()} />);
 
       const selectElement = document.querySelector('kol-select');
       const optionsAttr = selectElement?.getAttribute('_options');

@@ -1,28 +1,16 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Bestellung from '@/pages/Bestellung/Bestellung.tsx';
 import { createBestellung } from '@/pages/Bestellung/queries/api/createBestellung.ts';
-import { StatusEnum } from '@/pages/Bestellung/Bestellung.types.ts';
+import { StatusEnum } from './Bestellung.types.ts';
+import { Bestellung } from './Bestellung.tsx';
 
 jest.mock('@/pages/Bestellung/queries/api/createBestellung.ts', () => ({
   createBestellung: jest.fn(),
 }));
 
-jest.mock('@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx', () =>
-  jest.fn(({ onSelectId }) => (
-    <div data-testid='antragsteller-mock' onClick={() => onSelectId('mock-id')}>
-      Antragsteller Mock
-    </div>
-  )),
-);
+jest.mock('@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx');
 
-jest.mock('@/infrastructure/components/SubmitButton/SubmitButton.tsx', () => ({
-  SubmitButton: jest.fn(({ label, ...props }) => (
-    <button {...props} data-testid='primary-button-mock'>
-      {label}
-    </button>
-  )),
-}));
+jest.mock('@/infrastructure/components/Button/Button.tsx');
 
 const mockData = {
   id: 'test-id',
@@ -55,7 +43,9 @@ describe('Bestellung', () => {
     render(<Bestellung />);
 
     const submitButton = screen.getByTestId('primary-button-mock');
-    userEvent.click(submitButton);
+    await act(async () => {
+      userEvent.click(submitButton);
+    });
 
     await waitFor(() => {
       expect(
@@ -69,11 +59,14 @@ describe('Bestellung', () => {
   it('should call createBestellung and reset form on successful submit', async () => {
     mockCreateBestellung.mockResolvedValueOnce(mockData);
 
+    window.alert = jest.fn();
+
     render(<Bestellung />);
 
-    userEvent.click(screen.getByTestId('antragsteller-mock'));
-
-    userEvent.click(screen.getByTestId('primary-button-mock'));
+    await act(async () => {
+      userEvent.click(screen.getByTestId('antragsteller-mock'));
+      userEvent.click(screen.getByTestId('primary-button-mock'));
+    });
 
     await waitFor(() => {
       expect(mockCreateBestellung).toHaveBeenCalledWith({
@@ -90,8 +83,10 @@ describe('Bestellung', () => {
 
     render(<Bestellung />);
 
-    userEvent.click(screen.getByTestId('antragsteller-mock'));
-    userEvent.click(screen.getByTestId('primary-button-mock'));
+    await act(async () => {
+      userEvent.click(screen.getByTestId('antragsteller-mock'));
+      userEvent.click(screen.getByTestId('primary-button-mock'));
+    });
 
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(
@@ -108,8 +103,10 @@ describe('Bestellung', () => {
 
     render(<Bestellung />);
 
-    userEvent.click(screen.getByTestId('antragsteller-mock'));
-    userEvent.click(screen.getByTestId('primary-button-mock'));
+    await act(async () => {
+      userEvent.click(screen.getByTestId('antragsteller-mock'));
+      userEvent.click(screen.getByTestId('primary-button-mock'));
+    });
 
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith(

@@ -1,33 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { useAntragstellerQuery } from '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts';
 import { DropdownMenu } from '@/infrastructure/components/DropDownMenu/DropdownMenu.tsx';
-import Antragsteller from '@/pages/Bestellung/components/Antragsteller/Antragsteller.tsx';
+import { Antragsteller } from './Antragsteller.tsx';
 
 jest.mock(
   '@/pages/Bestellung/components/Antragsteller/queries/useAntragstellerQuery.ts',
-  () => ({
-    useAntragstellerQuery: jest.fn(),
-  }),
 );
 
-jest.mock('@/infrastructure/components/DropDownMenu/DropdownMenu.tsx', () => ({
-  DropdownMenu: jest.fn(({ options, onChange, label, required }) => {
-    return (
-      <div
-        data-testid='dropdown-menu-mock'
-        data-options={JSON.stringify(options)}
-        data-label={label}
-        data-required={required}
-        onClick={() => onChange && onChange('mockValue')}
-      >
-        DropdownMenu Mock
-      </div>
-    );
-  }),
-}));
+jest.mock('@/infrastructure/components/DropDownMenu/DropdownMenu.tsx');
 
 describe('Antragsteller', () => {
-  const mockOnSelectId = jest.fn();
   const mockDropdownMenu = DropdownMenu as jest.MockedFunction<
     typeof DropdownMenu
   >;
@@ -50,7 +32,7 @@ describe('Antragsteller', () => {
         isError: false,
       });
 
-      render(<Antragsteller onSelectId={mockOnSelectId} />);
+      render(<Antragsteller onSelectId={jest.fn()} />);
 
       expect(screen.getByText('Loading...')).toBeInTheDocument();
       expect(mockDropdownMenu).not.toHaveBeenCalled();
@@ -64,7 +46,7 @@ describe('Antragsteller', () => {
         isError: true,
       });
 
-      render(<Antragsteller onSelectId={mockOnSelectId} />);
+      render(<Antragsteller onSelectId={jest.fn()} />);
 
       expect(screen.getByText('Error: Failed to fetch')).toBeInTheDocument();
       expect(mockDropdownMenu).not.toHaveBeenCalled();
@@ -78,18 +60,16 @@ describe('Antragsteller', () => {
         isError: false,
       });
 
-      render(<Antragsteller onSelectId={mockOnSelectId} />);
+      render(<Antragsteller onSelectId={jest.fn()} />);
 
-      expect(mockDropdownMenu).toHaveBeenCalled();
-      const firstCall = mockDropdownMenu.mock.calls[0];
-      const firstCallArguments = firstCall[0];
-      expect(firstCallArguments).toEqual(
+      expect(mockDropdownMenu).toHaveBeenCalledWith(
         expect.objectContaining({
           required: true,
           options: mockOptions,
           label: 'Auswahl Antragsteller',
           onChange: expect.any(Function),
         }),
+        undefined,
       );
 
       expect(screen.getByTestId('dropdown-menu-mock')).toBeInTheDocument();
@@ -97,6 +77,8 @@ describe('Antragsteller', () => {
 
     describe('Event handling', () => {
       it('should call onSelectId when DropdownMenu onChange is triggered', () => {
+        const mockOnSelectId = jest.fn();
+
         (useAntragstellerQuery as jest.Mock).mockReturnValue({
           antragstellerOptions: mockOptions,
           isLoading: false,

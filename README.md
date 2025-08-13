@@ -117,12 +117,12 @@ und zugehörigem Fahrzeug umfasst.
 
 ![Technischer Kontext Map](assets/kontextabgrenzung/technischer-kontext-map/technischer-kontext-map.svg)
 
-| Fachlicher Kontext        | Technische Schnittstelle     | Technische Details                                                             |
-|---------------------------|------------------------------|--------------------------------------------------------------------------------|
-| Mitarbeiter-Kontext       | Mitarbeiter-Kontext          | In dieser Beispielimplementierung nicht angebunden, Testdaten in DB            |
-| Flottenmanagement-Kontext | Flottenmanagement-Kontext    | In dieser Beispielimplementierung nicht angebunden, Testdaten in DB            |
-| Bestellung-Kontext        | bpm-referenz-implementierung | Kern des aktuellen Systems (business-logic-modulith + Camunda 7 Remote Engine) |
-| Emmisions-Kontext         | CO₂-API                      | REST-API Aufruf an api-carbonsutra.com                                         |
+| Fachlicher Kontext                        | Technische Schnittstelle     | Technische Details                                                             |
+|-------------------------------------------|------------------------------|--------------------------------------------------------------------------------|
+| Mitarbeiter-Kontext                       | Mitarbeiter-Kontext          | In dieser Beispielimplementierung nicht angebunden, Testdaten in DB            |
+| Flottenmanagement-Kontext (Fahrzeug)      | Flottenmanagement-Kontext    | In dieser Beispielimplementierung nicht angebunden, Testdaten in DB            |
+| Flottenmanagement-Kontext (CO₂-Bewertung) | CO₂-API                      | REST-API Aufruf an api-carbonsutra.com                                         |
+| Bestellung-Kontext                        | bpm-referenz-implementierung | Kern des aktuellen Systems (business-logic-modulith + Camunda 7 Remote Engine) |
 
 ## Lösungsstrategie
 

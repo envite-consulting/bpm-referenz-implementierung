@@ -2,7 +2,6 @@ import {
   bestellungsabfrageSchema,
   bestellungserfassungSchema,
 } from './Bestellung.types.ts';
-import { ZodError } from 'zod';
 
 describe('bestellungsabfrageSchema', () => {
   it('should parse valid data', () => {
@@ -14,9 +13,10 @@ describe('bestellungsabfrageSchema', () => {
       status: 'GENEHMIGT',
     };
 
-    const result = bestellungsabfrageSchema.parse(validData);
+    const result = bestellungsabfrageSchema.safeParse(validData);
 
-    expect(result).toEqual(validData);
+    expect(result.success).toBeTruthy();
+    expect(result.data).toEqual(validData);
   });
 
   it('should throw if status is invalid', () => {
@@ -28,7 +28,14 @@ describe('bestellungsabfrageSchema', () => {
       status: 'INVALID',
     };
 
-    expect(() => bestellungsabfrageSchema.parse(invalidData)).toThrow(ZodError);
+    const result = bestellungsabfrageSchema.safeParse(invalidData);
+    expect(result.success).toBeFalsy();
+    expect(result.error?.issues).toMatchObject([
+      {
+        path: ['status'],
+        code: 'invalid_value',
+      },
+    ]);
   });
 
   it('should throw if date is invalid', () => {
@@ -40,7 +47,14 @@ describe('bestellungsabfrageSchema', () => {
       status: 'GENEHMIGT',
     };
 
-    expect(() => bestellungsabfrageSchema.parse(invalidData)).toThrow(ZodError);
+    const result = bestellungsabfrageSchema.safeParse(invalidData);
+    expect(result.success).toBeFalsy();
+    expect(result.error?.issues).toMatchObject([
+      {
+        path: ['bestelldatum'],
+        code: 'invalid_type',
+      },
+    ]);
   });
 });
 
@@ -51,9 +65,10 @@ describe('bestellungserfassungSchema', () => {
       fahrzeugreferenz: 'ref-2',
     };
 
-    const result = bestellungserfassungSchema.parse(validData);
+    const result = bestellungserfassungSchema.safeParse(validData);
 
-    expect(result).toEqual(validData);
+    expect(result.success).toBeTruthy();
+    expect(result.data).toEqual(validData);
   });
 
   it('should throw if antragstellerreferenz is missing', () => {
@@ -61,7 +76,14 @@ describe('bestellungserfassungSchema', () => {
       fahrzeugreferenz: 'ref-2',
     };
 
-    expect(() => bestellungserfassungSchema.parse(invalidData)).toThrow();
+    const result = bestellungserfassungSchema.safeParse(invalidData);
+    expect(result.success).toBeFalsy();
+    expect(result.error?.issues).toMatchObject([
+      {
+        path: ['antragstellerreferenz'],
+        code: 'invalid_type',
+      },
+    ]);
   });
 
   it('should throw if fahrzeugreferenz is missing', () => {
@@ -69,6 +91,13 @@ describe('bestellungserfassungSchema', () => {
       antragstellerreferenz: 'ref-1',
     };
 
-    expect(() => bestellungserfassungSchema.parse(invalidData)).toThrow();
+    const result = bestellungserfassungSchema.safeParse(invalidData);
+    expect(result.success).toBeFalsy();
+    expect(result.error?.issues).toMatchObject([
+      {
+        path: ['fahrzeugreferenz'],
+        code: 'invalid_type',
+      },
+    ]);
   });
 });

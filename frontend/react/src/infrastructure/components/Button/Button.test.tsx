@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
-import { Button } from './Button.tsx';
-import type { ButtonTypePropType } from '@public-ui/components';
+import { Button, type ButtonType } from './Button.tsx';
 
 describe('Button', () => {
   describe('Rendering', () => {
@@ -14,7 +13,7 @@ describe('Button', () => {
       ['reset', `${baseStyles} `],
     ])('should render with type=%s', (typeValue, expectedClass) => {
       const { container } = render(
-        <Button label='Click me' type={typeValue as ButtonTypePropType} />,
+        <Button label='Click me' type={typeValue as ButtonType} />,
       );
 
       const kolButton = container.querySelector(

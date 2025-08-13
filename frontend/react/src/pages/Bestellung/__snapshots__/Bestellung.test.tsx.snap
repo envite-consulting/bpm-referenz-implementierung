@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Bestellung should render form with heading, Antragsteller and submit button 1`] = `
+<DocumentFragment>
+  <form
+    class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4"
+  >
+    <h2
+      class="text-xl font-bold"
+    >
+      Mitarbeiter Firmenwagen Formular
+    </h2>
+    <div
+      data-testid="antragsteller-mock"
+    >
+      Antragsteller Mock
+    </div>
+    <button
+      data-testid="primary-button-mock"
+      type="submit"
+    >
+      Absenden
+    </button>
+  </form>
+</DocumentFragment>
+`;

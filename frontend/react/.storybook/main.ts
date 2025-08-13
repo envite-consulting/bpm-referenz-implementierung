@@ -1,7 +1,4 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import UnoCSS from 'unocss/vite';
-import unocssConfig from '../unocss.config';
-import { UserConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -13,12 +10,6 @@ const config: StorybookConfig = {
   staticDirs: ['../public'],
   core: {
     builder: '@storybook/builder-vite',
-  },
-  async viteFinal(config: UserConfig) {
-    config.plugins = config.plugins ?? [];
-    config.plugins.push(UnoCSS(unocssConfig));
-
-    return config;
   },
 };
 export default config;

@@ -30,13 +30,9 @@ describe('Bestellung', () => {
   });
 
   it('should render form with heading, Antragsteller and submit button', () => {
-    const { getByTestId, getByRole } = render(<Bestellung />);
+    const { asFragment } = render(<Bestellung />);
 
-    expect(
-      getByRole('heading', { name: 'Mitarbeiter Firmenwagen Formular' }),
-    ).toBeInTheDocument();
-    expect(getByTestId('antragsteller-mock')).toBeInTheDocument();
-    expect(getByTestId('primary-button-mock')).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('should show validation error if Antragsteller is not selected and form submitted', async () => {

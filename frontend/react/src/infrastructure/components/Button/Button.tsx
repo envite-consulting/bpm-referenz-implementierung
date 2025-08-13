@@ -1,16 +1,17 @@
 import { KolButton } from '@public-ui/react';
-import type { ButtonTypePropType } from '@public-ui/components';
+
+export type ButtonType = 'submit' | 'button' | 'reset';
 
 type ButtonProps = {
   label: string;
-  type: ButtonTypePropType;
+  type: ButtonType;
 };
 
 export function Button({ label, type }: ButtonProps) {
   const baseStyles =
     'rounded-xl shadow-lg transition duration-300 hover:shadow-xl';
 
-  const variantStyles: Record<ButtonTypePropType, string> = {
+  const variantStyles: Record<ButtonType, string> = {
     submit: 'w-full bg-emerald-600 hover:bg-emerald-500',
     button: '',
     reset: '',

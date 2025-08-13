@@ -1,5 +1,4 @@
 import { antragstellerSchema } from './Antragsteller.types.ts';
-import { ZodError } from 'zod';
 
 describe('antragstellerSchema', () => {
   it('should parse a valid Antragsteller object', () => {
@@ -10,9 +9,10 @@ describe('antragstellerSchema', () => {
       abteilung: 'IT',
     };
 
-    const result = antragstellerSchema.parse(validData);
+    const result = antragstellerSchema.safeParse(validData);
 
-    expect(result).toEqual(validData);
+    expect(result.success).toBeTruthy();
+    expect(result.data).toEqual(validData);
   });
 
   it('should throw if a required field is missing', () => {
@@ -22,7 +22,14 @@ describe('antragstellerSchema', () => {
       nachname: 'Mustermann',
     };
 
-    expect(() => antragstellerSchema.parse(invalidData)).toThrow(ZodError);
+    const result = antragstellerSchema.safeParse(invalidData);
+    expect(result.success).toBeFalsy();
+    expect(result.error?.issues).toMatchObject([
+      {
+        path: ['abteilung'],
+        code: 'invalid_type',
+      },
+    ]);
   });
 
   it('should throw if a field has wrong type', () => {
@@ -33,6 +40,13 @@ describe('antragstellerSchema', () => {
       abteilung: 'IT',
     };
 
-    expect(() => antragstellerSchema.parse(invalidData)).toThrow(ZodError);
+    const result = antragstellerSchema.safeParse(invalidData);
+    expect(result.success).toBeFalsy();
+    expect(result.error?.issues).toMatchObject([
+      {
+        path: ['id'],
+        code: 'invalid_type',
+      },
+    ]);
   });
 });

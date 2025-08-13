@@ -1,0 +1,42 @@
+@startuml
+
+actor User as user
+actor Admin as admin
+
+node "Web Node" as webNode {
+    component "vite" <<Webserver>> {
+        component "React App" <<Single Page Application>> as reactApp
+    }
+
+    portin 5173 as inputWebServer
+}
+
+node "App Node" <<App Node>> as appNode {
+    component "business-logic-modulith" as modulith {
+        portin "/api"
+    }
+    database H2 <<Database>> as modulithDatabase
+
+    portin 8080 as inputModulith
+
+    modulith --> modulithDatabase
+}
+
+node "Remote Engine Node" <<App Node>> as remoteEngineNode {
+    component "remote-engine" as remoteEngine
+    database H2 <<Database>> as remoteEngineDatabase
+
+    portin 8081 as inputRemoteEngine
+
+    remoteEngine --> remoteEngineDatabase
+}
+
+user --> inputWebServer
+admin --> inputWebServer
+admin --> inputRemoteEngine
+
+reactApp --> inputModulith
+
+inputModulith -> inputRemoteEngine
+
+@enduml

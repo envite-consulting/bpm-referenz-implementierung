@@ -397,6 +397,9 @@ z.B.
 
 ## Verteilungssicht
 
+### Verteilungssicht lokale Entwicklung
+
+![Verteilungssicht_lokale_Entwicklung](assets/verteilungssicht/verteilungssicht-lokale-entwicklung.svg)
 ## Querschnittliche Konzepte
 
 ## Architekturentscheidungen

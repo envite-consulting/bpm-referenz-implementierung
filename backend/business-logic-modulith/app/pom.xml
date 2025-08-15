@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
@@ -15,7 +16,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <bestellung.version>0.0.1-SNAPSHOT</bestellung.version>
+        <business-logic-modulith.version>0.0.1-SNAPSHOT</business-logic-modulith.version>
         <h2.version>2.3.232</h2.version>
     </properties>
 
@@ -30,173 +31,177 @@
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-adapter</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-adapter-out</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-adapter-in</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-service</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-model</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-domain-prozessmodell</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-usecase</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-usecase-out</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>bestellung-usecase-in</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-adapter</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-adapter-out</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-adapter-in</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-domain</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-domain-service</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-domain-model</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-usecase</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-usecase-out</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>antragsteller-usecase-in</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-adapter</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-adapter-out</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-adapter-in</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-domain</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-domain-service</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-domain-model</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-usecase</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-usecase-out</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>fahrzeug-usecase-in</artifactId>
-            <version>${bestellung.version}</version>
+            <version>${business-logic-modulith.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-adapter-in</artifactId>
+            <version>${business-logic-modulith.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

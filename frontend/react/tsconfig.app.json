@@ -13,6 +13,13 @@
       "@ui/*": ["src/infrastructure/components/*"],
       "@bestellung/*": ["src/pages/Bestellung/*"],
       "@antragsteller/*": ["src/pages/Bestellung/components/Antragsteller/*"],
+      "@aufgabenliste/*": ["src/pages/Aufgabenliste/*"],
+      "@aufgabenSidebar/*": [
+        "src/pages/Aufgabenliste/components/AufgabenSidebar/*"
+      ],
+      "@aufgabenFormular/*": [
+        "src/pages/Aufgabenliste/components/AufgabenFormular/*"
+      ],
       "@root/*": ["src/*"]
     },
 

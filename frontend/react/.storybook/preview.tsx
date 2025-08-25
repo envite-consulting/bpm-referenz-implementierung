@@ -13,8 +13,8 @@ initialize();
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000,
-      retry: 1,
+      retry: false,
+      gcTime: 0,
     },
   },
 });

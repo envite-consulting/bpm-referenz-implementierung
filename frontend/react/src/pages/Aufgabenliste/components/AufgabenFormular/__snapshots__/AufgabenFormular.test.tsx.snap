@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AufgabenFormular Rendering should render Aufgabe übernehmen warning when no assignee exists 1`] = `
+<DocumentFragment>
+  <form
+    class="p-6 bg-white shadow-md border border-gray-200 space-y-6"
+  >
+    <button
+      data-testid="header-button"
+    >
+      Übernehmen
+    </button>
+    <kol-badge
+      _color="#f0ad4e"
+      _label="Aufgabe übernehmen, um Formular bearbeiten zu können"
+    />
+  </form>
+</DocumentFragment>
+`;
+
+exports[`AufgabenFormular Rendering should render header, footer and FormWrapper when assignee exists 1`] = `
+<DocumentFragment>
+  <form
+    class="p-6 bg-white shadow-md border border-gray-200 space-y-6"
+  >
+    <button
+      data-testid="header-button"
+    >
+      admin
+    </button>
+    <div
+      class="py-4"
+    >
+      <div
+        data-testid="formwrapper-mock"
+      />
+      <div
+        data-testid="footer-mock"
+      />
+    </div>
+  </form>
+</DocumentFragment>
+`;

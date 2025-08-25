@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AufgabenFormularHeader Rendering should render header with header and claim button 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center justify-between border-b border-gray-200 pb-4"
+  >
+    <h3
+      class="text-xl font-semibold text-gray-800"
+    >
+      Meine Aufgabe
+    </h3>
+    <button
+      data-testid="button-mock"
+      type="button"
+    >
+      Max
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AufgabenFormularHeader Rendering should render warning when error 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center justify-between border-b border-gray-200 pb-4"
+  >
+    <h3
+      class="text-xl font-semibold text-gray-800"
+    >
+      Meine Aufgabe
+    </h3>
+    <button
+      data-testid="button-mock"
+      type="button"
+    >
+      Übernehmen
+    </button>
+    <p
+      data-testid="badge-mock"
+      type="danger"
+    >
+      Fehler beim Übernehmen oder Abgeben der Aufgabe
+    </p>
+  </div>
+</DocumentFragment>
+`;

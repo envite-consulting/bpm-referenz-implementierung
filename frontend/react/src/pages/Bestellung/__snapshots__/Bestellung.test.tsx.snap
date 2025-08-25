@@ -3,7 +3,7 @@
 exports[`Bestellung should render form with heading, Antragsteller and submit button 1`] = `
 <DocumentFragment>
   <form
-    class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4"
+    class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col items-center space-y-4"
   >
     <h2
       class="text-xl font-bold"
@@ -16,7 +16,37 @@ exports[`Bestellung should render form with heading, Antragsteller and submit bu
       Antragsteller Mock
     </div>
     <button
-      data-testid="primary-button-mock"
+      data-testid="button-mock"
+      type="submit"
+    >
+      Absenden
+    </button>
+  </form>
+</DocumentFragment>
+`;
+exports[`Bestellung should show validation error if Antragsteller and Fahrzeug is not selected and form submitted 1`] = `
+<DocumentFragment>
+  <form
+    class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col items-center space-y-4"
+  >
+    <h2
+      class="text-xl font-bold"
+    >
+      Mitarbeiter Firmenwagen Formular
+    </h2>
+    <div
+      data-testid="antragsteller-mock"
+    >
+      Antragsteller Mock
+    </div>
+    <p
+      data-testid="badge-mock"
+      type="warning"
+    >
+      Mitarbeiter ist erforderlich
+    </p>
+    <button
+      data-testid="button-mock"
       type="submit"
     >
       Absenden

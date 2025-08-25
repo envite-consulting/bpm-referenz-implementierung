@@ -6,6 +6,7 @@ import {
 import { Button } from '@ui/Button/Button.tsx';
 import { Antragsteller } from '@antragsteller/Antragsteller.tsx';
 import { Controller, useForm } from 'react-hook-form';
+import { Badge } from '@ui/Badge/Badge.tsx';
 
 export function Bestellung() {
   const {
@@ -41,7 +42,7 @@ export function Bestellung() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4'
+      className='p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col items-center space-y-4'
     >
       <h2 className='text-xl font-bold'>Mitarbeiter Firmenwagen Formular</h2>
 
@@ -53,9 +54,14 @@ export function Bestellung() {
       />
 
       {errors.antragstellerreferenz && (
-        <span className='text-red-500'>
-          {errors.antragstellerreferenz.message}
-        </span>
+        <Badge
+          type={'warning'}
+          label={
+            errors.antragstellerreferenz.message ??
+            'Fehler bei der Auswahl des Mitarbeiters'
+          }
+        />
+      )}
       )}
 
       <Button label={'Absenden'} type={'submit'} />

@@ -3,7 +3,7 @@ import { Antragsteller } from '@antragsteller/Antragsteller.tsx';
 import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof Antragsteller> = {
-  title: 'Antragsteller/Antragsteller',
+  title: 'Bestellung/Antragsteller',
   component: Antragsteller,
   tags: ['autodocs'],
   argTypes: {

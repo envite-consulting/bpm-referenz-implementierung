@@ -23,6 +23,10 @@
             <artifactId>bestellung-usecase-out</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>bestellung-domain-prozessmodell</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>

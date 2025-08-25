@@ -32,6 +32,10 @@
             <artifactId>fahrzeug-usecase-in</artifactId>
         </dependency>
         <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>aufgabenliste-usecase-in</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
         </dependency>

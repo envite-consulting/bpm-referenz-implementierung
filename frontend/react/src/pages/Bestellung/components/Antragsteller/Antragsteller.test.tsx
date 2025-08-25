@@ -4,8 +4,8 @@ import { DropdownMenu } from '@ui/DropDownMenu/DropdownMenu.tsx';
 import { Antragsteller } from './Antragsteller.tsx';
 
 jest.mock('@antragsteller/queries/useAntragstellerQuery.ts');
-
 jest.mock('@ui/DropDownMenu/DropdownMenu.tsx');
+jest.mock('@ui/LoadingSpin/LoadingSpin.tsx');
 
 describe('Antragsteller', () => {
   const mockDropdownMenu = DropdownMenu as jest.MockedFunction<
@@ -19,6 +19,7 @@ describe('Antragsteller', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockDropdownMenu.mockClear();
   });
 
   describe('Rendering', () => {
@@ -30,9 +31,9 @@ describe('Antragsteller', () => {
         isError: false,
       });
 
-      const { getByText } = render(<Antragsteller onSelectId={jest.fn()} />);
+      const { getByTestId } = render(<Antragsteller onSelectId={jest.fn()} />);
 
-      expect(getByText('Loading...')).toBeInTheDocument();
+      expect(getByTestId('loading-spin-mock')).toBeInTheDocument();
       expect(mockDropdownMenu).not.toHaveBeenCalled();
     });
 
@@ -44,9 +45,9 @@ describe('Antragsteller', () => {
         isError: true,
       });
 
-      const { getByText } = render(<Antragsteller onSelectId={jest.fn()} />);
+      const { asFragment } = render(<Antragsteller onSelectId={jest.fn()} />);
 
-      expect(getByText('Error: Failed to fetch')).toBeInTheDocument();
+      expect(asFragment()).toMatchSnapshot();
       expect(mockDropdownMenu).not.toHaveBeenCalled();
     });
 

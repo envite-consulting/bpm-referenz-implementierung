@@ -25,6 +25,7 @@
         <module>app</module>
         <module>artifact-deployment</module>
         <module>testcoverage</module>
+        <module>aufgabenliste</module>
     </modules>
 
     <properties>
@@ -42,6 +43,7 @@
         <camunda-process-test-coverage.version>2.8.1</camunda-process-test-coverage.version>
         <junit.version>5.13.4</junit.version>
         <assertj.version>3.27.3</assertj.version>
+        <wiremock-standalone.version>3.13.1</wiremock-standalone.version>
         <mockito.version>5.18.0</mockito.version>
         <logback-classic.version>1.5.18</logback-classic.version>
         <wiremock-standalone.version>3.13.1</wiremock-standalone.version>
@@ -302,6 +304,42 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-domain-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-domain-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-usecase-in</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-usecase-out</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-usecase-exception</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-adapter-in</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>aufgabenliste-adapter-out</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>uuid-generator</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -374,6 +412,18 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.wiremock</groupId>
+                <artifactId>wiremock-standalone</artifactId>
+                <version>${wiremock-standalone.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${mockwebserver.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>${junit.version}</version>
@@ -395,12 +445,6 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback-classic.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wiremock</groupId>
-                <artifactId>wiremock-standalone</artifactId>
-                <version>${wiremock-standalone.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

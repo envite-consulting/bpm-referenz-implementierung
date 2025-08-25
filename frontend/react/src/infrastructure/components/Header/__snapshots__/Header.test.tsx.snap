@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Header Rendering should render dashboard title and render paths correct 1`] = `
+<DocumentFragment>
+  <header
+    class="flex items-center justify-between p-4 border-b border-gray-200"
+  >
+    <div
+      class="font-bold"
+    >
+      Dashboard
+    </div>
+    <nav
+      class="flex gap-2"
+    >
+      <a
+        class="px-3 py-2 rounded bg-gray-200"
+        href="/aufgabenliste"
+      >
+        Aufgabenliste
+      </a>
+      <a
+        class="px-3 py-2 rounded hover:bg-gray-100"
+        href="/bestellung"
+      >
+        Bestellung erstellen
+      </a>
+    </nav>
+  </header>
+</DocumentFragment>
+`;

@@ -13,6 +13,7 @@
       "@ui/*": ["src/infrastructure/components/*"],
       "@bestellung/*": ["src/pages/Bestellung/*"],
       "@antragsteller/*": ["src/pages/Bestellung/components/Antragsteller/*"],
+      "@fahrzeug/*": ["src/pages/Bestellung/components/Fahrzeug/*"],
       "@aufgabenliste/*": ["src/pages/Aufgabenliste/*"],
       "@aufgabenSidebar/*": [
         "src/pages/Aufgabenliste/components/AufgabenSidebar/*"

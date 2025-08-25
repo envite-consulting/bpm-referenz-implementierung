@@ -49,7 +49,6 @@ describe('useAufgabeUpdate', () => {
   const aufgabenId = 'test-aufgaben-id';
 
   describe('uebernehmen', () => {
-
     it('should return error state if mutation fails', async () => {
       const error = new Error('Failed to uebernehmen');
       mockUebernehmen.mockRejectedValue(error);
@@ -89,7 +88,6 @@ describe('useAufgabeUpdate', () => {
   });
 
   describe('abgeben', () => {
-
     it('should return error state if mutation fails', async () => {
       const error = new Error('Failed to abgeben');
       mockAbgeben.mockRejectedValue(error);
@@ -128,7 +126,6 @@ describe('useAufgabeUpdate', () => {
   });
 
   describe('abschliessenMitVariablen', () => {
-
     it('should return error state if mutation fails', async () => {
       const error = new Error('Failed to abschliessen');
       mockAbschliessenMitVariablen.mockRejectedValue(error);

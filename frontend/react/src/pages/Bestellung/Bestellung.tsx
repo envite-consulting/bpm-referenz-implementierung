@@ -6,6 +6,7 @@ import {
 import { Button } from '@ui/Button/Button.tsx';
 import { Antragsteller } from '@antragsteller/Antragsteller.tsx';
 import { Controller, useForm } from 'react-hook-form';
+import { Fahrzeug } from '@fahrzeug/Fahrzeug.tsx';
 import { Badge } from '@ui/Badge/Badge.tsx';
 
 export function Bestellung() {
@@ -17,7 +18,7 @@ export function Bestellung() {
   } = useForm({
     defaultValues: {
       antragstellerreferenz: '',
-      fahrzeugreferenz: 'b6122856-f08a-4454-b5bd-a3d232065b91',
+      fahrzeugreferenz: '',
     },
   });
 
@@ -62,6 +63,22 @@ export function Bestellung() {
           }
         />
       )}
+
+      <Controller
+        name='fahrzeugreferenz'
+        control={control}
+        rules={{ required: 'Fahrzeug ist erforderlich' }}
+        render={({ field }) => <Fahrzeug onSelectId={field.onChange} />}
+      />
+
+      {errors.fahrzeugreferenz && (
+        <Badge
+          type={'warning'}
+          label={
+            errors.fahrzeugreferenz.message ??
+            'Fehler bei der Auswahl des Fahrzeugs'
+          }
+        />
       )}
 
       <Button label={'Absenden'} type={'submit'} />

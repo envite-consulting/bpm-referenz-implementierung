@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Bestellung should render form with heading, Antragsteller and submit button 1`] = `
+exports[`Bestellung should render form with heading, Antragsteller, Fahrzeug and submit button 1`] = `
 <DocumentFragment>
   <form
     class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col items-center space-y-4"
@@ -15,6 +15,11 @@ exports[`Bestellung should render form with heading, Antragsteller and submit bu
     >
       Antragsteller Mock
     </div>
+    <div
+      data-testid="fahrzeug-mock"
+    >
+      Fahrzeug Mock
+    </div>
     <button
       data-testid="button-mock"
       type="submit"
@@ -24,6 +29,7 @@ exports[`Bestellung should render form with heading, Antragsteller and submit bu
   </form>
 </DocumentFragment>
 `;
+
 exports[`Bestellung should show validation error if Antragsteller and Fahrzeug is not selected and form submitted 1`] = `
 <DocumentFragment>
   <form
@@ -44,6 +50,17 @@ exports[`Bestellung should show validation error if Antragsteller and Fahrzeug i
       type="warning"
     >
       Mitarbeiter ist erforderlich
+    </p>
+    <div
+      data-testid="fahrzeug-mock"
+    >
+      Fahrzeug Mock
+    </div>
+    <p
+      data-testid="badge-mock"
+      type="warning"
+    >
+      Fahrzeug ist erforderlich
     </p>
     <button
       data-testid="button-mock"

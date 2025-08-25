@@ -16,6 +16,11 @@ const config: Config = {
     '^@bestellung/(.*)$': '<rootDir>/src/pages/Bestellung/$1',
     '^@antragsteller/(.*)$':
       '<rootDir>/src/pages/Bestellung/components/Antragsteller/$1',
+    '^@aufgabenliste/(.*)$': '<rootDir>/src/pages/Aufgabenliste/$1',
+    '^@aufgabenSidebar/(.*)$':
+      '<rootDir>/src/pages/Aufgabenliste/components/AufgabenSidebar/$1',
+    '^@aufgabenFormular/(.*)$':
+      '<rootDir>/src/pages/Aufgabenliste/components/AufgabenFormular/$1',
     '^@root/(.*)$': '<rootDir>/src/$1',
   },
 

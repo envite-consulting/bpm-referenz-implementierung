@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AufgabenFormularFooter should render footer with submit button when no error 1`] = `
+<DocumentFragment>
+  <div
+    class="pt-2 flex flex-col items-start space-y-2"
+  >
+    <button
+      data-testid="button-mock"
+      type="submit"
+    >
+      Abschließen
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AufgabenFormularFooter should render footer with warning when error 1`] = `
+<DocumentFragment>
+  <div
+    class="pt-2 flex flex-col items-start space-y-2"
+  >
+    <button
+      data-testid="button-mock"
+      type="submit"
+    >
+      Abschließen
+    </button>
+    <p
+      data-testid="badge-mock"
+      type="danger"
+    >
+      Fehler beim Abschließen der Aufgabe
+    </p>
+  </div>
+</DocumentFragment>
+`;

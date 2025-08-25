@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AufgabenItem should render assignee name with assignee 1`] = `
+<DocumentFragment>
+  <div
+    class="p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50 bg-gray-100"
+    data-testid="aufgabe-item"
+    role="button"
+  >
+    <div
+      class="font-medium"
+    >
+      Testaufgabe
+    </div>
+    <div
+      class="text-sm text-gray-600"
+    >
+      Max · 1.1.2024
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AufgabenItem should render default without assignee 1`] = `
+<DocumentFragment>
+  <div
+    class="p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50 "
+    data-testid="aufgabe-item"
+    role="button"
+  >
+    <div
+      class="font-medium"
+    >
+      Testaufgabe
+    </div>
+    <div
+      class="text-sm text-gray-600"
+    >
+      Nicht zugewiesen · 1.1.2024
+    </div>
+  </div>
+</DocumentFragment>
+`;

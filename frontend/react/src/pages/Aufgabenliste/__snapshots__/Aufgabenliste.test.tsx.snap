@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Aufgabenliste Rendering should render AufgabenFormular when an Aufgabe is selected 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full"
+  >
+    <div
+      class="w-1/3"
+    >
+      <p
+        data-testid="aufgaben-sidebar-mock"
+      >
+        Sidebar
+      </p>
+    </div>
+    <div
+      class="flex-1 h-full overflow-auto"
+    >
+      <p
+        data-testid="aufgaben-formular-mock"
+      >
+        Formular
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Aufgabenliste Rendering should render badge when no Aufgabe is selected 1`] = `
+<DocumentFragment>
+  <div
+    class="flex h-full"
+  >
+    <div
+      class="w-1/3"
+    >
+      <p
+        data-testid="aufgaben-sidebar-mock"
+      >
+        Sidebar
+      </p>
+    </div>
+    <div
+      class="flex-1 h-full overflow-auto"
+    >
+      <p
+        data-testid="badge-mock"
+        type="info"
+      >
+        Wähle eine Aufgabe aus
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -5,16 +5,29 @@ export type ButtonType = 'submit' | 'button' | 'reset';
 type ButtonProps = {
   label: string;
   type: ButtonType;
+  onClick?: () => void;
+  disabled?: boolean;
 };
 
-export function Button({ label, type }: ButtonProps) {
+export function Button({
+  label,
+  type,
+  onClick,
+  disabled = false,
+}: ButtonProps) {
   const baseStyles =
-    'rounded-xl shadow-lg transition duration-300 hover:shadow-xl';
+    'px-3 rounded-xl shadow-lg transition duration-300 hover:shadow-xl';
 
   const variantStyles: Record<ButtonType, string> = {
-    submit: 'w-full bg-emerald-600 hover:bg-emerald-500',
+    submit: 'bg-emerald-600 hover:bg-emerald-500',
     button: '',
     reset: '',
+  };
+
+  const handleClick = () => {
+    if (onClick && !disabled) {
+      onClick();
+    }
   };
 
   return (
@@ -22,6 +35,8 @@ export function Button({ label, type }: ButtonProps) {
       _label={label}
       _type={type}
       _variant='custom'
+      _disabled={disabled}
+      _on={{ onClick: handleClick }}
       className={`${baseStyles} ${variantStyles[type]}`}
     />
   );

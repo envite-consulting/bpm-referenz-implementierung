@@ -9,7 +9,7 @@ jest.mock('@bestellung/queries/api/createBestellung.ts', () => ({
 }));
 
 jest.mock('@bestellung/components/Antragsteller/Antragsteller.tsx');
-
+jest.mock('@bestellung/components/Fahrzeug/Fahrzeug.tsx');
 jest.mock('@ui/Button/Button.tsx');
 jest.mock('@ui/Badge/Badge.tsx');
 
@@ -31,13 +31,13 @@ describe('Bestellung', () => {
     mockCreateBestellung.mockClear();
   });
 
-  it('should render form with heading, Antragsteller and submit button', () => {
+  it('should render form with heading, Antragsteller, Fahrzeug and submit button', () => {
     const { asFragment } = render(<Bestellung />);
 
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should show validation error if Antragsteller is not selected and form submitted', async () => {
+  it('should show validation error if Antragsteller and Fahrzeug is not selected and form submitted', async () => {
     const { getByTestId, getByText, asFragment } = render(<Bestellung />);
 
     const submitButton = getByTestId('button-mock');
@@ -47,6 +47,7 @@ describe('Bestellung', () => {
 
     await waitFor(() => {
       expect(getByText('Mitarbeiter ist erforderlich')).toBeInTheDocument();
+      expect(getByText('Fahrzeug ist erforderlich')).toBeInTheDocument();
     });
     expect(asFragment()).toMatchSnapshot();
 
@@ -62,13 +63,14 @@ describe('Bestellung', () => {
 
     await act(async () => {
       userEvent.click(getByTestId('antragsteller-mock'));
+      userEvent.click(getByTestId('fahrzeug-mock'));
       userEvent.click(getByTestId('button-mock'));
     });
 
     await waitFor(() => {
       expect(mockCreateBestellung).toHaveBeenCalledWith({
-        fahrzeugreferenz: 'b6122856-f08a-4454-b5bd-a3d232065b91',
         antragstellerreferenz: 'antragsteller-mock-id',
+        fahrzeugreferenz: 'fahrzeug-mock-id',
       });
     });
   });
@@ -82,6 +84,7 @@ describe('Bestellung', () => {
 
     await act(async () => {
       userEvent.click(getByTestId('antragsteller-mock'));
+      userEvent.click(getByTestId('fahrzeug-mock'));
       userEvent.click(getByTestId('button-mock'));
     });
 
@@ -102,6 +105,7 @@ describe('Bestellung', () => {
 
     await act(async () => {
       userEvent.click(getByTestId('antragsteller-mock'));
+      userEvent.click(getByTestId('fahrzeug-mock'));
       userEvent.click(getByTestId('button-mock'));
     });
 

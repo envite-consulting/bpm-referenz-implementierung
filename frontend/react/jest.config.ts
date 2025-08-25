@@ -16,6 +16,7 @@ const config: Config = {
     '^@bestellung/(.*)$': '<rootDir>/src/pages/Bestellung/$1',
     '^@antragsteller/(.*)$':
       '<rootDir>/src/pages/Bestellung/components/Antragsteller/$1',
+    '^@fahrzeug/(.*)$': '<rootDir>/src/pages/Bestellung/components/Fahrzeug/$1',
     '^@aufgabenliste/(.*)$': '<rootDir>/src/pages/Aufgabenliste/$1',
     '^@aufgabenSidebar/(.*)$':
       '<rootDir>/src/pages/Aufgabenliste/components/AufgabenSidebar/$1',

@@ -433,8 +433,14 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.75</minimum>
+                                            <minimum>0.80</minimum>
                                         </limit>
+                                        <!--TODO: Tests ergänzen, um Branch Coverage auf 80 % zu erhöhen-->
+                                        <!--<limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>-->
                                     </limits>
                                 </rule>
                             </rules>

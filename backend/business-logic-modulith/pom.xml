@@ -24,6 +24,7 @@
         <module>uuid-generator</module>
         <module>app</module>
         <module>artifact-deployment</module>
+        <module>testcoverage</module>
     </modules>
 
     <properties>
@@ -32,6 +33,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <h2.version>2.3.232</h2.version>
         <camunda7.base.version>7.23.0</camunda7.base.version>
         <slf4j.version>2.0.17</slf4j.version>
         <lombok.version>1.18.38</lombok.version>
@@ -54,6 +56,18 @@
         <dependencies>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-domain</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>bestellung-domain-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -66,6 +80,12 @@
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>bestellung-domain-prozessmodell</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-usecase</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
@@ -84,6 +104,12 @@
             </dependency>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>bestellung-adapter</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>bestellung-adapter-in</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -95,6 +121,18 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>antragsteller</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>antragsteller-domain</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>antragsteller-domain-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -102,6 +140,12 @@
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>antragsteller-domain-service</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>antragsteller-usecase</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
@@ -120,6 +164,12 @@
             </dependency>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>antragsteller-adapter</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>antragsteller-adapter-in</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -131,6 +181,18 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>fahrzeug</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>fahrzeug-domain</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>fahrzeug-domain-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -138,6 +200,12 @@
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>fahrzeug-domain-service</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>fahrzeug-usecase</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
@@ -153,6 +221,12 @@
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>fahrzeug-usecase-exception</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>fahrzeug-adapter</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
@@ -198,6 +272,12 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>testcoverage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>uuid-generator</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -208,6 +288,12 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>runtime</scope>
+            </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>

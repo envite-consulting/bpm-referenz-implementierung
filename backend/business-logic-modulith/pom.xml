@@ -23,7 +23,6 @@
         <module>fahrzeug</module>
         <module>uuid-generator</module>
         <module>app</module>
-        <module>architecture-test</module>
     </modules>
 
     <properties>

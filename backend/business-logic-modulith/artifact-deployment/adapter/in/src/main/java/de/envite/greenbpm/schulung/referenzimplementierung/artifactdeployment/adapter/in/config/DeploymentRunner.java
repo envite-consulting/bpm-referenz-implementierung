@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in;
+package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in.config;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.usecase.in.ProzessartifaktDeployment;
 import lombok.RequiredArgsConstructor;

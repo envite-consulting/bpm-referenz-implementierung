@@ -241,7 +241,25 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>artifact-deployment</artifactId>
+                <type>pom</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>artifact-deployment-domain</artifactId>
+                <type>pom</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>artifact-deployment-domain-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>artifact-deployment-usecase</artifactId>
+                <type>pom</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -257,6 +275,12 @@
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>artifact-deployment-usecase-exception</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>artifact-deployment-adapter</artifactId>
+                <type>pom</type>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in;
+package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Import;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({DeploymentServiceConfiguration.class, DeploymentRunner.class})
+@Import({DeploymentRunner.class})
 public @interface EnableDeployment {
 }

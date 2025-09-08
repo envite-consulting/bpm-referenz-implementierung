@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in;
+package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;

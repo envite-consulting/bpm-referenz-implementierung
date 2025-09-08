@@ -54,18 +54,18 @@
     <bpmn:sequenceFlow id="Flow_11wrsx3" name="Nein" sourceRef="Gateway_1g6wnau" targetRef="Event_19dh75j">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_1nf4hv1" name="Nachhaltigkeitsscore abfragen">
+    <bpmn:task id="Activity_1nf4hv1" name="Nachhaltigkeitsscore abfragen">
       <bpmn:incoming>Flow_0npwj37</bpmn:incoming>
       <bpmn:outgoing>Flow_1uj909v</bpmn:outgoing>
-      <bpmn:property id="Property_00zu1my" name="__targetRef_placeholder" />
+      <bpmn:property id="Property_1s0p2cz" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0t4xya5">
         <bpmn:sourceRef>DataObjectReference_1k867ok</bpmn:sourceRef>
-        <bpmn:targetRef>Property_00zu1my</bpmn:targetRef>
+        <bpmn:targetRef>Property_1s0p2cz</bpmn:targetRef>
       </bpmn:dataInputAssociation>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1ln8qr7">
         <bpmn:targetRef>DataObjectReference_17sfs2z</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
+    </bpmn:task>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1vjcpz5">
@@ -112,7 +112,7 @@
           <dc:Bounds x="768" y="485" width="85" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1w7ofp4_di" bpmnElement="Activity_1nf4hv1">
+      <bpmndi:BPMNShape id="Activity_13hmupf_di" bpmnElement="Activity_1nf4hv1">
         <dc:Bounds x="350" y="420" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0npwj37_di" bpmnElement="Flow_0npwj37">

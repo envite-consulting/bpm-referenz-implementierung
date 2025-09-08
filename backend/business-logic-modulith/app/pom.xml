@@ -167,11 +167,43 @@
 
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>artifact-deployment-adapter-in</artifactId>
+            <artifactId>artifact-deployment</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-adapter</artifactId>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>artifact-deployment-adapter-out</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-adapter-in</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-domain</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-domain-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-usecase</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-usecase-out</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>artifact-deployment-usecase-in</artifactId>
         </dependency>
 
         <dependency>

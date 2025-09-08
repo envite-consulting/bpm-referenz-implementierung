@@ -1,6 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.app;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in.EnableDeployment;
+import de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.adapter.in.config.EnableDeployment;
 import de.envite.greenbpm.schulung.referenzimplementierung.testcoverage.ExcludeFromJacocoGeneratedReport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

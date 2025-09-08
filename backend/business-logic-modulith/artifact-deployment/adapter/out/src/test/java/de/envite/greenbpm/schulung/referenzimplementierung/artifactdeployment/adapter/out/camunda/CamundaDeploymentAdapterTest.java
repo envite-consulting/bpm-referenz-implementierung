@@ -28,10 +28,7 @@ class CamundaDeploymentAdapterTest {
     wireMockServer.start();
     WireMock.configureFor("localhost", wireMockServer.port());
 
-    WebClient webClient =
-        WebClient.builder().baseUrl("http://localhost:" + wireMockServer.port()).build();
-
-    classUnderTest = new CamundaDeploymentAdapter(webClient);
+    classUnderTest = new CamundaDeploymentAdapter("http://localhost:%s".formatted(wireMockServer.port()));
   }
 
   @AfterEach

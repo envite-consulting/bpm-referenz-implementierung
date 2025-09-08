@@ -2,13 +2,19 @@ package de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.a
 
 import de.envite.greenbpm.schulung.referenzimplementierung.artifactdeployment.usecase.out.DeploymentFilesQuery;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
+@Component
 public class ProcessFileReader implements DeploymentFilesQuery {
 
   private final List<Resource> resources;
+
+  public ProcessFileReader(
+      @Value("${process-artifacts.base-path:classpath*:/**/*}") List<Resource> resources) {
+    this.resources = resources;
+  }
 
   @Override
   public List<Resource> getDeploymentFiles() {

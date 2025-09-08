@@ -18,19 +18,7 @@
 
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>artifact-deployment-adapter-out</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>artifact-deployment-usecase-in</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>artifact-deployment-usecase-out</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>artifact-deployment-domain-service</artifactId>
         </dependency>
 
         <dependency>

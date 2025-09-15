@@ -1,7 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.task;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.TaskWithAttachmentAndCommentDto;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -12,22 +16,26 @@ class CamundaTaskMapperTest {
 
   @Test
   void should_map_all_fields_to_domain() {
-    CamundaTaskResource camundaTaskResource =
-        new CamundaTaskResource(
-            "ID123", "My Task", "Test User 1", "2025-08-21T00:00:00.000+0200", "Form Key");
+    TaskWithAttachmentAndCommentDto camundaTaskDto = new TaskWithAttachmentAndCommentDto();
 
-    Aufgabe result = classUnderTest.toDomain(camundaTaskResource);
+    camundaTaskDto.id("ID123");
+    camundaTaskDto.name("My Task");
+    camundaTaskDto.assignee("testUser1");
+    LocalDate localDate = LocalDate.of(2025, 8, 21);
+    Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    camundaTaskDto.created(date);
+    camundaTaskDto.formKey("Form Key");
+
+    Aufgabe result = classUnderTest.toDomain(camundaTaskDto);
 
     SoftAssertions softAssertions = new SoftAssertions();
-    softAssertions.assertThat(result.getId()).isEqualTo(camundaTaskResource.id());
-    softAssertions.assertThat(result.getName()).isEqualTo(camundaTaskResource.name());
-    softAssertions.assertThat(result.getBearbeiter()).isEqualTo(camundaTaskResource.assignee());
+    softAssertions.assertThat(result.getId()).isEqualTo(camundaTaskDto.getId());
+    softAssertions.assertThat(result.getName()).isEqualTo(camundaTaskDto.getName());
+    softAssertions.assertThat(result.getBearbeiter()).isEqualTo(camundaTaskDto.getAssignee());
     softAssertions
         .assertThat(result.getErstelldatum())
         .isEqualTo(LocalDateTime.of(2025, 8, 21, 0, 0));
-    softAssertions
-        .assertThat(result.getFormularreferenz())
-        .isEqualTo(camundaTaskResource.formKey());
+    softAssertions.assertThat(result.getFormularreferenz()).isEqualTo(camundaTaskDto.getFormKey());
     softAssertions.assertAll();
   }
 }

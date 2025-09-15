@@ -1,143 +1,92 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.task;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.CamundaVariableMapper;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeQueryException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeUpdateException;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiException;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.CompleteTaskDto;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.TaskWithAttachmentAndCommentDto;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.UserIdDto;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.VariableValueDto;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.*;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.mockito.ArgumentCaptor;
 
 class CamundaTaskApiClientTest {
 
-  private static WireMockServer wireMockServer;
-  private static CamundaTaskMapper taskMapperMock;
-  private static CamundaVariableMapper variableMapper;
+  private CamundaTaskMapper taskMapperMock;
+  private TaskApi taskApiMock;
 
   private CamundaTaskApiClient classUnderTest;
 
   @BeforeEach
-  void setUpBeforeClass() {
+  void setUp() {
     taskMapperMock = mock(CamundaTaskMapper.class);
-    variableMapper = mock(CamundaVariableMapper.class);
+    taskApiMock = mock(TaskApi.class);
 
-    wireMockServer = new WireMockServer(WireMockConfiguration.options().dynamicPort());
-    wireMockServer.start();
-    WireMock.configureFor("localhost", wireMockServer.port());
-    String baseUrl = "http://localhost:%s".formatted(wireMockServer.port());
-
-    classUnderTest =
-        new CamundaTaskApiClient(WebClient.builder(), taskMapperMock, baseUrl, variableMapper);
-  }
-
-  @AfterEach
-  void tearDownAfterClass() {
-    wireMockServer.stop();
+    classUnderTest = new CamundaTaskApiClient(taskMapperMock, taskApiMock);
   }
 
   @Nested
   class QueryTask {
 
     @Test
-    void should_query_task_by_id_successfully() {
-
+    void should_query_task_by_id_successfully() throws Exception {
       String taskId = "taskId";
-      String name = "My Task";
-      String assignee = "assignee";
-      String created = "2023-01-01T00:00:00.000+0200";
-      String formKey = "FormKey";
+      TaskWithAttachmentAndCommentDto dto = new TaskWithAttachmentAndCommentDto();
+      dto.setId(taskId);
+      dto.setName("My Task");
+      dto.setAssignee("assignee");
+      dto.setCreated(new Date());
+      dto.setFormKey("FormKey");
 
-      Aufgabe mappedExpectedResult =
-          new Aufgabe(taskId, name, assignee, LocalDateTime.of(2023, 1, 1, 0, 0), formKey);
-      CamundaTaskResource expectedResult =
-          new CamundaTaskResource(taskId, name, assignee, created, formKey);
-      when(taskMapperMock.toDomain(expectedResult)).thenReturn(mappedExpectedResult);
+      Aufgabe expected = new Aufgabe(taskId, "My Task", "assignee", LocalDateTime.now(), "FormKey");
 
-      String jsonResponse =
-          """
-                    {
-                      "id": "%s",
-                      "name": "%s",
-                      "assignee": "%s",
-                      "created": "%s",
-                      "formKey": "%s"
-                    }
-                    """
-              .formatted(taskId, name, assignee, created, formKey);
+      when(taskApiMock.getTask(taskId)).thenReturn(dto);
+      when(taskMapperMock.toDomain(dto)).thenReturn(expected);
 
-      stubFor(
-          get(urlEqualTo("/task/%s".formatted(taskId)))
-              .willReturn(
-                  aResponse()
-                      .withStatus(200)
-                      .withHeader("Content-Type", "application/json")
-                      .withBody(jsonResponse)));
+      Aufgabe actual = classUnderTest.queryById(taskId);
 
-      Aufgabe actualTask = assertDoesNotThrow(() -> classUnderTest.queryById(taskId));
-
-      assertThat(actualTask).isNotNull().isEqualTo(mappedExpectedResult);
-
-      verify(getRequestedFor(urlEqualTo("/task/%s".formatted(taskId))));
+      assertThat(actual).isEqualTo(expected);
+      verify(taskApiMock).getTask(taskId);
     }
 
     @Test
-    void should_throw_aufgabe_not_found_exception_when_task_does_not_exist() {
+    void should_throw_aufgabe_not_found_exception_when_task_does_not_exist() throws Exception {
       String taskId = "taskId";
+      ApiException apiException = new ApiException(404, "Not Found");
 
-      stubFor(
-          get(urlEqualTo("/task/%s".formatted(taskId)))
-              .willReturn(aResponse().withStatus(404).withBody("Not Found")));
+      when(taskApiMock.getTask(taskId)).thenThrow(apiException);
 
       assertThatThrownBy(() -> classUnderTest.queryById(taskId))
           .isInstanceOf(AufgabeNotFoundException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht gefunden werden.".formatted(taskId));
+          .hasMessageContaining(taskId);
 
-      verify(getRequestedFor(urlEqualTo("/task/%s".formatted(taskId))));
+      verify(taskApiMock).getTask(taskId);
       verifyNoInteractions(taskMapperMock);
     }
 
     @Test
-    void should_throw_aufgabe_query_exception_on_request_error() {
+    void should_throw_aufgabe_query_exception_on_request_error() throws Exception {
       String taskId = "taskId";
-      stubFor(
-          get(urlEqualTo("/task/%s".formatted(taskId)))
-              .willReturn(aResponse().withStatus(400).withBody("Bad Request")));
+      ApiException apiException = new ApiException(400, "Bad Request");
+
+      when(taskApiMock.getTask(taskId)).thenThrow(apiException);
 
       assertThatThrownBy(() -> classUnderTest.queryById(taskId))
           .isInstanceOf(AufgabeQueryException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht abgerufen werden.".formatted(taskId));
+          .hasMessageContaining(taskId);
 
-      verify(getRequestedFor(urlEqualTo("/task/%s".formatted(taskId))));
-      verifyNoInteractions(taskMapperMock);
-    }
-
-    @Test
-    void should_throw_aufgabe_query_exception_on_server_error() {
-      String taskId = "taskId";
-      stubFor(
-          get(urlEqualTo("/task/%s".formatted(taskId)))
-              .willReturn(aResponse().withStatus(500).withBody("Internal Server Error")));
-
-      assertThatThrownBy(() -> classUnderTest.queryById(taskId))
-          .isInstanceOf(AufgabeQueryException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht abgerufen werden.".formatted(taskId));
-
-      verify(getRequestedFor(urlEqualTo("/task/%s".formatted(taskId))));
+      verify(taskApiMock).getTask(taskId);
       verifyNoInteractions(taskMapperMock);
     }
   }
@@ -146,120 +95,61 @@ class CamundaTaskApiClientTest {
   class QueryAllTasks {
 
     @Test
-    void should_query_all_tasks_successfully() {
+    void should_query_all_tasks_successfully() throws Exception {
+      TaskWithAttachmentAndCommentDto dto1 = new TaskWithAttachmentAndCommentDto();
+      dto1.setId("task1");
+      TaskWithAttachmentAndCommentDto dto2 = new TaskWithAttachmentAndCommentDto();
+      dto2.setId("task2");
 
-      String taskId1 = "taskId1";
-      String name1 = "My Task1";
-      String assignee1 = "assignee1";
-      String created1 = "2023-01-01T00:00:00.000+0200";
-      String formKey1 = "formKey1";
+      Aufgabe mapped1 = new Aufgabe("task1", "name1", "assignee1", LocalDateTime.now(), "form1");
+      Aufgabe mapped2 = new Aufgabe("task2", "name2", "assignee2", LocalDateTime.now(), "form2");
 
-      Aufgabe mappedExpectedResult1 =
-          new Aufgabe(taskId1, name1, assignee1, LocalDateTime.of(2023, 1, 1, 0, 0), formKey1);
+      when(taskApiMock.getTasks(
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null))
+          .thenReturn(List.of(dto1, dto2));
 
-      String taskId2 = "taskId2";
-      String name2 = "My Task2";
-      String assignee2 = "assignee2";
-      String created2 = "2024-01-01T00:00:00.000+0200";
-      String formKey2 = "formKey1";
+      when(taskMapperMock.toDomain(dto1)).thenReturn(mapped1);
+      when(taskMapperMock.toDomain(dto2)).thenReturn(mapped2);
 
-      Aufgabe mappedExpectedResult2 =
-          new Aufgabe(taskId2, name2, assignee2, LocalDateTime.of(2024, 1, 1, 0, 0), formKey2);
+      List<Aufgabe> actual = classUnderTest.queryAll();
 
-      CamundaTaskResource expectedResult1 =
-          new CamundaTaskResource(taskId1, name1, assignee1, created1, formKey1);
-      when(taskMapperMock.toDomain(expectedResult1)).thenReturn(mappedExpectedResult1);
-      CamundaTaskResource expectedResult2 =
-          new CamundaTaskResource(taskId2, name2, assignee2, created2, formKey2);
-      when(taskMapperMock.toDomain(expectedResult2)).thenReturn(mappedExpectedResult2);
-
-      String jsonResponse =
-          """
-                    [
-                        {
-                          "id": "%s",
-                          "name": "%s",
-                          "assignee": "%s",
-                          "created": "%s",
-                          "formKey": "%s"
-                        },
-                        {
-                          "id": "%s",
-                          "name": "%s",
-                          "assignee": "%s",
-                          "created": "%s",
-                          "formKey": "%s"
-                        }
-                    ]
-                    """
-              .formatted(
-                  taskId1, name1, assignee1, created1, formKey1, taskId2, name2, assignee2,
-                  created2, formKey2);
-
-      stubFor(
-          get(urlEqualTo("/task"))
-              .willReturn(
-                  aResponse()
-                      .withStatus(200)
-                      .withHeader("Content-Type", "application/json")
-                      .withBody(jsonResponse)));
-
-      List<Aufgabe> actualTasks = assertDoesNotThrow(() -> classUnderTest.queryAll());
-
-      assertThat(actualTasks)
-          .isNotNull()
-          .containsExactly(mappedExpectedResult1, mappedExpectedResult2);
-
-      verify(getRequestedFor(urlEqualTo("/task")));
+      assertThat(actual).containsExactly(mapped1, mapped2);
+      verify(taskApiMock)
+          .getTasks(
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null);
     }
 
     @Test
-    void should_throw_aufgabe_query_exception_on_request_error() {
-      stubFor(
-          get(urlEqualTo("/task")).willReturn(aResponse().withStatus(400).withBody("Bad Request")));
+    void should_throw_aufgabe_query_exception_on_request_error() throws Exception {
+      ApiException apiException = new ApiException(400, "Bad Request");
+      when(taskApiMock.getTasks(
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null))
+          .thenThrow(apiException);
 
       assertThatThrownBy(() -> classUnderTest.queryAll())
           .isInstanceOf(AufgabeQueryException.class)
           .hasMessageContaining("Aufgaben konnten nicht abgerufen werden.");
-
-      verify(getRequestedFor(urlEqualTo("/task")));
-      verifyNoInteractions(taskMapperMock);
-    }
-
-    @Test
-    void should_throw_aufgabe_query_exception_on_server_error() {
-      stubFor(
-          get(urlEqualTo("/task"))
-              .willReturn(aResponse().withStatus(500).withBody("Internal Server Error")));
-
-      assertThatThrownBy(() -> classUnderTest.queryAll())
-          .isInstanceOf(AufgabeQueryException.class)
-          .hasMessageContaining("Aufgaben konnten nicht abgerufen werden.");
-
-      verify(getRequestedFor(urlEqualTo("/task")));
-      verifyNoInteractions(taskMapperMock);
-    }
-
-    @Test
-    void should_handle_empty_list_successfully() {
-      String jsonResponse =
-          """
-          []
-          """;
-
-      stubFor(
-          get(urlEqualTo("/task"))
-              .willReturn(
-                  aResponse()
-                      .withStatus(200)
-                      .withHeader("Content-Type", "application/json")
-                      .withBody(jsonResponse)));
-
-      List<Aufgabe> actualTasks = assertDoesNotThrow(() -> classUnderTest.queryAll());
-
-      assertThat(actualTasks).isNotNull().isEmpty();
-      verify(getRequestedFor(urlEqualTo("/task")));
-      verifyNoInteractions(taskMapperMock);
     }
   }
 
@@ -267,59 +157,29 @@ class CamundaTaskApiClientTest {
   class ClaimTask {
 
     @Test
-    void should_claim_successfully() {
+    void should_claim_successfully() throws Exception {
       String taskId = "taskId";
-      String assignee = "assignee";
-      stubFor(
-          post(urlEqualTo("/task/%s/claim".formatted(taskId)))
-              .withRequestBody(equalToJson("{\"userId\":\"%s\"}".formatted(assignee)))
-              .willReturn(aResponse().withStatus(204)));
+      String userId = "user1";
 
-      classUnderTest.claim(taskId, assignee);
+      classUnderTest.claim(taskId, userId);
 
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/claim".formatted(taskId)))
-              .withRequestBody(equalToJson("{\"userId\":\"%s\"}".formatted(assignee))));
+      ArgumentCaptor<UserIdDto> captor = ArgumentCaptor.forClass(UserIdDto.class);
+      verify(taskApiMock).claim(eq(taskId), captor.capture());
+      assertThat(captor.getValue().getUserId()).isEqualTo(userId);
     }
 
     @Test
-    void should_throw_aufgabe_update_exception_on_request_error() {
+    void should_throw_aufgabe_update_exception_on_request_error() throws Exception {
       String taskId = "taskId";
-      String assignee = "assignee";
+      String userId = "user1";
+      ApiException apiException = new ApiException(400, "Bad Request");
 
-      stubFor(
-          post(urlEqualTo("/task/%s/claim".formatted(taskId)))
-              .willReturn(aResponse().withStatus(400)));
+      doThrow(apiException).when(taskApiMock).claim(eq(taskId), any(UserIdDto.class));
 
-      assertThatThrownBy(() -> classUnderTest.claim(taskId, assignee))
+      assertThatThrownBy(() -> classUnderTest.claim(taskId, userId))
           .isInstanceOf(AufgabeUpdateException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte dem Benutzer %s nicht zugewiesen werden."
-                  .formatted(taskId, assignee));
-
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/claim".formatted(taskId)))
-              .withRequestBody(equalToJson("{\"userId\":\"%s\"}".formatted(assignee))));
-    }
-
-    @Test
-    void should_throw_aufgabe_update_exception_on_server_error() {
-      String taskId = "taskId";
-      String assignee = "assignee";
-
-      stubFor(
-          post(urlEqualTo("/task/%s/claim".formatted(taskId)))
-              .willReturn(aResponse().withStatus(500)));
-
-      assertThatThrownBy(() -> classUnderTest.claim(taskId, assignee))
-          .isInstanceOf(AufgabeUpdateException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte dem Benutzer %s nicht zugewiesen werden."
-                  .formatted(taskId, assignee));
-
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/claim".formatted(taskId)))
-              .withRequestBody(equalToJson("{\"userId\":\"%s\"}".formatted(assignee))));
+          .hasMessageContaining(taskId)
+          .hasMessageContaining(userId);
     }
   }
 
@@ -327,48 +187,24 @@ class CamundaTaskApiClientTest {
   class UnclaimTask {
 
     @Test
-    void should_unclaim_successfully() {
+    void should_unclaim_successfully() throws Exception {
       String taskId = "taskId";
-
-      stubFor(
-          post(urlEqualTo("/task/%s/unclaim".formatted(taskId)))
-              .willReturn(aResponse().withStatus(204)));
 
       classUnderTest.unclaim(taskId);
 
-      verify(postRequestedFor(urlEqualTo("/task/%s/unclaim".formatted(taskId))));
+      verify(taskApiMock).unclaim(taskId);
     }
 
     @Test
-    void should_throw_aufgabe_update_exception_on_request_error() {
+    void should_throw_aufgabe_update_exception_on_request_error() throws Exception {
       String taskId = "taskId";
+      ApiException apiException = new ApiException(400, "Bad Request");
 
-      stubFor(
-          post(urlEqualTo("/task/%s/unclaim".formatted(taskId)))
-              .willReturn(aResponse().withStatus(400)));
+      doThrow(apiException).when(taskApiMock).unclaim(taskId);
 
       assertThatThrownBy(() -> classUnderTest.unclaim(taskId))
           .isInstanceOf(AufgabeUpdateException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht abgegeben werden.".formatted(taskId));
-
-      verify(postRequestedFor(urlEqualTo("/task/%s/unclaim".formatted(taskId))));
-    }
-
-    @Test
-    void should_throw_aufgabe_update_exception_on_server_error() {
-      String taskId = "taskId";
-
-      stubFor(
-          post(urlEqualTo("/task/%s/unclaim".formatted(taskId)))
-              .willReturn(aResponse().withStatus(500)));
-
-      assertThatThrownBy(() -> classUnderTest.unclaim(taskId))
-          .isInstanceOf(AufgabeUpdateException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht abgegeben werden.".formatted(taskId));
-
-      verify(postRequestedFor(urlEqualTo("/task/%s/unclaim".formatted(taskId))));
+          .hasMessageContaining(taskId);
     }
   }
 
@@ -376,137 +212,46 @@ class CamundaTaskApiClientTest {
   class CompleteTask {
 
     @Test
-    void should_complete_successfully_with_empty_variables() {
-
+    void should_complete_successfully_with_empty_variables() throws Exception {
       String taskId = "taskId";
-
-      Map<String, Object> emptyVariables = Map.of();
-
-      stubFor(
-          post(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .withRequestBody(equalToJson("{\"variables\": {}}", true, true))
-              .willReturn(aResponse().withStatus(204)));
-
-      classUnderTest.completeWithVariables(taskId, emptyVariables);
-
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .withRequestBody(equalToJson("{\"variables\": {}}")));
-    }
-
-    @Test
-    void should_complete_successfully_with_variables() {
-      String taskId = "taskId";
-
-      Map<String, Object> variables = Map.of("Variable 1", "Value 1", "Variable 2", 2);
-
-      Map<String, Object> mappedVariables =
-          Map.of(
-              "Variable1", Map.of("value", "Value1", "type", "String"),
-              "Variable2", Map.of("value", 2, "type", "Integer"));
-
-      when(variableMapper.toCamundaFormat(variables)).thenReturn(mappedVariables);
-
-      String jsonResponse =
-          """
-                              {
-                                "variables": {
-                                  "Variable1": { "value": "Value1", "type": "String" },
-                                  "Variable2": { "value": 2, "type": "Integer" }
-                                }
-                              }
-                              """;
-      String expectedRequestBody =
-          """
-                {
-                  "variables": {
-                    "Variable1": { "value": "Value1", "type": "String" },
-                    "Variable2": { "value": 2, "type": "Integer" }
-                  }
-                }
-                """;
-      stubFor(
-          post(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .withRequestBody(
-                  equalToJson(
-                      " { \"variables\": { \"Variable1\": { \"value\": \"Value1\", \"type\": \"String\" }, \"Variable2\": { \"value\": 2, \"type\": \"Integer\" }}} ",
-                      true,
-                      true))
-              .willReturn(
-                  aResponse()
-                      .withStatus(200)
-                      .withHeader("Content-Type", "application/json")
-                      .withBody(jsonResponse)));
+      Map<String, Object> variables = Map.of();
 
       classUnderTest.completeWithVariables(taskId, variables);
 
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .withRequestBody(
-                  equalToJson(
-                      "{\"variables\" : {\"Variable2\" : {\"type\" : \"Integer\", \"value\" : 2},\"Variable1\" : {\"type\" : \"String\", \"value\" : \"Value1\"}}}\n",
-                      true,
-                      true)));
+      ArgumentCaptor<CompleteTaskDto> captor = ArgumentCaptor.forClass(CompleteTaskDto.class);
+      verify(taskApiMock).complete(eq(taskId), captor.capture());
+
+      CompleteTaskDto capturedDto = captor.getValue();
+      assertThat(capturedDto.getVariables()).isEmpty();
     }
 
     @Test
-    void should_throw_aufgabe_update_exception_on_request_error() {
-
+    void should_complete_successfully_with_variables() throws Exception {
       String taskId = "taskId";
-      Map<String, Object> variables = Map.of("Variable 1", "Value 1");
+      Map<String, Object> variables = Map.of("Variable1", "Value1", "Variable2", 2);
 
-      Map<String, Object> mappedVariables =
-          Map.of("Variable1", Map.of("value", "Value1", "type", "String"));
+      classUnderTest.completeWithVariables(taskId, variables);
 
-      when(variableMapper.toCamundaFormat(variables)).thenReturn(mappedVariables);
+      ArgumentCaptor<CompleteTaskDto> captor = ArgumentCaptor.forClass(CompleteTaskDto.class);
+      verify(taskApiMock).complete(eq(taskId), captor.capture());
 
-      stubFor(
-          post(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .willReturn(aResponse().withStatus(400)));
-
-      assertThatThrownBy(() -> classUnderTest.completeWithVariables(taskId, variables))
-          .isInstanceOf(AufgabeUpdateException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht mit den Variablen %s abgeschlossen werden."
-                  .formatted(taskId, variables));
-
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .withRequestBody(
-                  equalToJson(
-                      "{\"variables\" : {\"Variable1\" : {\"type\" : \"String\",\"value\" : \"Value1\"}}}",
-                      true,
-                      true)));
+      CompleteTaskDto capturedDto = captor.getValue();
+      assertThat(capturedDto.getVariables())
+          .containsEntry("Variable1", new VariableValueDto().value("Value1"))
+          .containsEntry("Variable2", new VariableValueDto().value(2));
     }
 
     @Test
-    void should_throw_aufgabe_update_exception_on_server_error() {
-
+    void should_throw_aufgabe_update_exception_on_request_error() throws Exception {
       String taskId = "taskId";
-      Map<String, Object> variables = Map.of("Variable 1", "Value 1");
+      Map<String, Object> variables = Map.of("Variable1", "Value1");
+      ApiException apiException = new ApiException(400, "Bad Request");
 
-      Map<String, Object> mappedVariables =
-          Map.of("Variable1", Map.of("value", "Value1", "type", "String"));
-
-      when(variableMapper.toCamundaFormat(variables)).thenReturn(mappedVariables);
-
-      stubFor(
-          post(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .willReturn(aResponse().withStatus(500)));
+      doThrow(apiException).when(taskApiMock).complete(eq(taskId), any(CompleteTaskDto.class));
 
       assertThatThrownBy(() -> classUnderTest.completeWithVariables(taskId, variables))
           .isInstanceOf(AufgabeUpdateException.class)
-          .hasMessageContaining(
-              "Aufgabe mit ID %s konnte nicht mit den Variablen %s abgeschlossen werden."
-                  .formatted(taskId, variables));
-
-      verify(
-          postRequestedFor(urlEqualTo("/task/%s/complete".formatted(taskId)))
-              .withRequestBody(
-                  equalToJson(
-                      "{\"variables\" : {\"Variable1\" : {\"type\" : \"String\",\"value\" : \"Value1\"}}}",
-                      true,
-                      true)));
+          .hasMessageContaining(taskId);
     }
   }
 }

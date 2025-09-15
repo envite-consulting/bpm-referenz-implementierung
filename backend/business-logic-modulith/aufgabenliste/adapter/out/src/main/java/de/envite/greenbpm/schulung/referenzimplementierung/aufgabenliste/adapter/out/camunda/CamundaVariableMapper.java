@@ -1,33 +1,18 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda;
 
-import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.VariableValueDto;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-@Component
-public class CamundaVariableMapper {
+public final class CamundaVariableMapper {
 
-  public Map<String, Object> toCamundaFormat(Map<String, Object> variables) {
+  public static Map<String, VariableValueDto> toDto(Map<String, Object> variables) {
 
-    Map<String, Object> camundaVariables = new HashMap<>();
-    variables.forEach(
-        (key, value) -> {
-          Map<String, Object> varSpec = new HashMap<>();
-          varSpec.put("value", value);
-          varSpec.put("type", mapJavaTypeToCamundaType(value));
-          camundaVariables.put(key, varSpec);
-        });
-
-    return camundaVariables;
+    return variables.entrySet().stream()
+        .collect(
+            Collectors.toMap(
+                Map.Entry::getKey, entry -> new VariableValueDto().value(entry.getValue())));
   }
 
-  private static String mapJavaTypeToCamundaType(Object value) {
-    if (value instanceof String) return "String";
-    if (value instanceof Integer) return "Integer";
-    if (value instanceof Long) return "Long";
-    if (value instanceof Boolean) return "Boolean";
-    if (value instanceof Double || value instanceof Float) return "Double";
-    return "Object";
-  }
+  private CamundaVariableMapper() {}
 }

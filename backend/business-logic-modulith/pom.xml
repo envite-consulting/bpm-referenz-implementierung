@@ -26,6 +26,8 @@
         <module>artifact-deployment</module>
         <module>testcoverage</module>
         <module>aufgabenliste</module>
+        <module>camunda-rest-api</module>
+        <module>camunda-client</module>
     </modules>
 
     <properties>
@@ -40,6 +42,16 @@
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <domainprimitives-java.version>0.1.1</domainprimitives-java.version>
+        <gson.version>2.13.2</gson.version>
+        <gson-fire.version>1.9.0</gson-fire.version>
+        <threetenbp.version>1.7.2</threetenbp.version>
+        <okio.version>3.16.0</okio.version>
+        <okhttp.version>5.1.0</okhttp.version>
+        <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+        <swagger-annotations.version>1.6.2</swagger-annotations.version>
+        <logging-interceptor.version>5.1.0</logging-interceptor.version>
+        <jackson-databind-nullable.version>0.2.7</jackson-databind-nullable.version>
+
         <camunda-process-test-coverage.version>2.8.1</camunda-process-test-coverage.version>
         <junit.version>5.13.4</junit.version>
         <assertj.version>3.27.3</assertj.version>
@@ -50,7 +62,9 @@
         <archunit.version>1.4.1</archunit.version>
 
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
         <maven-surefire-plugin.version>3.4.0</maven-surefire-plugin.version>
+        <openapi-generator-maven-plugin.version>7.15.0</openapi-generator-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
     </properties>
 
@@ -340,6 +354,18 @@
 
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>camunda-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+                <artifactId>camunda-rest-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>uuid-generator</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -375,6 +401,52 @@
                 <groupId>io.github.domain-primitives</groupId>
                 <artifactId>domainprimitives-java</artifactId>
                 <version>${domainprimitives-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.gsonfire</groupId>
+                <artifactId>gson-fire</artifactId>
+                <version>${gson-fire.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.threeten</groupId>
+                <artifactId>threetenbp</artifactId>
+                <version>${threetenbp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio</artifactId>
+                <version>${okio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.annotation-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${logging-interceptor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>jackson-databind-nullable</artifactId>
+                <version>${jackson-databind-nullable.version}</version>
             </dependency>
 
             <dependency>
@@ -517,5 +589,20 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi-generator-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${maven-antrun-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model;
+package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

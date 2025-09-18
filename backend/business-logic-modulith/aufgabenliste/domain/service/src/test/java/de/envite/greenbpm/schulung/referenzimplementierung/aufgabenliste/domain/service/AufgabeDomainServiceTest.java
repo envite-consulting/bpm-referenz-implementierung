@@ -3,7 +3,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.out.AufgabenCommand;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.out.AufgabenQuery;
 import java.util.List;
@@ -36,20 +36,26 @@ class AufgabeDomainServiceTest {
 
   @Test
   void should_query_all() {
+
+    String vorgangId = "vorgangId";
+
     Aufgabe aufgabe1 = mock(Aufgabe.class);
     Aufgabe aufgabe2 = mock(Aufgabe.class);
-    when(aufgabenQueryMock.queryAll()).thenReturn(List.of(aufgabe1, aufgabe2));
+    when(aufgabenQueryMock.queryAllByVorgang(vorgangId)).thenReturn(List.of(aufgabe1, aufgabe2));
 
-    List<Aufgabe> result = classUnderTest.abfragenAlle();
+    List<Aufgabe> result = classUnderTest.abfragenAlleZuVorgang(vorgangId);
 
     assertThat(result).containsExactly(aufgabe1, aufgabe2);
   }
 
   @Test
   void should_return_empty_list_when_no_aufgaben_exist() {
-    when(aufgabenQueryMock.queryAll()).thenReturn(List.of());
 
-    List<Aufgabe> result = classUnderTest.abfragenAlle();
+    String vorgangId = "vorgangId";
+
+    when(aufgabenQueryMock.queryAllByVorgang(vorgangId)).thenReturn(List.of());
+
+    List<Aufgabe> result = classUnderTest.abfragenAlleZuVorgang(vorgangId);
 
     assertThat(result).isEmpty();
   }
@@ -74,12 +80,12 @@ class AufgabeDomainServiceTest {
     verify(aufgabenCommandMock).claim(aufgabenId, userId);
   }
 
-    @Test
-    void should_unclaim_task() {
-        String aufgabenId = "id123";
+  @Test
+  void should_unclaim_task() {
+    String aufgabenId = "id123";
 
-        classUnderTest.abgeben(aufgabenId);
+    classUnderTest.abgeben(aufgabenId);
 
-        verify(aufgabenCommandMock).unclaim(aufgabenId);
-    }
+    verify(aufgabenCommandMock).unclaim(aufgabenId);
+  }
 }

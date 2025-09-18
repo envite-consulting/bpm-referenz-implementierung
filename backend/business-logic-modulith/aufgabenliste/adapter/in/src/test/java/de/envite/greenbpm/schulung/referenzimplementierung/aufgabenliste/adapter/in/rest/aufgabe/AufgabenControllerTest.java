@@ -1,4 +1,4 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest;
+package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest.aufgabe;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Aufgabenabfrage;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Aufgabenverwaltung;
 import java.time.LocalDateTime;
@@ -59,7 +59,9 @@ class AufgabenControllerTest {
     }
 
     @Test
-    void should_anzeigen_alle() throws Exception {
+    void should_anzeigen_alle_zu_vorgang() throws Exception {
+
+      String vorgangId = "id123";
 
       final Aufgabe abgefragteAufgabe1 = mock(Aufgabe.class);
       final Aufgabe abgefragteAufgabe2 = mock(Aufgabe.class);
@@ -71,13 +73,13 @@ class AufgabenControllerTest {
           new AufgabenabfrageResource(
               "ID2", "My Task ", "Test User2", LocalDateTime.of(2024, 1, 1, 0, 0), "Ref2");
 
-      when(aufgabenabfrageMock.abfragenAlle())
+      when(aufgabenabfrageMock.abfragenAlleZuVorgang(vorgangId))
           .thenReturn(List.of(abgefragteAufgabe1, abgefragteAufgabe2));
       when(aufgabenabfrageMapperMock.toResource(abgefragteAufgabe1)).thenReturn(responseResource1);
       when(aufgabenabfrageMapperMock.toResource(abgefragteAufgabe2)).thenReturn(responseResource2);
 
       mockMvc
-          .perform(get("/aufgabe"))
+          .perform(get("/aufgabe?vorgangId=%s".formatted(vorgangId)))
           .andExpect(status().isOk())
           .andExpect(
               content()

@@ -29,6 +29,13 @@ class CamundaApiClientConfig {
   }
 
   @Bean
+  public ProcessInstanceApi processInstanceApi(ApiClient apiClient) {
+    ProcessInstanceApi api = new ProcessInstanceApi();
+    api.setApiClient(apiClient);
+    return api;
+  }
+
+  @Bean
   public TaskApi taskApi(ApiClient apiClient) {
     TaskApi api = new TaskApi();
     api.setApiClient(apiClient);

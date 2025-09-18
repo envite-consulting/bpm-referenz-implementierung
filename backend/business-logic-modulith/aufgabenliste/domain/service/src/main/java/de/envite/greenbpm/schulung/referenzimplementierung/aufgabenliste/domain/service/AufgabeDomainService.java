@@ -1,6 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.service;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Aufgabenabfrage;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Aufgabenverwaltung;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.out.AufgabenCommand;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +25,8 @@ class AufgabeDomainService implements Aufgabenverwaltung, Aufgabenabfrage {
   }
 
   @Override
-  public List<Aufgabe> abfragenAlle() {
-    return aufgabenQuery.queryAll();
+  public List<Aufgabe> abfragenAlleZuVorgang(String vorgangId) {
+    return aufgabenQuery.queryAllByVorgang(vorgangId);
   }
 
   @Override

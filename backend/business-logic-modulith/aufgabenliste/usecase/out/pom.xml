@@ -19,5 +19,9 @@
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-domain-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>aufgabenliste-usecase-exception</artifactId>
+        </dependency>
     </dependencies>
 </project>

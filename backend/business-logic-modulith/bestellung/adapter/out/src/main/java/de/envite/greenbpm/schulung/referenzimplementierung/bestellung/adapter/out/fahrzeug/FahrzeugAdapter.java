@@ -7,9 +7,9 @@ import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.usecase.in.F
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("bestellungFahrzeugAdapter")
 @RequiredArgsConstructor
-public class FahrzeugAdapter implements FahrzeugQuery {
+class FahrzeugAdapter implements FahrzeugQuery {
 
   private final Fahrzeugabfrage fahrzeugabfrage;
 

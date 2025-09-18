@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface AufgabenlisteCommand {
 
-  void start(String prozessReferenz, Map<String, Object> variablen);
+  void start(String prozessReferenz, String businessKey, Map<String, Object> variablen);
 }

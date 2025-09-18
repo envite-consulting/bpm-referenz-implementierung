@@ -1,6 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.process;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
@@ -45,9 +46,10 @@ class CamundaProcessApiClientTest {
   class StartProcess {
 
     @Test
-    void should_start_process_successfully_with_variables() throws Exception {
+    void should_start_process_successfully_with_variables_and_business_key() throws Exception {
 
       String processDefinitionId = "processId";
+      String businessKey = "BK-123";
       Map<String, Object> variables = Map.of("Variable1", "Value1", "Variable2", 2);
       Map<String, VariableValueDto> mappedVariables =
           Map.of(
@@ -58,7 +60,7 @@ class CamundaProcessApiClientTest {
           .when(() -> CamundaVariableMapper.toDto(variables))
           .thenReturn(mappedVariables);
 
-      classUnderTest.start(processDefinitionId, variables);
+      classUnderTest.start(processDefinitionId, businessKey, variables);
 
       variableMapperMock.verify(() -> CamundaVariableMapper.toDto(variables));
 
@@ -67,8 +69,10 @@ class CamundaProcessApiClientTest {
               eq(processDefinitionId),
               argThat(
                   dto -> {
-                    Assertions.assertNotNull(dto.getVariables());
-                    return dto.getVariables().equals(mappedVariables);
+                    assertNotNull(dto.getVariables());
+                    assertNotNull(dto.getBusinessKey());
+                    return dto.getVariables().equals(mappedVariables)
+                        && dto.getBusinessKey().equals(businessKey);
                   }));
     }
 
@@ -76,6 +80,7 @@ class CamundaProcessApiClientTest {
     void should_start_process_successfully_with_empty_variables() throws Exception {
 
       String processDefinitionId = "processId";
+      String businessKey = "BK-123";
       Map<String, Object> emptyVariables = Map.of();
       Map<String, VariableValueDto> emptyMappedVariables = Map.of();
 
@@ -83,15 +88,16 @@ class CamundaProcessApiClientTest {
           .when(() -> CamundaVariableMapper.toDto(emptyVariables))
           .thenReturn(emptyMappedVariables);
 
-      classUnderTest.start(processDefinitionId, emptyVariables);
+      classUnderTest.start(processDefinitionId, businessKey, emptyVariables);
 
       verify(processDefinitionApi)
           .startProcessInstanceByKey(
               eq(processDefinitionId),
               argThat(
                   dto -> {
-                    Assertions.assertNotNull(dto.getVariables());
-                    return dto.getVariables().isEmpty();
+                    assertNotNull(dto.getVariables());
+                    assertNotNull(dto.getBusinessKey());
+                    return dto.getVariables().isEmpty() && dto.getBusinessKey().equals(businessKey);
                   }));
     }
 
@@ -99,6 +105,7 @@ class CamundaProcessApiClientTest {
     void should_throw_prozessstart_exception_on_api_exception() throws Exception {
 
       String processDefinitionId = "processId";
+      String businessKey = "BK-123";
       Map<String, Object> emptyVariables = Map.of();
       String apiErrorMessage = "Fehler";
 
@@ -106,7 +113,8 @@ class CamundaProcessApiClientTest {
           .when(processDefinitionApi)
           .startProcessInstanceByKey(anyString(), any(StartProcessInstanceDto.class));
 
-      assertThatThrownBy(() -> classUnderTest.start(processDefinitionId, emptyVariables))
+      assertThatThrownBy(
+              () -> classUnderTest.start(processDefinitionId, businessKey, emptyVariables))
           .isInstanceOf(ProzessstartException.class)
           .hasMessageContaining(
               "Prozess mit Process Definition ID %s konnte nicht gestartet werden."

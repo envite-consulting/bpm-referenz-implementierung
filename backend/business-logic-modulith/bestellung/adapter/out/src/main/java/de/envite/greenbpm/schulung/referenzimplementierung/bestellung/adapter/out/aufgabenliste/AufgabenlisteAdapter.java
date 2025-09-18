@@ -2,19 +2,19 @@ package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.o
 
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Prozessverwaltung;
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.out.AufgabenlisteCommand;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-
 @Service
 @RequiredArgsConstructor
-public class AufgabenlisteAdapter implements AufgabenlisteCommand {
+class AufgabenlisteAdapter implements AufgabenlisteCommand {
 
   private final Prozessverwaltung prozessverwaltung;
 
   @Override
-  public void start(String prozessReferenz, Map<String, Object> variablen) {
-    prozessverwaltung.starten(prozessReferenz, variablen);
+  public void start(
+      String prozessReferenz, String fachlicherSchluessel, Map<String, Object> variablen) {
+    prozessverwaltung.starten(prozessReferenz, fachlicherSchluessel, variablen);
   }
 }

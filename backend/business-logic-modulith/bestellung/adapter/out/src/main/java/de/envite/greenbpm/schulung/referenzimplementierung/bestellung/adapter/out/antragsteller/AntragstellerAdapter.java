@@ -7,9 +7,9 @@ import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.usecase.ou
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("bestellungAntragstellerAdapter")
 @RequiredArgsConstructor
-public class AntragstellerAdapter implements AntragstellerQuery {
+class AntragstellerAdapter implements AntragstellerQuery {
 
   private final Antragstellerabfrage antragstellerabfrage;
 

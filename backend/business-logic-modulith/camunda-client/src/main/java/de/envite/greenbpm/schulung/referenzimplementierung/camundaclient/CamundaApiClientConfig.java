@@ -2,13 +2,14 @@ package de.envite.greenbpm.schulung.referenzimplementierung.camundaclient;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiClient;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessDefinitionApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessInstanceApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CamundaApiClientConfig {
+class CamundaApiClientConfig {
 
   @Bean
   public ApiClient camundaApiClient(

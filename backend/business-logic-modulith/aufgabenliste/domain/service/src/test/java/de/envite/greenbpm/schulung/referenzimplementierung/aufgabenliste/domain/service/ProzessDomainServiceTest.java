@@ -22,10 +22,11 @@ class ProzessDomainServiceTest {
   @Test
   void should_start_prozess_with_variables() {
     String prozessReferenz = "id123";
+    String fachlicherSchluessel = "key123";
     Map<String, Object> variables = Map.of("var1", "value1");
 
-    classUnderTest.starten(prozessReferenz, variables);
+    classUnderTest.starten(prozessReferenz, fachlicherSchluessel, variables);
 
-    verify(prozessCommand).start(prozessReferenz, variables);
+    verify(prozessCommand).start(prozessReferenz, fachlicherSchluessel, variables);
   }
 }

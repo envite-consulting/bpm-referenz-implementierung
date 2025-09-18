@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+// TODO: Prozess-Logik in ein eigenes Modul auslagern
 class ProzessDomainService implements Prozessverwaltung {
 
   private final ProzessCommand prozessCommand;
 
   @Override
-  public void starten(String prozessReferenz, Map<String, Object> variablen) {
+  public void starten(String prozessReferenz, String fachlicherSchluessel, Map<String, Object> variablen) {
 
-    prozessCommand.start(prozessReferenz, variablen);
+    prozessCommand.start(prozessReferenz, fachlicherSchluessel, variablen);
   }
 }

@@ -19,6 +19,39 @@ class AufgabenlisteRestAdvicerTest {
   @Autowired private MockMvc mockMvc;
 
   @Test
+  void should_convert_VorgangNotFoundException_to_404() throws Exception {
+    mockMvc
+        .perform(get("/error/vorgangNotFoundException"))
+        .andExpect(status().isNotFound())
+        .andExpect(
+            content()
+                .json(
+                    """
+                              {
+                                "name": "VorgangNotFoundException",
+                                "errorMessage": "Das ist ein Test"
+                              }
+                              """));
+  }
+
+  @Test
+  void should_convert_VorgangQueryException_to_500() throws Exception {
+    mockMvc
+        .perform(get("/error/vorgangQueryException"))
+        .andExpect(status().isInternalServerError())
+        .andExpect(
+            content()
+                .json(
+                    """
+                            {
+                              "name": "VorgangQueryException",
+                              "errorMessage": "Fehler beim Abfragen",
+                              "cause": "Ursache"
+                            }
+                            """));
+  }
+
+  @Test
   void should_convert_AufgabeNotFoundException_to_404() throws Exception {
     mockMvc
         .perform(get("/error/aufgabeNotFoundException"))
@@ -66,6 +99,23 @@ class AufgabenlisteRestAdvicerTest {
                                   "cause": "Ursache"
                                 }
                                 """));
+  }
+
+  @Test
+  void should_convert_ProzessstartException_to_500() throws Exception {
+    mockMvc
+        .perform(get("/error/prozessstartException"))
+        .andExpect(status().isInternalServerError())
+        .andExpect(
+            content()
+                .json(
+                    """
+                              {
+                                "name": "ProzessstartException",
+                                "errorMessage": "Fehler beim Prozessstart",
+                                "cause": "Ursache"
+                              }
+                              """));
   }
 
   @Test

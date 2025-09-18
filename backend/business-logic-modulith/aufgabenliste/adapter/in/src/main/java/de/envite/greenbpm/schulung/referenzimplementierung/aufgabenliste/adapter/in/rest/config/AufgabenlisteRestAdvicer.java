@@ -3,9 +3,7 @@ package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapte
 import static org.springframework.http.HttpStatus.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeNotFoundException;
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeQueryException;
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeUpdateException;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.*;
 import java.util.Optional;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +30,23 @@ class AufgabenlisteRestAdvicer extends ResponseEntityExceptionHandler {
     return Optional.ofNullable(exception.getCause()).map(Throwable::getMessage);
   }
 
+  @ExceptionHandler(VorgangNotFoundException.class)
+  ResponseEntity<Object> handleVorgangNotFoundException(
+      VorgangNotFoundException ex, WebRequest request) {
+
+    final ErrorResource errorResource = buildResource(ex);
+    return handleExceptionInternal(ex, errorResource, new HttpHeaders(), NOT_FOUND, request);
+  }
+
+  @ExceptionHandler(VorgangQueryException.class)
+  public ResponseEntity<Object> handleVorgangQueryException(
+      VorgangQueryException ex, WebRequest request) {
+
+    final ErrorResource errorResource = buildResource(ex);
+    return handleExceptionInternal(
+        ex, errorResource, new HttpHeaders(), INTERNAL_SERVER_ERROR, request);
+  }
+
   @ExceptionHandler(AufgabeNotFoundException.class)
   ResponseEntity<Object> handleAufgabeNotFoundException(
       AufgabeNotFoundException ex, WebRequest request) {
@@ -52,6 +67,15 @@ class AufgabenlisteRestAdvicer extends ResponseEntityExceptionHandler {
   @ExceptionHandler(AufgabeUpdateException.class)
   ResponseEntity<Object> handleAufgabeUpdateException(
       AufgabeUpdateException ex, WebRequest request) {
+
+    final ErrorResource errorResource = buildResource(ex);
+    return handleExceptionInternal(
+        ex, errorResource, new HttpHeaders(), INTERNAL_SERVER_ERROR, request);
+  }
+
+  @ExceptionHandler(ProzessstartException.class)
+  public ResponseEntity<Object> handleProzessstartException(
+      ProzessstartException ex, WebRequest request) {
 
     final ErrorResource errorResource = buildResource(ex);
     return handleExceptionInternal(

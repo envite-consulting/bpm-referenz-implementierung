@@ -1,6 +1,6 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest;
+package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest.aufgabe;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Aufgabenabfrage;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.in.Aufgabenverwaltung;
 import java.util.List;
@@ -19,9 +19,9 @@ class AufgabenController {
   private final AufgabenabfrageRestMapper aufgabenabfrageMapper;
 
   @GetMapping
-  public ResponseEntity<List<AufgabenabfrageResource>> abfragenAlle() {
-
-    List<Aufgabe> aufgaben = aufgabenabfrage.abfragenAlle();
+  public ResponseEntity<List<AufgabenabfrageResource>> abfragenAlleZuVorgang(
+      @RequestParam String vorgangId) {
+    List<Aufgabe> aufgaben = aufgabenabfrage.abfragenAlleZuVorgang(vorgangId);
 
     return ResponseEntity.ok(aufgaben.stream().map(aufgabenabfrageMapper::toResource).toList());
   }

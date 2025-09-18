@@ -1,7 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.task;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.CamundaVariableMapper;
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeQueryException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeUpdateException;
@@ -26,7 +26,7 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
   private final TaskApi taskApi;
 
   @Override
-  public Aufgabe queryById(String taskId) throws AufgabeQueryException {
+  public Aufgabe queryById(String taskId) throws AufgabeNotFoundException, AufgabeQueryException {
     try {
       TaskWithAttachmentAndCommentDto taskDto = taskApi.getTask(taskId);
 
@@ -43,12 +43,12 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
   }
 
   @Override
-  public List<Aufgabe> queryAll() throws AufgabeQueryException {
+  public List<Aufgabe> queryAllByVorgang(String businessId) throws AufgabeQueryException {
     try {
 
       List<TaskWithAttachmentAndCommentDto> tasksDto =
           taskApi.getTasks(
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+              null, null, null, null, businessId, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,

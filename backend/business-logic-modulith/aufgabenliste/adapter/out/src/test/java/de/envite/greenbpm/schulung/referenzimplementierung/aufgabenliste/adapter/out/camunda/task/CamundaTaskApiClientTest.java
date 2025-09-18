@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeQueryException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeUpdateException;
@@ -92,10 +92,13 @@ class CamundaTaskApiClientTest {
   }
 
   @Nested
-  class QueryAllTasks {
+  class QueryAllTasksByVorgang {
 
     @Test
     void should_query_all_tasks_successfully() throws Exception {
+
+      String vorgangId = "vorgangId";
+
       TaskWithAttachmentAndCommentDto dto1 = new TaskWithAttachmentAndCommentDto();
       dto1.setId("task1");
       TaskWithAttachmentAndCommentDto dto2 = new TaskWithAttachmentAndCommentDto();
@@ -105,49 +108,42 @@ class CamundaTaskApiClientTest {
       Aufgabe mapped2 = new Aufgabe("task2", "name2", "assignee2", LocalDateTime.now(), "form2");
 
       when(taskApiMock.getTasks(
+              null, null, null, null, vorgangId, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null))
+              null, null))
           .thenReturn(List.of(dto1, dto2));
 
       when(taskMapperMock.toDomain(dto1)).thenReturn(mapped1);
       when(taskMapperMock.toDomain(dto2)).thenReturn(mapped2);
 
-      List<Aufgabe> actual = classUnderTest.queryAll();
+      List<Aufgabe> actual = classUnderTest.queryAllByVorgang(vorgangId);
 
       assertThat(actual).containsExactly(mapped1, mapped2);
-      verify(taskApiMock)
-          .getTasks(
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null);
     }
 
     @Test
     void should_throw_aufgabe_query_exception_on_request_error() throws Exception {
+
+      String vorgangId = "vorgangId";
+
       ApiException apiException = new ApiException(400, "Bad Request");
       when(taskApiMock.getTasks(
+              null, null, null, null, vorgangId, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-              null))
+              null, null))
           .thenThrow(apiException);
 
-      assertThatThrownBy(() -> classUnderTest.queryAll())
+      assertThatThrownBy(() -> classUnderTest.queryAllByVorgang(vorgangId))
           .isInstanceOf(AufgabeQueryException.class)
           .hasMessageContaining("Aufgaben konnten nicht abgerufen werden.");
     }

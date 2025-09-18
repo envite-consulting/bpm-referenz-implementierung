@@ -1,6 +1,6 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest;
+package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest.aufgabe;
 
-import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.Aufgabe;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import java.time.LocalDateTime;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,7 @@ class AufgabenabfrageRestMapperTest {
 
   @Test
   void should_map_all_fields_to_resource() {
+
     Aufgabe aufgabe = new Aufgabe("ID123", "My Task", "Test User 1", LocalDateTime.now(), "Ref1");
 
     AufgabenabfrageResource result = classUnderTest.toResource(aufgabe);

@@ -1,6 +1,5 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.service;
 
-import static de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung.ProzessVariablen.BESTELLUNG_ID;
 import static de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.prozessmodell.ProzessReferenzen.BESTELLUNG_PROZESS_REFERENZ;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
@@ -51,9 +50,9 @@ class BestellungDomainService implements Bestellungsabfrage, Bestellungserfassun
 
     Bestellung savedBestellung = bestellungStore.persist(bestellung);
 
-    Map<String, Object> variablen =
-        Map.of(BESTELLUNG_ID, savedBestellung.getBestellungId().getValue());
-    aufgabenlisteCommand.start(BESTELLUNG_PROZESS_REFERENZ, variablen);
+    Map<String, Object> variablen = Map.of();
+    aufgabenlisteCommand.start(
+        BESTELLUNG_PROZESS_REFERENZ, savedBestellung.getBestellungId().getValue(), variablen);
 
     return savedBestellung;
   }

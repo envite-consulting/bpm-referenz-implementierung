@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 @DataJdbcTest
 @ActiveProfiles("testdata")
 @Import(UUIDGenerator.class)
-public class FahrzeugSampleDataJdbcRepositoryTest {
+class FahrzeugSampleDataJdbcRepositoryTest {
 
   @Autowired private FahrzeugJdbcRepository classUnderTest;
 

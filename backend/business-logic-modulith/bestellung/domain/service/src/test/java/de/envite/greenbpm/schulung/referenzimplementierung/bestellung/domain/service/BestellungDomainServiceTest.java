@@ -1,6 +1,5 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.service;
 
-import static de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung.ProzessVariablen.BESTELLUNG_ID;
 import static de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.prozessmodell.ProzessReferenzen.BESTELLUNG_PROZESS_REFERENZ;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -64,7 +63,7 @@ class BestellungDomainServiceTest {
       assertThat(result).isEqualTo(expectedResult);
 
       verify(aufgabenlisteCommandMock)
-          .start(BESTELLUNG_PROZESS_REFERENZ, Map.of(BESTELLUNG_ID, bestellungId.getValue()));
+          .start(BESTELLUNG_PROZESS_REFERENZ, bestellungId.getValue(), Map.of());
     }
 
     @Test

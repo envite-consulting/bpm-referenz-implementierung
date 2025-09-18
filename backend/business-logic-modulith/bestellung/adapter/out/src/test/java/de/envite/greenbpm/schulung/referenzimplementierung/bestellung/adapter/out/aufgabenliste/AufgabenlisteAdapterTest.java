@@ -22,10 +22,11 @@ class AufgabenlisteAdapterTest {
   void should_start_process_with_correct_parameters() {
 
     String prozessReferenz = "ref1";
+    String fachlicherSchluessel = "key1";
     Map<String, Object> variables = Map.of("var1", "value1");
 
-    classUnderTest.start(prozessReferenz, variables);
+    classUnderTest.start(prozessReferenz, fachlicherSchluessel, variables);
 
-    verify(prozessverwaltungMock).starten(prozessReferenz, variables);
+    verify(prozessverwaltungMock).starten(prozessReferenz, fachlicherSchluessel, variables);
   }
 }

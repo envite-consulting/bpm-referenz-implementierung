@@ -20,6 +20,8 @@ const config: Config = {
     '^@aufgabenliste/(.*)$': '<rootDir>/src/pages/Aufgabenliste/$1',
     '^@aufgabenSidebar/(.*)$':
       '<rootDir>/src/pages/Aufgabenliste/components/AufgabenSidebar/$1',
+    '^@vorgangItem/(.*)$':
+      '<rootDir>/src/pages/Aufgabenliste/components/AufgabenSidebar/components/VorgangItem/$1',
     '^@aufgabenFormular/(.*)$':
       '<rootDir>/src/pages/Aufgabenliste/components/AufgabenFormular/$1',
     '^@root/(.*)$': '<rootDir>/src/$1',

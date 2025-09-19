@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`VorgangItem Rendering should render list of Aufgaben when expanded 1`] = `
+<DocumentFragment>
+  <div
+    class="border-b border-gray-200"
+  >
+    <div
+      class="p-3 cursor-pointer hover:bg-gray-50"
+      data-testid="vorgang-item"
+      role="button"
+    >
+      <div
+        class="font-medium text-gray-900"
+      >
+        Max Mustermann
+      </div>
+      <div
+        class="text-sm text-gray-500 mt-1"
+      >
+        VW Golf
+      </div>
+    </div>
+    <div
+      class="bg-gray-50 p-3 border-t border-gray-200"
+    >
+      <p
+        data-testid="aufgaben-item-mock"
+      >
+        Aufgaben Item
+      </p>
+      <p
+        data-testid="aufgaben-item-mock"
+      >
+        Aufgaben Item
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`VorgangItem Rendering should render only Vorgang information initially 1`] = `
+<DocumentFragment>
+  <div
+    class="border-b border-gray-200"
+  >
+    <div
+      class="p-3 cursor-pointer hover:bg-gray-50"
+      data-testid="vorgang-item"
+      role="button"
+    >
+      <div
+        class="font-medium text-gray-900"
+      >
+        Max Mustermann
+      </div>
+      <div
+        class="text-sm text-gray-500 mt-1"
+      >
+        VW Golf
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

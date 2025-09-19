@@ -1,13 +1,15 @@
 import React from 'react';
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { getAufgabenliste } from '@aufgabenliste/queries/api/fetchAufgabenliste.ts';
-import { useAufgabenListeQuery } from './useAufgabenlisteQuery.ts';
+import { getAufgabenlisteByVorgang } from '@aufgabenSidebar/components/VorgangItem/queries/api/fetchAufgabenliste.ts';
+import { useAufgabenlisteQuery } from './useAufgabenlisteQuery.ts';
 
-jest.mock('@aufgabenliste/queries/api/fetchAufgabenliste.ts');
+jest.mock(
+  '@aufgabenSidebar/components/VorgangItem/queries/api/fetchAufgabenliste.ts',
+);
 
-const mockGetAufgaben = getAufgabenliste as jest.MockedFunction<
-  typeof getAufgabenliste
+const mockGetAufgaben = getAufgabenlisteByVorgang as jest.MockedFunction<
+  typeof getAufgabenlisteByVorgang
 >;
 
 let queryClient: QueryClient;
@@ -30,10 +32,12 @@ beforeEach(() => {
 });
 
 describe('useAufgabenlisteQuery', () => {
+  const vorgangId = '123';
+
   it('should return loading state initially', () => {
     mockGetAufgaben.mockReturnValue(new Promise(() => {}));
 
-    const { result } = renderHook(() => useAufgabenListeQuery(), {
+    const { result } = renderHook(() => useAufgabenlisteQuery(vorgangId), {
       wrapper: createWrapper(),
     });
 
@@ -45,7 +49,7 @@ describe('useAufgabenlisteQuery', () => {
     const error = new Error('fail');
     mockGetAufgaben.mockRejectedValue(error);
 
-    const { result } = renderHook(() => useAufgabenListeQuery(), {
+    const { result } = renderHook(() => useAufgabenlisteQuery(vorgangId), {
       wrapper: createWrapper(),
     });
 
@@ -75,7 +79,7 @@ describe('useAufgabenlisteQuery', () => {
 
     mockGetAufgaben.mockResolvedValue(mockData);
 
-    const { result } = renderHook(() => useAufgabenListeQuery(), {
+    const { result } = renderHook(() => useAufgabenlisteQuery(vorgangId), {
       wrapper: createWrapper(),
     });
 
@@ -88,7 +92,7 @@ describe('useAufgabenlisteQuery', () => {
   it('should return empty array when no data', async () => {
     mockGetAufgaben.mockResolvedValue([]);
 
-    const { result } = renderHook(() => useAufgabenListeQuery(), {
+    const { result } = renderHook(() => useAufgabenlisteQuery(vorgangId), {
       wrapper: createWrapper(),
     });
 

@@ -1,18 +1,9 @@
-import { useAufgabenListeQuery } from '@aufgabenliste/queries/useAufgabenlisteQuery.ts';
-import { AufgabenItem } from '@aufgabenSidebar/components/AufgabenItem/AufgabenItem.tsx';
-import type { Aufgabe } from '@aufgabenliste/Aufgabe.types.ts';
+import { useVorganglisteQuery } from '@aufgabenSidebar/queries/useVorganglisteQuery.ts';
 import { LoadingSpin } from '@ui/LoadingSpin/LoadingSpin.tsx';
+import { VorgangItem } from '@vorgangItem/VorgangItem.tsx';
 
-type AufgabenSidebarProps = {
-  selected: Aufgabe | null;
-  setSelected: (aufgabe: Aufgabe) => void;
-};
-
-export function AufgabenSidebar({
-  selected,
-  setSelected,
-}: AufgabenSidebarProps) {
-  const { aufgaben, isLoading, isError } = useAufgabenListeQuery();
+export function AufgabenSidebar() {
+  const { vorgaenge, isLoading, isError } = useVorganglisteQuery();
 
   return (
     <div className='flex flex-col h-full border-r border-gray-200'>
@@ -22,13 +13,8 @@ export function AufgabenSidebar({
         {isLoading && <LoadingSpin />}
         {isError && <div className='p-4'>Fehler beim Laden</div>}
 
-        {aufgaben.map((a) => (
-          <AufgabenItem
-            key={a.id}
-            aufgabe={a}
-            selected={selected?.id === a.id}
-            onClick={() => setSelected(a)}
-          />
+        {vorgaenge.map((vorgang) => (
+          <VorgangItem key={vorgang.fachlicherSchluessel} vorgang={vorgang} />
         ))}
       </div>
     </div>

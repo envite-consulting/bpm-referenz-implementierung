@@ -18,6 +18,9 @@
       "@aufgabenSidebar/*": [
         "src/pages/Aufgabenliste/components/AufgabenSidebar/*"
       ],
+      "@vorgangItem/*": [
+        "src/pages/Aufgabenliste/components/AufgabenSidebar/components/VorgangItem/*"
+      ],
       "@aufgabenFormular/*": [
         "src/pages/Aufgabenliste/components/AufgabenFormular/*"
       ],

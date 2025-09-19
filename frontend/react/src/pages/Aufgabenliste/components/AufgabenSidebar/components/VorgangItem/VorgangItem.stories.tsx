@@ -1,40 +1,29 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { http, HttpResponse } from 'msw';
-import { AufgabenSidebar } from '@aufgabenSidebar/AufgabenSidebar.tsx';
-import { MemoryRouter } from 'react-router-dom';
+import type { Vorgang } from '@aufgabenSidebar/Vorgang.types.ts';
 import type { Aufgabe } from '@aufgabenliste/Aufgabe.types.ts';
+import { VorgangItem } from '@vorgangItem/VorgangItem.tsx';
+import { http, HttpResponse } from 'msw';
+import { MemoryRouter } from 'react-router-dom';
 
-const meta: Meta<typeof AufgabenSidebar> = {
-  title: 'Aufgabenliste/AufgabenSidebar',
-  component: AufgabenSidebar,
+const meta: Meta<typeof VorgangItem> = {
+  title: 'Aufgabenliste/AufgabenSidebar/VorgangItem',
+  component: VorgangItem,
   tags: ['autodocs'],
 };
 export default meta;
 
-type Story = StoryObj<typeof AufgabenSidebar>;
+type Story = StoryObj<typeof VorgangItem>;
 
-const vorgaenge = [
-  {
-    id: '1',
-    fachlicherSchluessel: 'V1',
-    fachdaten: {
-      antragstellerVorname: 'Max',
-      antragstellerNachname: 'Mustermann',
-      fahrzeugHersteller: 'VW',
-      fahrzeugModell: 'Golf',
-    },
+const baseVorgang: Vorgang = {
+  id: '1',
+  fachlicherSchluessel: 'V2024-001',
+  fachdaten: {
+    antragstellerVorname: 'Max',
+    antragstellerNachname: 'Mustermann',
+    fahrzeugHersteller: 'Volkswagen',
+    fahrzeugModell: 'Golf GTI',
   },
-  {
-    id: '2',
-    fachlicherSchluessel: 'V2',
-    fachdaten: {
-      antragstellerVorname: 'Erika',
-      antragstellerNachname: 'Musterfrau',
-      fahrzeugHersteller: 'BMW',
-      fahrzeugModell: 'X3',
-    },
-  },
-];
+};
 
 const sampleAufgaben: Aufgabe[] = [
   {
@@ -61,69 +50,82 @@ const sampleAufgaben: Aufgabe[] = [
 ];
 
 export const Default: Story = {
+  args: {
+    vorgang: baseVorgang,
+  },
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/vorgang', () => HttpResponse.json(vorgaenge)),
         http.get('/api/aufgabe', () => HttpResponse.json(sampleAufgaben)),
       ],
     },
   },
-  render: () => (
+  render: (args) => (
     <MemoryRouter initialEntries={['/']}>
-      <AufgabenSidebar />
+      <VorgangItem {...args} />
     </MemoryRouter>
   ),
 };
 
 export const Loading: Story = {
+  args: {
+    vorgang: baseVorgang,
+  },
   parameters: {
     msw: {
       handlers: [
         http.get(
-          '/api/vorgang',
+          '/api/aufgabe',
           () =>
             new Promise((resolve) =>
-              setTimeout(() => resolve(HttpResponse.json(vorgaenge)), 2000),
+              setTimeout(
+                () => resolve(HttpResponse.json(sampleAufgaben)),
+                2000,
+              ),
             ),
         ),
-        http.get('/api/aufgabe', () => HttpResponse.json(sampleAufgaben)),
       ],
     },
   },
-  render: () => (
+  render: (args) => (
     <MemoryRouter initialEntries={['/']}>
-      <AufgabenSidebar />
+      <VorgangItem {...args} />
     </MemoryRouter>
   ),
 };
 
 export const Error: Story = {
+  args: {
+    vorgang: baseVorgang,
+  },
   parameters: {
     msw: {
       handlers: [
-        http.get('/api/vorgang', () =>
+        http.get('/api/aufgabe', () =>
           HttpResponse.json({ message: 'Fehler' }, { status: 500 }),
         ),
       ],
     },
   },
-  render: () => (
+  render: (args) => (
     <MemoryRouter initialEntries={['/']}>
-      <AufgabenSidebar />
+      <VorgangItem {...args} />
     </MemoryRouter>
   ),
 };
 
 export const Empty: Story = {
+  args: {
+    vorgang: baseVorgang,
+  },
   parameters: {
     msw: {
-      handlers: [http.get('/api/vorgang', () => HttpResponse.json([]))],
+      handlers: [http.get('/api/aufgabe', () => HttpResponse.json([]))],
     },
   },
-  render: () => (
+  render: (args) => (
     <MemoryRouter initialEntries={['/']}>
-      <AufgabenSidebar />
+      <VorgangItem {...args} />
     </MemoryRouter>
   ),
 };

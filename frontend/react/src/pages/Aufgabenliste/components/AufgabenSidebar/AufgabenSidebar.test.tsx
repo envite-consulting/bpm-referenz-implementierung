@@ -1,33 +1,39 @@
-import { fireEvent, render } from '@testing-library/react';
-import { AufgabenSidebar } from './AufgabenSidebar.tsx';
-import { useAufgabenListeQuery as useAufgabenListeQueryOriginal } from '@aufgabenliste/queries/useAufgabenlisteQuery.ts';
+import { render } from '@testing-library/react';
+import { AufgabenSidebar } from './AufgabenSidebar';
+import { useVorganglisteQuery as useVorganglisteQueryOriginal } from '@aufgabenSidebar/queries/useVorganglisteQuery';
 
-jest.mock('@aufgabenliste/queries/useAufgabenlisteQuery.ts', () => ({
-  useAufgabenListeQuery: jest.fn(),
-}));
+jest.mock('@aufgabenSidebar/queries/useVorganglisteQuery.ts');
+
+jest.mock('@vorgangItem/VorgangItem.tsx');
 
 jest.mock('@ui/LoadingSpin/LoadingSpin.tsx');
 
-const useAufgabenListeQuery =
-  useAufgabenListeQueryOriginal as jest.MockedFunction<
-    typeof useAufgabenListeQueryOriginal
+const useVorganglisteQuery =
+  useVorganglisteQueryOriginal as jest.MockedFunction<
+    typeof useVorganglisteQueryOriginal
   >;
 
 describe('AufgabenSidebar', () => {
-  const baseAufgaben = [
+  const baseVorgaenge = [
     {
       id: '1',
-      name: 'A1',
-      bearbeiter: null,
-      erstelldatum: new Date('2024-01-01T00:00:00Z'),
-      formularreferenz: 'X',
+      fachlicherSchluessel: 'V1',
+      fachdaten: {
+        antragstellerVorname: 'Max',
+        antragstellerNachname: 'Mustermann',
+        fahrzeugHersteller: 'VW',
+        fahrzeugModell: 'Golf',
+      },
     },
     {
       id: '2',
-      name: 'A2',
-      bearbeiter: 'Max',
-      erstelldatum: new Date('2024-01-02T00:00:00Z'),
-      formularreferenz: 'Y',
+      fachlicherSchluessel: 'V2',
+      fachdaten: {
+        antragstellerVorname: 'Erika',
+        antragstellerNachname: 'Musterfrau',
+        fahrzeugHersteller: 'BMW',
+        fahrzeugModell: 'X3',
+      },
     },
   ];
 
@@ -37,68 +43,39 @@ describe('AufgabenSidebar', () => {
 
   describe('Rendering', () => {
     it('should show loading spinner when loading', () => {
-      (useAufgabenListeQuery as jest.Mock).mockReturnValue({
-        aufgaben: [],
+      (useVorganglisteQuery as jest.Mock).mockReturnValue({
+        vorgaenge: [],
         isLoading: true,
         isError: false,
       });
 
-      const { getByTestId } = render(
-        <AufgabenSidebar selected={null} setSelected={jest.fn()} />,
-      );
+      const { getByTestId } = render(<AufgabenSidebar />);
 
       expect(getByTestId('loading-spin-mock')).toBeInTheDocument();
     });
 
     it('should show error message when error', () => {
-      (useAufgabenListeQuery as jest.Mock).mockReturnValue({
-        aufgaben: [],
+      (useVorganglisteQuery as jest.Mock).mockReturnValue({
+        vorgaenge: [],
         isLoading: false,
         isError: true,
       });
 
-      const { asFragment } = render(
-        <AufgabenSidebar selected={null} setSelected={jest.fn()} />,
-      );
+      const { asFragment } = render(<AufgabenSidebar />);
 
       expect(asFragment()).toMatchSnapshot();
     });
 
-    it('should render list of Aufgaben', () => {
-      (useAufgabenListeQuery as jest.Mock).mockReturnValue({
-        aufgaben: baseAufgaben,
+    it('should render list of Vorgaenge', () => {
+      (useVorganglisteQuery as jest.Mock).mockReturnValue({
+        vorgaenge: baseVorgaenge,
         isLoading: false,
         isError: false,
       });
 
-      const { asFragment } = render(
-        <AufgabenSidebar selected={baseAufgaben[0]} setSelected={jest.fn()} />,
-      );
+      const { asFragment } = render(<AufgabenSidebar />);
 
       expect(asFragment()).toMatchSnapshot();
-    });
-  });
-
-  describe('Event handling', () => {
-    it('should call setSelected when clicking an item', () => {
-      (useAufgabenListeQuery as jest.Mock).mockReturnValue({
-        aufgaben: baseAufgaben,
-        isLoading: false,
-        isError: false,
-      });
-
-      const onSelectMock = jest.fn();
-      const { getAllByTestId } = render(
-        <AufgabenSidebar
-          selected={baseAufgaben[0]}
-          setSelected={onSelectMock}
-        />,
-      );
-
-      const items = getAllByTestId('aufgabe-item');
-      fireEvent.click(items[1]);
-
-      expect(onSelectMock).toHaveBeenCalledWith(baseAufgaben[1]);
     });
   });
 });

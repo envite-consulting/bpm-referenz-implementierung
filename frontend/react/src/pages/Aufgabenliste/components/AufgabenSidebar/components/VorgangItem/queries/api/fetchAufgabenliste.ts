@@ -5,14 +5,14 @@ import {
   aufgabeAbfrageSchema,
 } from '@aufgabenliste/Aufgabe.types.ts';
 
-export async function getAufgabenliste() {
+export async function getAufgabenlisteByVorgang(vorgangId: string) {
   try {
-    const response = await axios.get('/api/aufgabe');
+    const response = await axios.get(`/api/aufgabe?vorgangId=${vorgangId}`);
 
-    const aufgabenList: Aufgabe[] = z
+    const vorgangList: Aufgabe[] = z
       .array(aufgabeAbfrageSchema)
       .parse(response.data);
-    return aufgabenList;
+    return vorgangList;
   } catch (error) {
     console.error(error);
     throw error;

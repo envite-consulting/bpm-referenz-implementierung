@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`AufgabenSidebar Rendering should render list of Aufgaben 1`] = `
+exports[`AufgabenSidebar Rendering should render list of Vorgaenge 1`] = `
 <DocumentFragment>
   <div
     class="flex flex-col h-full border-r border-gray-200"
@@ -13,38 +13,16 @@ exports[`AufgabenSidebar Rendering should render list of Aufgaben 1`] = `
     <div
       class="overflow-y-auto"
     >
-      <div
-        class="p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50 bg-gray-100"
-        data-testid="aufgabe-item"
-        role="button"
+      <p
+        data-testid="vorgang-item-mock"
       >
-        <div
-          class="font-medium"
-        >
-          A1
-        </div>
-        <div
-          class="text-sm text-gray-600"
-        >
-          Nicht zugewiesen · 1.1.2024
-        </div>
-      </div>
-      <div
-        class="p-3 cursor-pointer border-b border-gray-200 hover:bg-gray-50 "
-        data-testid="aufgabe-item"
-        role="button"
+        Vorgang Item
+      </p>
+      <p
+        data-testid="vorgang-item-mock"
       >
-        <div
-          class="font-medium"
-        >
-          A2
-        </div>
-        <div
-          class="text-sm text-gray-600"
-        >
-          Max · 2.1.2024
-        </div>
-      </div>
+        Vorgang Item
+      </p>
     </div>
   </div>
 </DocumentFragment>

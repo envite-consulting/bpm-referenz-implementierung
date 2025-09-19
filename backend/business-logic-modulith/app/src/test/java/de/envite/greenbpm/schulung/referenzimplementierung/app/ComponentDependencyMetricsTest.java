@@ -10,6 +10,9 @@ import com.tngtech.archunit.library.metrics.MetricsComponents;
 import com.tngtech.archunit.library.metrics.VisibilityMetrics;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +35,7 @@ class ComponentDependencyMetricsTest {
     }
 
     @Test
-    void print_metrics() {
+    void generate_system_out_html_metrics_report() {
         JavaClasses classes = new ClassFileImporter().importPackages(BASE_PACKAGE);
         Set<JavaPackage> packages = classes.getPackage(BASE_PACKAGE).getSubpackages();
 
@@ -56,5 +59,56 @@ class ComponentDependencyMetricsTest {
             print(printableMetrics(p, "Abstractness"), componentDependencyMetrics.getAbstractness(p));
             print(printableMetrics(p, "Distance from Main Sequence"), componentDependencyMetrics.getNormalizedDistanceFromMainSequence(p));
         });
+    }
+
+    @Test
+    void generate_html_metrics_report() throws IOException {
+        JavaClasses classes = new ClassFileImporter().importPackages(BASE_PACKAGE);
+        Set<JavaPackage> packages = classes.getPackage(BASE_PACKAGE).getSubpackages();
+
+        MetricsComponents<JavaClass> components = MetricsComponents.fromPackages(packages);
+        ComponentDependencyMetrics componentMetrics = ArchitectureMetrics.componentDependencyMetrics(components);
+        VisibilityMetrics visibilityMetrics = ArchitectureMetrics.visibilityMetrics(components);
+
+        try (PrintWriter out = new PrintWriter(new FileWriter("target/component-metrics.html"))) {
+            out.println("<html><head><title>Component Dependency Metrics</title>");
+            out.println("<style>table { border-collapse: collapse; }"
+                    + "th, td { border: 1px solid #ccc; padding: 4px; }"
+                    + "th { background: #eee; }</style>");
+            out.println("</head><body>");
+
+            out.println("<h1>Component Dependency Metrics</h1>");
+
+            out.println("<h2>Global Visibility</h2>");
+            out.println("<table>");
+            out.printf("<tr><th>Average Relative Visibility</th><td>%.2f</td></tr>%n",
+                    visibilityMetrics.getAverageRelativeVisibility());
+            out.printf("<tr><th>Global Relative Visibility</th><td>%.2f</td></tr>%n",
+                    visibilityMetrics.getGlobalRelativeVisibility());
+            out.println("</table>");
+
+            out.println("<h2>Packages of Interest</h2>");
+            out.println("<table>");
+            out.println("<tr><th>Package</th><th>Relative Visibility</th>"
+                    + "<th>Efferent Coupling (Ce)</th><th>Afferent Coupling (Ca)</th>"
+                    + "<th>Instability (I)</th><th>Abstractness (A)</th>"
+                    + "<th>Distance from Main Sequence (D)</th></tr>");
+
+            for (String p : PACKAGES_OF_INTEREST) {
+                out.printf("<tr><td>%s</td>"
+                                + "<td>%.2f</td><td>%d</td><td>%d</td>"
+                                + "<td>%.2f</td><td>%.2f</td><td>%.2f</td></tr>%n",
+                        p.replace(BASE_PACKAGE + ".", ""),
+                        visibilityMetrics.getRelativeVisibility(p),
+                        componentMetrics.getEfferentCoupling(p),
+                        componentMetrics.getAfferentCoupling(p),
+                        componentMetrics.getInstability(p),
+                        componentMetrics.getAbstractness(p),
+                        componentMetrics.getNormalizedDistanceFromMainSequence(p));
+            }
+
+            out.println("</table>");
+            out.println("</body></html>");
+        }
     }
 }

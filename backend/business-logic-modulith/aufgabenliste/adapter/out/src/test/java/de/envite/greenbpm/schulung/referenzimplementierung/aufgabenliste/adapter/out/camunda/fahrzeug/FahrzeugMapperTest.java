@@ -1,5 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.fahrzeug;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,5 +29,13 @@ class FahrzeugMapperTest {
     softly.assertThat(fachdatenFahrzeug.getHersteller()).isEqualTo("Hersteller");
     softly.assertThat(fachdatenFahrzeug.getModell()).isEqualTo("Modell");
     softly.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    FachdatenFahrzeug result = classUnderTest.toDomain(null);
+
+    assertThat(result).isNull();
   }
 }

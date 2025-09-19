@@ -1,11 +1,11 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.bestellung.adapter.in.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import de.envite.greenbpm.schulung.referenzimplementierung.bestellung.domain.model.Bestellung;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
-import java.time.LocalDateTime;
 
 class BestellungserfassungRestMapperTest {
 
@@ -16,8 +16,7 @@ class BestellungserfassungRestMapperTest {
   void should_map_all_fields_to_domain_with_id() {
     BestellungserfassungResource resource =
         new BestellungserfassungResource(
-            "46710277-85ba-468f-a903-8d9164c9ea2b",
-            "d195c538-4c67-4677-9324-1f5707654706");
+            "46710277-85ba-468f-a903-8d9164c9ea2b", "d195c538-4c67-4677-9324-1f5707654706");
 
     Bestellung result = classUnderTest.toDomain(resource);
 
@@ -30,5 +29,13 @@ class BestellungserfassungRestMapperTest {
         .assertThat(result.getFahrzeugreferenz().getValue())
         .isEqualTo(resource.fahrzeugreferenz());
     softAssertions.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    Bestellung result = classUnderTest.toDomain(null);
+
+    assertThat(result).isNull();
   }
 }

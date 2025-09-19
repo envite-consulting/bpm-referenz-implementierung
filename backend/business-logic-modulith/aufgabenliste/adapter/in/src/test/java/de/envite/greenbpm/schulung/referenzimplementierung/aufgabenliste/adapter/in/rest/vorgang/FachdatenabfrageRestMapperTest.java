@@ -1,5 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest.vorgang;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.vorgang.fachdaten.Fachdaten;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.vorgang.fachdaten.FachdatenAntragsteller;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.vorgang.fachdaten.FachdatenFahrzeug;
@@ -26,5 +28,13 @@ class FachdatenabfrageRestMapperTest {
     softAssertions.assertThat(result.fahrzeugHersteller()).isEqualTo("Hersteller");
     softAssertions.assertThat(result.fahrzeugModell()).isEqualTo("Modell");
     softAssertions.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    FachdatenabfrageResource result = classUnderTest.toResource(null);
+
+    assertThat(result).isNull();
   }
 }

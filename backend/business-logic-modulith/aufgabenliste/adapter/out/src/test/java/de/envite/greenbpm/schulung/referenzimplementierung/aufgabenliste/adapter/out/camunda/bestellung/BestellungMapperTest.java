@@ -1,5 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.bestellung;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,5 +35,13 @@ class BestellungMapperTest {
         .assertThat(fachdatenReferenz.getFahrzeugreferenz())
         .isEqualTo("e460ae54-e992-42a6-b21c-cba229baab77");
     softly.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    FachdatenReferenz result = classUnderTest.toDomain(null);
+
+    assertThat(result).isNull();
   }
 }

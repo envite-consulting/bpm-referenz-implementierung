@@ -1,5 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.task;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.TaskWithAttachmentAndCommentDto;
 import java.time.LocalDate;
@@ -37,5 +39,13 @@ class CamundaTaskMapperTest {
         .isEqualTo(LocalDateTime.of(2025, 8, 21, 0, 0));
     softAssertions.assertThat(result.getFormularreferenz()).isEqualTo(camundaTaskDto.getFormKey());
     softAssertions.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    Aufgabe result = classUnderTest.toDomain(null);
+
+    assertThat(result).isNull();
   }
 }

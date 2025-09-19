@@ -1,8 +1,9 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.adapter.out.db;
 
-import java.util.UUID;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.fahrzeug.domain.model.*;
+import java.util.UUID;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,14 @@ class FahrzeugDbMapperTest {
       softAssertions.assertThat(result.getModell()).isEqualTo(fahrzeug.getModell().getValue());
       softAssertions.assertAll();
     }
+
+    @Test
+    void should_return_null_when_source_is_null() {
+
+      FahrzeugEntity result = classUnderTest.toEntity(null);
+
+      assertThat(result).isNull();
+    }
   }
 
   @Nested
@@ -72,6 +81,14 @@ class FahrzeugDbMapperTest {
           .isEqualTo(entity.getHersteller());
       softAssertions.assertThat(result.getJahr().getValue()).isEqualTo(entity.getJahr());
       softAssertions.assertAll();
+    }
+
+    @Test
+    void should_return_null_when_source_is_null() {
+
+      Fahrzeug result = classUnderTest.toDomain(null);
+
+      assertThat(result).isNull();
     }
   }
 }

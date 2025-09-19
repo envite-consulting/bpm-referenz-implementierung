@@ -1,5 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.antragsteller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,5 +29,13 @@ class AntragstellerMapperTest {
     softly.assertThat(fachdatenAntragsteller.getVorname()).isEqualTo("Test Vorname");
     softly.assertThat(fachdatenAntragsteller.getNachname()).isEqualTo("Test Nachname");
     softly.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    FachdatenAntragsteller result = classUnderTest.toDomain(null);
+
+    assertThat(result).isNull();
   }
 }

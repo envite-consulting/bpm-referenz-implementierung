@@ -1,5 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest.aufgabe;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import java.time.LocalDateTime;
 import org.assertj.core.api.SoftAssertions;
@@ -25,5 +27,13 @@ class AufgabenabfrageRestMapperTest {
     softAssertions.assertThat(result.erstelldatum()).isEqualTo(aufgabe.getErstelldatum());
     softAssertions.assertThat(result.formularreferenz()).isEqualTo(aufgabe.getFormularreferenz());
     softAssertions.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    AufgabenabfrageResource result = classUnderTest.toResource(null);
+
+    assertThat(result).isNull();
   }
 }

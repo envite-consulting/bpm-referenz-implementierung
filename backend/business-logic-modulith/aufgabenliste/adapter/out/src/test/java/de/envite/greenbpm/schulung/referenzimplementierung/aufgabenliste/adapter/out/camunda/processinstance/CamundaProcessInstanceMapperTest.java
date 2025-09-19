@@ -1,5 +1,7 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.processinstance;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.vorgang.Vorgang;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.ProcessInstanceDto;
 import org.assertj.core.api.SoftAssertions;
@@ -25,5 +27,13 @@ class CamundaProcessInstanceMapperTest {
     softly.assertThat(result.getFachlicherSchluessel()).isNotNull().isEqualTo("BK-123");
     softly.assertThat(result.getFachdaten()).isNull();
     softly.assertAll();
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    Vorgang result = classUnderTest.toDomain(null);
+
+    assertThat(result).isNull();
   }
 }

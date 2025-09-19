@@ -1,12 +1,13 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.adapter.out.db;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import de.envite.greenbpm.schulung.referenzimplementierung.antragsteller.domain.model.*;
+import java.util.UUID;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
-import java.util.UUID;
 
 class AntragstellerDbMapperTest {
 
@@ -20,11 +21,10 @@ class AntragstellerDbMapperTest {
     void should_map_all_fields() {
       final Antragsteller antragsteller =
           new Antragsteller(
-                  new AntragstellerId("3755e2e0-4aa2-43c9-bde4-d7cd98b7f427"),
-                  new Vorname("Test"),
-                  new Nachname("Name"),
-                  new Abteilung("Test Abteilung")
-          );
+              new AntragstellerId("3755e2e0-4aa2-43c9-bde4-d7cd98b7f427"),
+              new Vorname("Test"),
+              new Nachname("Name"),
+              new Abteilung("Test Abteilung"));
 
       AntragstellerEntity result = classUnderTest.toEntity(antragsteller);
 
@@ -42,6 +42,14 @@ class AntragstellerDbMapperTest {
           .assertThat(result.getAbteilung())
           .isEqualTo(antragsteller.getAbteilung().getValue());
       softAssertions.assertAll();
+    }
+
+    @Test
+    void should_return_null_when_source_is_null() {
+
+      AntragstellerEntity result = classUnderTest.toEntity(null);
+
+      assertThat(result).isNull();
     }
   }
 
@@ -64,6 +72,14 @@ class AntragstellerDbMapperTest {
       softAssertions.assertThat(result.getNachname().getValue()).isEqualTo(entity.getNachname());
       softAssertions.assertThat(result.getAbteilung().getValue()).isEqualTo(entity.getAbteilung());
       softAssertions.assertAll();
+    }
+
+    @Test
+    void should_return_null_when_source_is_null() {
+
+      Antragsteller result = classUnderTest.toDomain(null);
+
+      assertThat(result).isNull();
     }
   }
 }

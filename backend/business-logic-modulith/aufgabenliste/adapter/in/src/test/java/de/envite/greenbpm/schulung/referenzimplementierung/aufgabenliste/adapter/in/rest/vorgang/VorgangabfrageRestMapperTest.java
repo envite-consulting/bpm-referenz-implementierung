@@ -1,6 +1,6 @@
 package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.in.rest.vorgang;
 
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -44,5 +44,13 @@ class VorgangabfrageRestMapperTest {
     softAssertions.assertAll();
 
     verify(fachdatenabfrageRestMapper).toResource(fachdatenMock);
+  }
+
+  @Test
+  void should_return_null_when_source_is_null() {
+
+    VorgangabfrageResource result = classUnderTest.toResource(null);
+
+    assertThat(result).isNull();
   }
 }

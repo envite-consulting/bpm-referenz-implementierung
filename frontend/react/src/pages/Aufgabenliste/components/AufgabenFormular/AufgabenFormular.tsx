@@ -1,38 +1,35 @@
 import { useAufgabeUpdate } from '@aufgabenliste/components/AufgabenFormular/queries/useAufgabeUpdate.ts';
-import type { Aufgabe } from '@aufgabenliste/Aufgabe.types.ts';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import * as React from 'react';
 import { Badge } from '@ui/Badge/Badge.tsx';
 import { AufgabenFormularHeader } from '@aufgabenFormular/components/AufgabenFormularHeader/AufgabenFormularHeader.tsx';
 import { AufgabenFormularFooter } from '@aufgabenFormular/components/AufgabenFormularFooter/AufgabenFormularFooter.tsx';
 import { FormWrapper } from '@aufgabenFormular/formwrapper/FormWrapper.tsx';
+import { useAufgabeQuery } from '@aufgabenFormular/queries/useAufgabeQuery.ts';
+import { LoadingSpin } from '@ui/LoadingSpin/LoadingSpin.tsx';
 
-type Props = {
-  aufgabe: Aufgabe;
-  onAufgabeCompleted: () => void;
-};
+export function AufgabenFormular() {
+  const { id } = useParams<{ id: string }>();
 
-export function AufgabenFormular({ aufgabe, onAufgabeCompleted }: Props) {
+  const navigate = useNavigate();
+  const { aufgabe, isLoading, isError } = useAufgabeQuery(id!);
   const { uebernehmen, abgeben, abschliessenMitVariablen } = useAufgabeUpdate(
-    aufgabe.id,
+    id!,
   );
+
+  if (isLoading) return <LoadingSpin />;
+  if (isError || !aufgabe)
+    return <Badge label='Fehler beim Laden der Aufgabe' type='danger' />;
 
   // TODO: später aus Auth-Kontext holen
   const currentUser = 'admin';
-
-  const [bearbeiter, setBearbeiter] = React.useState<string | null>(
-    aufgabe.bearbeiter ?? null,
-  );
+  const bearbeiter = aufgabe.bearbeiter ?? null;
 
   const onAssignUser = () => {
     if (bearbeiter) {
-      abgeben.mutate(undefined, {
-        onSuccess: () => setBearbeiter(null),
-      });
+      abgeben.mutate(undefined);
     } else {
-      uebernehmen.mutate(currentUser, {
-        onSuccess: () => setBearbeiter(currentUser),
-      });
+      uebernehmen.mutate(currentUser);
     }
   };
 
@@ -43,7 +40,7 @@ export function AufgabenFormular({ aufgabe, onAufgabeCompleted }: Props) {
         e.preventDefault();
         abschliessenMitVariablen.mutate(
           {},
-          { onSuccess: () => onAufgabeCompleted() },
+          { onSuccess: () => navigate('/aufgabenliste') },
         );
       }}
     >
@@ -58,6 +55,7 @@ export function AufgabenFormular({ aufgabe, onAufgabeCompleted }: Props) {
       {bearbeiter === currentUser ? (
         <div className='py-4'>
           <FormWrapper
+            key={aufgabe.id}
             formularreferenz={aufgabe.formularreferenz}
             taskId={aufgabe.id}
           />

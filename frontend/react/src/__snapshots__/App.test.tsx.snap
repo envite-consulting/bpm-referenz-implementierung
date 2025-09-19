@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Dashboard Rendering should render Dasboard with Header 1`] = `
+<DocumentFragment>
+  <div
+    class="h-screen flex flex-col"
+  >
+    <div
+      data-testid="header-mock"
+    >
+      Header - /
+      <button
+        data-testid="nav-aufgabenliste"
+      >
+        Go Aufgabenliste
+      </button>
+      <button
+        data-testid="nav-bestellung"
+      >
+        Go Bestellung
+      </button>
+    </div>
+    <main
+      class="flex-1 overflow-auto"
+    >
+      <div>
+        <p
+          data-testid="app-routes"
+        >
+          App Routes
+        </p>
+      </div>
+    </main>
+  </div>
+</DocumentFragment>
+`;

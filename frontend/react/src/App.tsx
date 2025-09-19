@@ -1,45 +1,27 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Bestellung } from '@bestellung/Bestellung.tsx';
-import { Aufgabenliste } from '@aufgabenliste/Aufgabenliste.tsx';
 import { Header } from '@ui/Header/Header.tsx';
+import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom';
+import { AppRoutes } from '@root/AppRoutes.tsx';
 
 function Dashboard() {
-  const [path, setPath] = useState(
-    window.location.pathname || '/aufgabenliste',
-  );
-
-  useEffect(() => {
-    const onPop = () => setPath(window.location.pathname || '/aufgabenliste');
-    window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
-  }, []);
-
-  const navigate = (to: string) => {
-    if (to === path) return;
-    window.history.pushState({}, '', to);
-    setPath(to);
-  };
-
-  const content = useMemo(() => {
-    switch (path) {
-      case '/bestellung':
-        return <Bestellung />;
-      case '/aufgabenliste':
-      default:
-        return <Aufgabenliste />;
-    }
-  }, [path]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className='h-screen flex flex-col'>
-      <Header navigate={navigate} currentPath={path} />
-      <main className='flex-1 overflow-auto'>{content}</main>
+      <Header navigate={navigate} currentPath={location.pathname} />
+      <main className='flex-1 overflow-auto'>
+        <AppRoutes />
+      </main>
     </div>
   );
 }
 
 function App() {
-  return <Dashboard />;
+  return (
+    <BrowserRouter>
+      <Dashboard />
+    </BrowserRouter>
+  );
 }
 
 export default App;

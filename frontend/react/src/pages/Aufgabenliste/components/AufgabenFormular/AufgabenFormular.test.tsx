@@ -1,9 +1,11 @@
 import { fireEvent, render } from '@testing-library/react';
 import { useAufgabeUpdate } from '@aufgabenFormular/queries/useAufgabeUpdate.ts';
-import { AufgabenFormular } from './AufgabenFormular';
 import type { Aufgabe } from '@aufgabenliste/Aufgabe.types.ts';
+import { useAufgabeQuery } from '@aufgabenFormular/queries/useAufgabeQuery.ts';
+import { AufgabenFormular } from './AufgabenFormular';
 
 jest.mock('@aufgabenFormular/queries/useAufgabeUpdate.ts');
+jest.mock('@aufgabenFormular/queries/useAufgabeQuery.ts');
 jest.mock(
   '@aufgabenFormular/components/AufgabenFormularHeader/AufgabenFormularHeader.tsx',
 );
@@ -11,6 +13,12 @@ jest.mock(
   '@aufgabenFormular/components/AufgabenFormularFooter/AufgabenFormularFooter.tsx',
 );
 jest.mock('@aufgabenFormular/formwrapper/FormWrapper.tsx');
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({ id: '123' }),
+  useNavigate: () => jest.fn(),
+}));
 
 describe('AufgabenFormular', () => {
   const mockUebernehmen = {
@@ -50,25 +58,25 @@ describe('AufgabenFormular', () => {
 
   describe('Rendering', () => {
     it('should render Aufgabe übernehmen warning when no assignee exists', () => {
-      const { asFragment } = render(
-        <AufgabenFormular
-          aufgabe={defaultAufgabe}
-          onAufgabeCompleted={jest.fn()}
-        />,
-      );
+      (useAufgabeQuery as jest.Mock).mockReturnValue({
+        aufgabe: defaultAufgabe,
+        isLoading: false,
+        isError: false,
+      });
+
+      const { asFragment } = render(<AufgabenFormular />);
 
       expect(asFragment()).toMatchSnapshot();
     });
 
     it('should render header, footer and FormWrapper when assignee exists', () => {
-      const aufgabeMitBearbeiter = { ...defaultAufgabe, bearbeiter: 'admin' };
+      (useAufgabeQuery as jest.Mock).mockReturnValue({
+        aufgabe: { ...defaultAufgabe, bearbeiter: 'admin' },
+        isLoading: false,
+        isError: false,
+      });
 
-      const { asFragment } = render(
-        <AufgabenFormular
-          aufgabe={aufgabeMitBearbeiter}
-          onAufgabeCompleted={jest.fn()}
-        />,
-      );
+      const { asFragment } = render(<AufgabenFormular />);
 
       expect(asFragment()).toMatchSnapshot();
     });
@@ -76,53 +84,41 @@ describe('AufgabenFormular', () => {
 
   describe('Event handling', () => {
     it('should call uebernehmen.mutate when no assignee exists', () => {
-      const { getByTestId } = render(
-        <AufgabenFormular
-          aufgabe={defaultAufgabe}
-          onAufgabeCompleted={jest.fn()}
-        />,
-      );
+      (useAufgabeQuery as jest.Mock).mockReturnValue({
+        aufgabe: defaultAufgabe,
+        isLoading: false,
+        isError: false,
+      });
+
+      const { getByTestId } = render(<AufgabenFormular />);
 
       fireEvent.click(getByTestId('header-button'));
 
-      expect(mockUebernehmen.mutate).toHaveBeenCalledWith(
-        'admin',
-        expect.objectContaining({
-          onSuccess: expect.any(Function),
-        }),
-      );
+      expect(mockUebernehmen.mutate).toHaveBeenCalledWith('admin');
     });
 
     it('should call abgeben.mutate when assignee exists', () => {
-      const aufgabeMitBearbeiter = { ...defaultAufgabe, bearbeiter: 'admin' };
+      (useAufgabeQuery as jest.Mock).mockReturnValue({
+        aufgabe: { ...defaultAufgabe, bearbeiter: 'admin' },
+        isLoading: false,
+        isError: false,
+      });
 
-      const { getByTestId } = render(
-        <AufgabenFormular
-          aufgabe={aufgabeMitBearbeiter}
-          onAufgabeCompleted={jest.fn()}
-        />,
-      );
+      const { getByTestId } = render(<AufgabenFormular />);
 
       fireEvent.click(getByTestId('header-button'));
 
-      expect(mockAbgeben.mutate).toHaveBeenCalledWith(
-        undefined,
-        expect.objectContaining({
-          onSuccess: expect.any(Function),
-        }),
-      );
+      expect(mockAbgeben.mutate).toHaveBeenCalledWith(undefined);
     });
 
     it('should call abschliessenMitVariablen.mutate on submit', () => {
-      const onCompleted = jest.fn();
-      const aufgabeMitBearbeiter = { ...defaultAufgabe, bearbeiter: 'admin' };
+      (useAufgabeQuery as jest.Mock).mockReturnValue({
+        aufgabe: { ...defaultAufgabe, bearbeiter: 'admin' },
+        isLoading: false,
+        isError: false,
+      });
 
-      const { container } = render(
-        <AufgabenFormular
-          aufgabe={aufgabeMitBearbeiter}
-          onAufgabeCompleted={onCompleted}
-        />,
-      );
+      const { container } = render(<AufgabenFormular />);
 
       const form = container.querySelector('form')!;
       fireEvent.submit(form);

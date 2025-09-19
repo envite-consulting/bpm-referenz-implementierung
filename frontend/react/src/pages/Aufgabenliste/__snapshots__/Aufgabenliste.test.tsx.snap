@@ -17,11 +17,11 @@ exports[`Aufgabenliste Rendering should render AufgabenFormular when an Aufgabe 
     <div
       class="flex-1 h-full overflow-auto"
     >
-      <p
-        data-testid="aufgaben-formular-mock"
+      <div
+        data-testid="outlet-mock"
       >
-        Formular
-      </p>
+        Outlet Content
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -44,6 +44,11 @@ exports[`Aufgabenliste Rendering should render badge when no Aufgabe is selected
     <div
       class="flex-1 h-full overflow-auto"
     >
+      <div
+        data-testid="outlet-mock"
+      >
+        Outlet Content
+      </div>
       <p
         data-testid="badge-mock"
         type="info"

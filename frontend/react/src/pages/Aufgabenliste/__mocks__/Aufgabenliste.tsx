@@ -1,3 +1,10 @@
+import { Outlet } from 'react-router-dom';
+
 export function Aufgabenliste() {
-  return <p data-testid='aufgabenliste-mock'>Aufgabenliste</p>;
+  return (
+    <div>
+      <p data-testid='aufgabenliste-mock'>Aufgabenliste</p>
+      <Outlet />
+    </div>
+  );
 }

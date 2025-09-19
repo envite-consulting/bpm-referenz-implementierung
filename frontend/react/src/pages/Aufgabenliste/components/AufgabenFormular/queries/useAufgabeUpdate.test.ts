@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import {
-  uebernehmen,
   abgeben,
   abschliessenMitVariablen,
+  uebernehmen,
 } from '@aufgabenliste/components/AufgabenFormular/queries/api/updateAufgabe.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import { QUERY_KEYS } from '@aufgabenliste/queries/useAufgabenlisteQuery.ts';
+import { QUERY_KEYS as QUERY_KEYS_VORGANG } from '@aufgabenSidebar/queries/useVorganglisteQuery.ts';
+import { QUERY_KEYS as QUERY_KEYS_AUFGABE } from '@aufgabenFormular/queries/useAufgabeQuery.ts';
 import { useAufgabeUpdate } from './useAufgabeUpdate.ts';
 
 jest.mock(
@@ -82,7 +83,10 @@ describe('useAufgabeUpdate', () => {
 
       expect(mockUebernehmen).toHaveBeenCalledWith(aufgabenId, userId);
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: QUERY_KEYS.aufgabenListe,
+        queryKey: QUERY_KEYS_VORGANG.vorgangListe,
+      });
+      expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
       });
     });
   });
@@ -120,7 +124,10 @@ describe('useAufgabeUpdate', () => {
 
       expect(mockAbgeben).toHaveBeenCalledWith(aufgabenId);
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: QUERY_KEYS.aufgabenListe,
+        queryKey: QUERY_KEYS_VORGANG.vorgangListe,
+      });
+      expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
       });
     });
   });
@@ -163,7 +170,10 @@ describe('useAufgabeUpdate', () => {
         variablen,
       );
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: QUERY_KEYS.aufgabenListe,
+        queryKey: QUERY_KEYS_VORGANG.vorgangListe,
+      });
+      expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
       });
     });
 
@@ -182,7 +192,10 @@ describe('useAufgabeUpdate', () => {
 
       expect(mockAbschliessenMitVariablen).toHaveBeenCalledWith(aufgabenId, {});
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: QUERY_KEYS.aufgabenListe,
+        queryKey: QUERY_KEYS_VORGANG.vorgangListe,
+      });
+      expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
+        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
       });
     });
   });

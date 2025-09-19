@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { AufgabenItem } from '@aufgabenSidebar/components/AufgabenItem/AufgabenItem.tsx';
+import { AufgabenItem } from '@vorgangItem/components/AufgabenItem/AufgabenItem.tsx';
 
 const meta: Meta<typeof AufgabenItem> = {
-  title: 'Aufgabenliste/AufgabenSidebar/AufgabenItem',
+  title: 'Aufgabenliste/AufgabenSidebar/VorgangItem/AufgabenItem',
   component: AufgabenItem,
   tags: ['autodocs'],
 };

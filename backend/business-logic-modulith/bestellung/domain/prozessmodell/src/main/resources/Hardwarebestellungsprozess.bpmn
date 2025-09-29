@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1dy6ty0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.36.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.23.0">
   <bpmn:collaboration id="Collaboration_1vjcpz5">
-    <bpmn:participant id="Participant_0vu54bv" name="Hardwarebestellungsprozess&#10;System" processRef="Process_1wzxiyi" />
+    <bpmn:participant id="Participant_0vu54bv" name="Hardwarebestellungsprozess&#10;System" processRef="BestellungProcess" />
     <bpmn:participant id="Participant_0ixnl31" name="Mitarbeiter" />
     <bpmn:participant id="Participant_1b9rbu8" name="Practices Lead" />
     <bpmn:messageFlow id="Flow_0iqad8b" sourceRef="Participant_0ixnl31" targetRef="StartEvent_1" />
@@ -10,7 +10,7 @@
     <bpmn:messageFlow id="Flow_1wkwcdz" sourceRef="Activity_11ilezp" targetRef="Participant_1b9rbu8" />
     <bpmn:messageFlow id="Flow_166deqi" sourceRef="Participant_1b9rbu8" targetRef="Activity_11ilezp" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1wzxiyi" isExecutable="true" camunda:historyTimeToLive="P5D">
+  <bpmn:process id="BestellungProcess" isExecutable="true" camunda:historyTimeToLive="P5D">
     <bpmn:startEvent id="StartEvent_1" name="Hardwareanfrage erfasst">
       <bpmn:outgoing>Flow_0npwj37</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0u9ex10">
@@ -19,7 +19,7 @@
     </bpmn:startEvent>
     <bpmn:dataObjectReference id="DataObjectReference_1k867ok" name="- Hersteller&#10;- Modell" dataObjectRef="DataObject_1l17geh" />
     <bpmn:dataObject id="DataObject_1l17geh" />
-    <bpmn:userTask id="Activity_11ilezp" name="Anfragen genehmigen">
+    <bpmn:userTask id="Activity_11ilezp" name="Anfragen genehmigen" camunda:formKey="Test">
       <bpmn:incoming>Flow_1uj909v</bpmn:incoming>
       <bpmn:outgoing>Flow_0fb96gj</bpmn:outgoing>
       <bpmn:property id="Property_16jdb0b" name="__targetRef_placeholder" />
@@ -52,7 +52,7 @@
     <bpmn:sequenceFlow id="Flow_0fb96gj" sourceRef="Activity_11ilezp" targetRef="Gateway_1g6wnau" />
     <bpmn:sequenceFlow id="Flow_082wajl" name="Ja" sourceRef="Gateway_1g6wnau" targetRef="Event_0z57oq9" />
     <bpmn:sequenceFlow id="Flow_11wrsx3" name="Nein" sourceRef="Gateway_1g6wnau" targetRef="Event_19dh75j">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" />
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:task id="Activity_1nf4hv1" name="Nachhaltigkeitsscore abfragen">
       <bpmn:incoming>Flow_0npwj37</bpmn:incoming>

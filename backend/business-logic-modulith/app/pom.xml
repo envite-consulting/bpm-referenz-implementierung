@@ -214,56 +214,46 @@
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste</artifactId>
-            <version>${bestellung.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-adapter</artifactId>
-            <version>${bestellung.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-adapter-out</artifactId>
-            <version>${bestellung.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-adapter-in</artifactId>
-            <version>${bestellung.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-domain</artifactId>
-            <version>${bestellung.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-domain-service</artifactId>
-            <version>${bestellung.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-domain-model</artifactId>
-            <version>${bestellung.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-usecase</artifactId>
-            <version>${bestellung.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-usecase-out</artifactId>
-            <version>${bestellung.version}</version>
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
             <artifactId>aufgabenliste-usecase-in</artifactId>
-            <version>${bestellung.version}</version>
         </dependency>
 
         <dependency>

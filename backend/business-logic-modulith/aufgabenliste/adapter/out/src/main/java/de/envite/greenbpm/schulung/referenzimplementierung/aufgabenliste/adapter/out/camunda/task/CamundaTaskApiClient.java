@@ -24,6 +24,7 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
 
   private final CamundaTaskMapper taskMapper;
   private final TaskApi taskApi;
+  private final CamundaVariableMapper camundaVariableMapper;
 
   @Override
   public Aufgabe queryById(String taskId) throws AufgabeNotFoundException, AufgabeQueryException {
@@ -83,7 +84,7 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
       throws AufgabeUpdateException {
     try {
       CompleteTaskDto completeTaskDto = new CompleteTaskDto();
-      completeTaskDto.setVariables(CamundaVariableMapper.toDto(variables));
+      completeTaskDto.setVariables(camundaVariableMapper.toDto(variables));
       taskApi.complete(taskId, completeTaskDto);
 
     } catch (ApiException e) {

@@ -5,15 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.VariableValueDto;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 
 class CamundaVariableMapperTest {
+
+  private final CamundaVariableMapper mapper = Mappers.getMapper(CamundaVariableMapper.class);
 
   @Test
   void should_map_variables_to_variableValueDto() {
 
     Map<String, Object> input = Map.of("varString", "hello", "varInt", 42, "varBoolean", true);
 
-    Map<String, VariableValueDto> result = CamundaVariableMapper.toDto(input);
+    Map<String, VariableValueDto> result = mapper.toDto(input);
 
     assertThat(result).hasSize(3);
 
@@ -35,7 +38,7 @@ class CamundaVariableMapperTest {
 
     Map<String, Object> input = Map.of();
 
-    Map<String, VariableValueDto> result = CamundaVariableMapper.toDto(input);
+    Map<String, VariableValueDto> result = mapper.toDto(input);
 
     assertThat(result).isEmpty();
   }

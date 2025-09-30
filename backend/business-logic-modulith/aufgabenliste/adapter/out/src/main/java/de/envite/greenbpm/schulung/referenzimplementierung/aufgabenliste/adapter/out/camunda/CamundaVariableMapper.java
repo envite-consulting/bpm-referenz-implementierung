@@ -3,16 +3,15 @@ package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapte
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.VariableValueDto;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.mapstruct.Mapper;
 
-public final class CamundaVariableMapper {
+@Mapper(componentModel = "spring")
+public interface CamundaVariableMapper {
 
-  public static Map<String, VariableValueDto> toDto(Map<String, Object> variables) {
-
+  default Map<String, VariableValueDto> toDto(Map<String, Object> variables) {
     return variables.entrySet().stream()
         .collect(
             Collectors.toMap(
                 Map.Entry::getKey, entry -> new VariableValueDto().value(entry.getValue())));
   }
-
-  private CamundaVariableMapper() {}
 }

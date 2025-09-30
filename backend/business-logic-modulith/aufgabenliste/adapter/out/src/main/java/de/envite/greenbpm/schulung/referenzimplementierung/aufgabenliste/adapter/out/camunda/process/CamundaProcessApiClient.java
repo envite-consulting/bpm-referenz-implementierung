@@ -15,13 +15,14 @@ import org.springframework.stereotype.Component;
 class CamundaProcessApiClient implements ProzessCommand {
 
   private final ProcessDefinitionApi processDefinitionApi;
+  private final CamundaVariableMapper camundaVariableMapper;
 
   @Override
   public void start(String processDefinitionId, String businessKey, Map<String, Object> variables)
       throws ProzessstartException {
     try {
       StartProcessInstanceDto startProcessInstanceDto = new StartProcessInstanceDto();
-      startProcessInstanceDto.setVariables(CamundaVariableMapper.toDto(variables));
+      startProcessInstanceDto.setVariables(camundaVariableMapper.toDto(variables));
       startProcessInstanceDto.setBusinessKey(businessKey);
       processDefinitionApi.startProcessInstanceByKey(processDefinitionId, startProcessInstanceDto);
 

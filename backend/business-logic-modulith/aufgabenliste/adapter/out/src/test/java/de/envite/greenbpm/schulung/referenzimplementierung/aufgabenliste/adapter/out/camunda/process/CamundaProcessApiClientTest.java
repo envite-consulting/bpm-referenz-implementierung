@@ -8,10 +8,12 @@ import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiClient;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiException;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessDefinitionApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.CamundaVariableMapper;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 
 @WireMockTest
 class CamundaProcessApiClientTest {
@@ -27,7 +29,8 @@ class CamundaProcessApiClientTest {
     apiClient.setBasePath(wmInfo.getHttpBaseUrl() + CAMUNDA_BASE_PATH);
 
     ProcessDefinitionApi processDefinitionApi = new ProcessDefinitionApi(apiClient);
-    classUnderTest = new CamundaProcessApiClient(processDefinitionApi);
+    CamundaVariableMapper variableMapper = Mappers.getMapper(CamundaVariableMapper.class);
+    classUnderTest = new CamundaProcessApiClient(processDefinitionApi, variableMapper);
   }
 
   @Nested

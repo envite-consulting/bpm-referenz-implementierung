@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda.CamundaVariableMapper;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.domain.model.aufgabe.Aufgabe;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeNotFoundException;
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeQueryException;
@@ -32,8 +33,9 @@ class CamundaTaskApiClientTest {
 
     TaskApi taskApi = new TaskApi(apiClient);
     CamundaTaskMapper taskMapper = Mappers.getMapper(CamundaTaskMapper.class);
+    CamundaVariableMapper variableMapper = Mappers.getMapper(CamundaVariableMapper.class);
 
-    classUnderTest = new CamundaTaskApiClient(taskMapper, taskApi);
+    classUnderTest = new CamundaTaskApiClient(taskMapper, taskApi, variableMapper);
   }
 
   @Nested

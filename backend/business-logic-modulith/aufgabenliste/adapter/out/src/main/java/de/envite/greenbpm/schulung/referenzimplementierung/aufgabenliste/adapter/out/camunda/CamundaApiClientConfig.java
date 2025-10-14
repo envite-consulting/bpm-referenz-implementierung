@@ -1,14 +1,16 @@
-package de.envite.greenbpm.schulung.referenzimplementierung.camundaclient;
+package de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.adapter.out.camunda;
 
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiClient;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessDefinitionApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessInstanceApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.testcoverage.ExcludeFromJacocoGeneratedReport;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ExcludeFromJacocoGeneratedReport
 class CamundaApiClientConfig {
 
   @Bean

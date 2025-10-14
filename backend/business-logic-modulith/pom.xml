@@ -27,7 +27,6 @@
         <module>testcoverage</module>
         <module>aufgabenliste</module>
         <module>camunda-rest-api</module>
-        <module>camunda-client</module>
     </modules>
 
     <properties>
@@ -373,12 +372,6 @@
             <dependency>
                 <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
                 <artifactId>aufgabenliste-adapter-out</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-                <artifactId>camunda-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

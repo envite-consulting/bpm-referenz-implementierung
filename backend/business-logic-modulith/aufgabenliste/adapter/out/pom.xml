@@ -40,9 +40,12 @@
         </dependency>
         <dependency>
             <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
-            <artifactId>camunda-client</artifactId>
+            <artifactId>camunda-rest-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>de.envite.greenbpm.schulung.referenzimplementierung</groupId>
+            <artifactId>testcoverage</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

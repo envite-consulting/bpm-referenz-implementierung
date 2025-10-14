@@ -21,14 +21,10 @@
         <module>bestellung</module>
         <module>antragsteller</module>
         <module>fahrzeug</module>
-        <module>uuid-generator</module>
         <module>app</module>
-        <module>artifact-deployment</module>
         <module>aufgabenliste</module>
-        <module>camunda-rest-api</module>
 
-        <module>testcoverage</module>
-        <module>architecture-test</module>
+        <module>technical</module>
     </modules>
 
     <properties>

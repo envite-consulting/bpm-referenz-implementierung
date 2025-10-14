@@ -24,9 +24,11 @@
         <module>uuid-generator</module>
         <module>app</module>
         <module>artifact-deployment</module>
-        <module>testcoverage</module>
         <module>aufgabenliste</module>
         <module>camunda-rest-api</module>
+
+        <module>testcoverage</module>
+        <module>architecture-test</module>
     </modules>
 
     <properties>

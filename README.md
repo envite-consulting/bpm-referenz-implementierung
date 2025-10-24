@@ -41,6 +41,7 @@ contributors. Siehe <https://arc42.org>.
     - [Domain Driven Design](#domain-driven-design)
     - [Besondere ID-Behandlung:](#besondere-id-behandlung)
     - [Exception Handling](#exception-handling)
+    - [Paketierung](#paketierung)
   - [Frontend](#frontend)
     - [Atomic Design](#atomic-design)
     - [TypeScript Pfad-Aliases](#typescript-pfad-aliases)
@@ -341,6 +342,37 @@ werden dabei in standardisierte HTTP-Antworten überführt:
 
 Jeder Fehlerfall wird in ein strukturiertes Fehlerobjekt umgewandelt, das Name, Nachricht und ggf. Fehlerursache
 enthält.
+
+
+#### Paketierung
+
+Die Projektstruktur ist klar in logische Module gegliedert, die dem Prinzip *Package by Feature* folgen. D.h. wir wollen in erster Linie fachlich strukturieren. Dies spiegelt die Businessdomäne auf den ersten Blick wieder. 
+
+Darüber hinaus wollen wir zudem unsere Architecture in der Paketierung ausdrücken, daher werden wir *Architecturally Expressive Package Structure* an. Wir drücken die Fachlichkeit und die zugrundeliegende Architektur aus → Kein „model-code gap“.
+
+So wird der Nutzer bpsw. wie folgt paktiert:
+
+```
+└── user
+    ├── adapter
+    │   ├── in
+    │   │   └── web
+    │   │       └── UserController.java
+    │   └── out
+    │       └── persistence
+    │           └── UserRepository.java
+    ├── domain
+    │   ├── model
+    │   │   └── User.java
+    │   └── service
+    │       └── UserService.java
+    └── usecase
+        └── port
+            ├── in
+            │   └── RegisterUserUseCase.java
+            └── out
+                └── SaveUserStatePort.java
+```
 
 ### Frontend
 

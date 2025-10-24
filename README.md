@@ -413,14 +413,111 @@ z.B.
 
 ### Qualitätsbaum
 
+Nachfolgend wird der Qualitätsbaum, angelehnt an [quality.arc42](https://quality.arc42.org/), dargestellt. 
+
+![qualitaetsbaum.svg](assets/qualitaetsanforderungen/qualitaetsbaum.svg)
+
 ### Qualitätsszenarien
+
+#### Zuverlässigkeit
+##### Verfügbarkeit
+###### Verfügbarkeit Montag - Donnerstag von 12 bis 22 Uhr
+
+| **Aspekt**               | **Beschreibung**                                                                                                                               |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Arbeitsrichtlinien                                                                                                                             |
+| **Auslöser**             | Das System wird von mehreren Nutzern (4-stellige Zahl) täglich aufgerufen.                                                                     |
+| **Umgebung**             | Production; Normalbetrieb                                                                                                                      |
+| **Systembestandteil**    | Komponenten zur Abwicklung des fachlichen Prozesses ([Backend](#backend), [Frontend](#frontend)), ausgenommen sind administrative Komponenten. |
+| **Antwort**              | Die fachlichen funktionen stehen zur Verfügung.                                                                                                |
+| **Antwortmetrik**        | Die Komponenten zur Abwicklung des fachlichen Prozessen sind von Montag bis Freitag von 12 bis 22 Uhr verfügbar.                               |
+
+
+#### Flexibilität
+##### Anpassbarkeit
+###### Unabhängige Ersetzung von externen Schnittstellen
+
+| **Aspekt**               | **Beschreibung**                                                                                                                                                             |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Entwicklungsteam / Schnittstellenanbieter                                                                                                                                    |
+| **Auslöser**             | Extern genutzte Schnittstellen änderten sich häufig.                                                                                                                         |
+| **Umgebung**             | Alle                                                                                                                                                                         |
+| **Systembestandteil**    | [Backend](#backend)                                                                                                                                                          |
+| **Antwort**              | Lediglich der Schnittstellen-Adapter muss bei einer Änderung der externen Schnisttstelle angepasst werden.                                                                   |
+| **Antwortmetrik**        | Die Anpassung ist lokal auf den Adapter der Schnittstelle beschränkt, d.h. die Domäne wird nicht angepasst und das Frontend hat gar keinerleie Kenntnisse von der Anpassung. |
+
+#### Benutzbarkeit
+##### Barrierefreiheit
+###### Einhaltung der WCA Guidelines
+
+| **Aspekt**               | **Beschreibung**                                                                                                                                                                                                                                                                                                                                |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Gesetzliche Vorgabe                                                                                                                                                                                                                                                                                                                             |
+| **Auslöser**             | Benutzer mit Behinderungen möchte in einer Webanwendung navigieren und mit ihr interagieren.                                                                                                                                                                                                                                                   |
+| **Umgebung**             | Alle                                                                                                                                                                                                                                                                                                                                            |
+| **Systembestandteil**    | [Frontend](#frontend)                                                                                                                                                                                                                                                                                                                           |
+| **Antwort**              | <ul><li>Navigation: Mindestens 95% aller interaktiven Elemente (Links Schaltflächen, etc.) sind mit dem Screenreader navigierbar und identifizierbar (auch bei einer Zoomstufe von 400%)</li><li>Inhalt: Mindestens 98% aller Inhalte einschließlich Text, Bilder, Videos usw., sind mit dem Screenreader zugänglich und konsumierbar</li></ul> |
+| **Antwortmetrik**        | Die Webanwendung soll die [WCAG 2.2](https://www.w3.org/TR/WCAG22/) Level A-Standardkriterien erfüllen.                                                                                                                                                                                                                                         |
+
+#### Benutzerfreundlichkeit
+###### Selbsterklärende UI
+
+| **Aspekt**               | **Beschreibung**                                                                                                                                                   |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Nutzer                                                                                                                                                             |
+| **Auslöser**             | Benutzung der Webanwendung                                                                                                                                         |
+| **Umgebung**             | Alle                                                                                                                                                               |
+| **Systembestandteil**    | [Frontend](#frontend)                                                                                                                                              |
+| **Antwort**              | Als (neuer) Nutzer aus der anderen Abteilungen will ich mich in der Anwendung zurechtfinden, sodass ich den Bestellprozess ohne Benutzerhandbuch durchführen kann. |
+| **Antwortmetrik**        | Die Erfassung einer Bestellung als neuer Benutzer ist in 95% der Fälle in unter 5 Minuten oder weniger möglich.                                                    |
+
+#### Betriebssicherheit (safe)
+#### Betriebliche Einschränkung
+###### Wenig Deployment Artefakte
+
+| **Aspekt**               | **Beschreibung**                                                                                                                                                     |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Betrieb                                                                                                                                                              |
+| **Auslöser**             | Der Betrieb installiert die Anweundung in der Produktion                                                                                                              |
+| **Umgebung**             | Produktion                                                                                                                                                           |
+| **Systembestandteil**    | [Bausteinsicht](#bausteinsicht)                                                                                                                                      |
+| **Antwort**              | Da der Betrieb das Deployment möglicherweise händisch, mit einer Anleitung durch das Entwicklungsteam, durchführt, muss das Deployment "einfach" sein.               |
+| **Antwortmetrik**        | Die Systembestandteile sind auf eine annehmbares Mindestmaß reduziert. Für das Deployment liegen Automatisierungsmechanismen vor, um das Deployment zu vereinfachen. |
+
+#### Nutzungssicherheit (secure)
+##### Revisionssicherheit
+###### Unveränderbare Daten nach Abschluss
+
+| **Aspekt**               | **Beschreibung**                                                                                                                                                                                                                                               |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Gesetzliche Vorgabe                                                                                                                                                                                                                                            |
+| **Auslöser**             | Eine Bestellung wird abgeschlossen.                                                                                                                                                                                                                            |
+| **Umgebung**             | Produktion                                                                                                                                                                                                                                                     |
+| **Systembestandteil**    | [Backend](#backend)                                                                                                                                                                                                                                            |
+| **Antwort**              | Eine abgeschlossene Bestellung darf nachträglich nicht mehr bearbeitet werden können. Es dürfen lediglich Dokumente hinzugefügt werden.                                                                                                                        |
+| **Antwortmetrik**        | Die nachträgliche Bearbeitung einer abgeschlossenen Bestellung ist nicht mehr möglich. Auch die Prozess Daten sind nach dem Abschluss nicht mehr änderbar. Das hinzufügen von Dokumente zu einer abgeschlossen Bestellung ist innerhalb von 4 Monaten möglich. |
+
+#### Effizienz
+
+##### Energieeffizienz / Nachhaltigkeit
+
+Der **Energieverbrauch** wird als zusätzliches Bewertungskriterium für Features berücksichtigt. Im Sinne des **magischen Dreiecks** des Projektmanagements stehen dabei vor allem die Aspekte **Wartbarkeit** und **Performance** im Vordergrund.
+
+| **Aspekt**               | **Beschreibung**                                                                                                                                                                                                             |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Quelle des Auslösers** | Entwicklungsteam / Product Owner                                                                                                                                                                                             |
+| **Auslöser**             | Bewertung eines neuen oder bestehenden Features im Hinblick auf Energieverbrauch                                                                                                                                             |
+| **Umgebung**             | Entwicklungs- und Betriebsumgebung des Systems (z. B. CI/CD-Pipeline, Produktionsumgebung)                                                                                                                                   |
+| **Systembestandteil**    | Gesamtsystem bzw. betroffene Softwarekomponenten, deren Implementierung Energieverbrauch beeinflusst                                                                                                                         |
+| **Antwort**              | Das System bzw. Team berücksichtigt den Energieverbrauch als zusätzliches Qualitätskriterium bei der Feature-Bewertung. Dabei stehen **Wartbarkeit** und **Performance** im Sinne des **magischen Dreiecks** im Vordergrund. |
+| **Antwortmetrik**        | Dokumentierte Entscheidung im Architektur-Review (z. B. ADR); Nachweis messbarer Energieeffizienz (z. B. Energieverbrauch pro Transaktion / Request) in Kombination mit akzeptabler Performance.                             |
 
 ## Risiken und technische Schulden
 
 ## Glossar
 
-| Begriff        | Definition        |
-|----------------|-------------------|
-| *\<Begriff-1>* | *\<Definition-1>* |
+| Begriff | Definition        |
+|---------|-------------------|
+| *WCAG*  | Web Content Accessibility Guidelines |
 
 

@@ -1,0 +1,29 @@
+@startmindmap
+
+' Orientiert an https://quality.arc42.org/
+
+*[#lightgray] Example App
+
+ *[#lightgreen] Zuverlässigkeit
+  *[#lightblue] Verfügbarkeit
+   *[#FFBBCC] Verfügbarkeit Montag - Donnerstag von 12 - 22 Uhr
+
+ *[#lightgreen] Flexibilität
+  *[#lightblue] Anpassbarkeit
+   *[#FFBBCC] Unabhängige Ersetzung von externe Schnittstellen
+
+ *[#lightgreen] Benutzbarkeit
+  *[#lightblue] Barrierefreiheit
+   *[#FFBBCC] Einhaltung der WCA Guidelines
+  *[#lightblue] Benutzerfreundlichkeit
+   *[#FFBBCC] Selbsterklärende UI
+
+ *[#lightgreen] Betriebssicherheit (safe)
+  *[#lightblue] Betriebliche Einschränkung
+   *[#FFBBCC] Wenig Deployment Artefakte
+
+ *[#lightgreen] Nutzungssicherheit (secure)
+  *[#lightblue] Revisionssicherheit
+   *[#FFBBCC] Unveränderbare Daten nach Abschluss
+
+@endmindmap

@@ -367,11 +367,10 @@ So wird der Nutzer bpsw. wie folgt paktiert:
     │   └── service
     │       └── UserService.java
     └── usecase
-        └── port
-            ├── in
-            │   └── RegisterUserUseCase.java
-            └── out
-                └── SaveUserStatePort.java
+        └── in
+        │   └── RegisterUserUseCase.java
+        └── out
+            └── SaveUserStatePort.java
 ```
 
 ### Frontend

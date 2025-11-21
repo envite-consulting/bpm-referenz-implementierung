@@ -2,10 +2,11 @@ import { render } from '@testing-library/react';
 import { useFahrzeugQuery } from '@fahrzeug/queries/useFahrzeugQuery.ts';
 import { DropdownMenu } from '@ui/DropDownMenu/DropdownMenu.tsx';
 import { Fahrzeug } from '@fahrzeug/Fahrzeug.tsx';
+import { QueryBoundary, type QueryBoundaryFnResult } from '@ui/QueryBoundary';
 
 jest.mock('@fahrzeug/queries/useFahrzeugQuery.ts');
 jest.mock('@ui/DropDownMenu/DropdownMenu.tsx');
-jest.mock('@ui/LoadingSpin/LoadingSpin.tsx');
+jest.mock('@ui/QueryBoundary');
 
 describe('Fahrzeug', () => {
   const mockDropdownMenu = DropdownMenu as jest.MockedFunction<
@@ -23,55 +24,23 @@ describe('Fahrzeug', () => {
   });
 
   describe('Rendering', () => {
-    it('should render loading state', () => {
-      (useFahrzeugQuery as jest.Mock).mockReturnValue({
-        fahrzeugOptions: [],
-        isLoading: true,
-        error: null,
-        isError: false,
-      });
-
-      const { getByTestId } = render(<Fahrzeug onSelectId={jest.fn()} />);
-
-      expect(getByTestId('loading-spin-mock')).toBeInTheDocument();
-      expect(mockDropdownMenu).not.toHaveBeenCalled();
-    });
-
-    it('should render error state', () => {
-      (useFahrzeugQuery as jest.Mock).mockReturnValue({
-        fahrzeugOptions: [],
-        isLoading: false,
-        error: { message: 'Failed to fetch' },
+    it('should render correct loading state', () => {
+      const queryResult: QueryBoundaryFnResult<string[]> = {
+        isFetching: true,
         isError: true,
-      });
+        isSuccess: true,
+        getData: () => ['Das wäre z.B. ein Datenstring'],
+        getErrorMessage: () => 'Das wäre ein etwaiger Fehler',
+      };
+      (useFahrzeugQuery as jest.Mock).mockReturnValue(queryResult);
 
       const { asFragment } = render(<Fahrzeug onSelectId={jest.fn()} />);
 
-      expect(asFragment()).toMatchSnapshot();
-      expect(mockDropdownMenu).not.toHaveBeenCalled();
-    });
-
-    it('should render DropdownMenu with correct props', () => {
-      (useFahrzeugQuery as jest.Mock).mockReturnValue({
-        fahrzeugOptions: mockOptions,
-        isLoading: false,
-        error: null,
-        isError: false,
-      });
-
-      const { getByTestId } = render(<Fahrzeug onSelectId={jest.fn()} />);
-
-      expect(mockDropdownMenu).toHaveBeenCalledWith(
-        expect.objectContaining({
-          required: true,
-          options: mockOptions,
-          label: 'Auswahl Fahrzeug',
-          onChange: expect.any(Function),
-        }),
+      expect(QueryBoundary).toHaveBeenCalledWith(
+        expect.objectContaining({ queryResult }),
         undefined,
       );
-
-      expect(getByTestId('dropdown-menu-mock')).toBeInTheDocument();
+      expect(asFragment()).toMatchSnapshot();
     });
 
     describe('Event handling', () => {
@@ -79,10 +48,10 @@ describe('Fahrzeug', () => {
         const mockOnSelectId = jest.fn();
 
         (useFahrzeugQuery as jest.Mock).mockReturnValue({
-          fahrzeugOptions: mockOptions,
-          isLoading: false,
-          error: null,
-          isError: false,
+          getData: () => mockOptions,
+          isFetching: () => false,
+          getErrorMessage: jest.fn(),
+          isError: () => false,
         });
 
         render(<Fahrzeug onSelectId={mockOnSelectId} />);

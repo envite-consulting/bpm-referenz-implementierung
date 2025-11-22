@@ -8,14 +8,14 @@ exports[`Fahrzeug Rendering should render correct loading state 1`] = `
     <div
       data-testid="queryResult"
     >
-      {"isError":true,"isFetching":true,"isSuccess":true,"errorMessage":"Das wäre ein etwaiger Fehler","data":["Das wäre z.B. ein Datenstring"]}
+      {"isError":false,"isFetching":false,"isSuccess":true,"errorMessage":"","data":{}}
     </div>
     <div
       data-testid="children"
     >
       <div
         data-label="Auswahl Fahrzeug"
-        data-options="["Das wäre z.B. ein Datenstring"]"
+        data-options="{}"
         data-required="true"
         data-testid="dropdown-menu-mock"
       >

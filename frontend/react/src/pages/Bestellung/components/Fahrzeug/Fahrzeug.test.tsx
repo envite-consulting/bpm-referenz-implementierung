@@ -1,17 +1,19 @@
 import { render } from '@testing-library/react';
 import { useFahrzeugQuery } from '@fahrzeug/queries/useFahrzeugQuery.ts';
-import { DropdownMenu } from '@ui/DropDownMenu/DropdownMenu.tsx';
+import {
+  DropdownMenu,
+  type DropdownOption,
+} from '@ui/DropDownMenu/DropdownMenu.tsx';
 import { Fahrzeug } from '@fahrzeug/Fahrzeug.tsx';
-import { QueryBoundary, type QueryBoundaryFnResult } from '@ui/QueryBoundary';
+import { QueryBoundary } from '@ui/QueryBoundary';
+import { buildUseQueryBoundaryFnResult } from '@ui/QueryBoundary/query/__mocks__/useQueryBoundaryFn.functions.ts';
 
 jest.mock('@fahrzeug/queries/useFahrzeugQuery.ts');
 jest.mock('@ui/DropDownMenu/DropdownMenu.tsx');
 jest.mock('@ui/QueryBoundary');
 
 describe('Fahrzeug', () => {
-  const mockDropdownMenu = DropdownMenu as jest.MockedFunction<
-    typeof DropdownMenu
-  >;
+  const mockDropdownMenu = jest.mocked(DropdownMenu);
 
   const mockOptions = [
     { label: 'Fahrzeug 1', value: '1' },
@@ -25,14 +27,10 @@ describe('Fahrzeug', () => {
 
   describe('Rendering', () => {
     it('should render correct loading state', () => {
-      const queryResult: QueryBoundaryFnResult<string[]> = {
-        isFetching: true,
-        isError: true,
-        isSuccess: true,
-        getData: () => ['Das wäre z.B. ein Datenstring'],
-        getErrorMessage: () => 'Das wäre ein etwaiger Fehler',
-      };
-      (useFahrzeugQuery as jest.Mock).mockReturnValue(queryResult);
+      const queryResult = buildUseQueryBoundaryFnResult<
+        DropdownOption<string>[]
+      >({ type: 'success' });
+      jest.mocked(useFahrzeugQuery).mockReturnValue(queryResult);
 
       const { asFragment } = render(<Fahrzeug onSelectId={jest.fn()} />);
 
@@ -47,11 +45,12 @@ describe('Fahrzeug', () => {
       it('should call onSelectId when DropdownMenu onChange is triggered', () => {
         const mockOnSelectId = jest.fn();
 
-        (useFahrzeugQuery as jest.Mock).mockReturnValue({
+        jest.mocked(useFahrzeugQuery).mockReturnValue({
           getData: () => mockOptions,
-          isFetching: () => false,
+          isFetching: false,
           getErrorMessage: jest.fn(),
-          isError: () => false,
+          isError: false,
+          isSuccess: true,
         });
 
         render(<Fahrzeug onSelectId={mockOnSelectId} />);

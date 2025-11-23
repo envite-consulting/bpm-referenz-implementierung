@@ -440,6 +440,10 @@ z.B.
 
 ## Architekturentscheidungen
 
+* [Generell](doc/adr/general/toc.md)
+* [Frontend](doc/adr/frontend/toc.md)
+* [Backend](doc/adr/backend/toc.md)
+
 ## Qualitätsanforderungen
 
 ### Qualitätsbaum

@@ -2,16 +2,19 @@
 
 * Status: {{status}}
 * Ersetzt: [ADR {{{superseded.id}}}]({{{superseded.file}}})
-* Entscheidungsträger:
 * Datum: {{date}}
+* Entscheidung:
 
-Technische Beschreibung:
+__Inhaltsverzeichnis__
 
-## Kontext und Problemstellung
-
-## Entscheidungsfaktoren
-
-## In Betracht gezogene Optionen
+* [Ergebnis der Entscheidung](#ergebnis-der-entscheidung)
+    * [Positive Folgen](#positive-folgen)
+    * [Negative Konsequenzen](#negative-konsequenzen)
+* [Kontext und Problemstellung](#kontext-und-problemstellung)
+* [Entscheidungsfaktoren](#entscheidungsfaktoren)
+    * [In Betracht gezogene Optionen](#in-betracht-gezogene-optionen)
+    * [Vor- und Nachteile der Optionen](#vor--und-nachteile-der-optionen)
+* [Links](#links)
 
 ## Ergebnis der Entscheidung
 
@@ -21,6 +24,12 @@ weil
 ### Positive Folgen
 
 ### Negative Konsequenzen
+
+## Kontext und Problemstellung
+
+## Entscheidungsfaktoren
+
+## In Betracht gezogene Optionen
 
 ## Vor- und Nachteile der Optionen
 

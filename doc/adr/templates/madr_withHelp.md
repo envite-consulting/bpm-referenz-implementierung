@@ -2,16 +2,46 @@
 
 * Status: {{status}}
 * Ersetzt: [ADR {{{superseded.id}}}]({{{superseded.file}}})
-* Entscheidungsträger: [alle an der Entscheidung Beteiligten auflisten] <!-- optional -->
 * Datum: {{date}}
+* Entscheidung: [Entscheidung zusammengefasst _in einem Satz_]
 
-Technische Beschreibung: [Beschreibung | Ticket-/Problem-URL] <!-- optional -->
+__Inhaltsverzeichnis__
+
+* [Ergebnis der Entscheidung](#ergebnis-der-entscheidung)
+    * [Positive Folgen](#positive-folgen)
+    * [Negative Konsequenzen](#negative-konsequenzen)
+* [Kontext und Problemstellung](#kontext-und-problemstellung)
+* [Entscheidungsfaktoren](#entscheidungsfaktoren)
+    * [In Betracht gezogene Optionen](#in-betracht-gezogene-optionen)
+    * [Vor- und Nachteile der Optionen](#vor--und-nachteile-der-optionen)
+* [Links](#links)
+
+## Ergebnis der Entscheidung
+
+Gewählte Option: „[Option 1]“,
+weil [Begründung, z. B. einzige Option, die das Ausschlusskriterium erfüllt | die die Kraft aufhebt | … | am besten abschneidet (siehe unten)].
+
+### Positive Folgen
+
+<!-- optional -->
+
+* [z. B. Verbesserung der Zufriedenheit mit Qualitätsmerkmalen, erforderliche Folgeentscheidungen, …]
+* …
+
+### Negative Konsequenzen
+
+<!-- optional -->
+
+* [z. B. Beeinträchtigung der Qualitätsmerkmale, erforderliche Folgeentscheidungen, …]
+* …
 
 ## Kontext und Problemstellung
 
 [Beschreiben Sie den Kontext und die Problemstellung, z. B. in freier Form mit zwei bis drei Sätzen. Sie können das Problem auch in Form einer Frage formulieren.]
 
-## Entscheidungsfaktoren <!-- optional -->
+## Entscheidungsfaktoren
+
+<!-- optional -->
 
 * [Faktor 1, z. B. eine Kraft, ein Problem, …]
 * [Faktor 2, z. B. eine Kraft, ein Problem, …]
@@ -24,22 +54,9 @@ Technische Beschreibung: [Beschreibung | Ticket-/Problem-URL] <!-- optional -->
 * [Option 3]
 * … <!-- Anzahl der Optionen kann variieren -->
 
-## Ergebnis der Entscheidung
+## Vor- und Nachteile der Optionen
 
-Gewählte Option: „[Option 1]“,
-weil [Begründung, z. B. einzige Option, die das Ausschlusskriterium erfüllt | die die Kraft aufhebt | … | am besten abschneidet (siehe unten)].
-
-### Positive Folgen <!-- optional -->
-
-* [z. B. Verbesserung der Zufriedenheit mit Qualitätsmerkmalen, erforderliche Folgeentscheidungen, …]
-* …
-
-### Negative Konsequenzen <!-- optional -->
-
-* [z. B. Beeinträchtigung der Qualitätsmerkmale, erforderliche Folgeentscheidungen, …]
-* …
-
-## Vor- und Nachteile der Optionen <!-- optional -->
+<!-- optional -->
 
 ### [Option 1]
 
@@ -68,7 +85,9 @@ weil [Begründung, z. B. einzige Option, die das Ausschlusskriterium erfüllt | 
 * Schlecht, weil [Argument c]
 * … <!-- Anzahl der Vor- und Nachteile kann variieren -->
 
-## Links <!-- optional -->
+## Links
+
+<!-- optional -->
 
 * {{{link.comment}}} [ADR {{{link.id}}}]({{{link.file}}})
 * … <!-- Anzahl der Links kann variieren -->

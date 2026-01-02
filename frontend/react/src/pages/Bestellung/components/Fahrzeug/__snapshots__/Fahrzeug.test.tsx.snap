@@ -1,10 +1,27 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Fahrzeug Rendering should render error state 1`] = `
+exports[`Fahrzeug Rendering should render correct loading state 1`] = `
 <DocumentFragment>
-  <kol-badge
-    _color="#f0ad4e"
-    _label="Failed to fetch"
-  />
+  <div
+    data-testid="QueryBoundaryMock"
+  >
+    <div
+      data-testid="queryResult"
+    >
+      {"isError":false,"isFetching":false,"isSuccess":true,"errorMessage":"","data":{}}
+    </div>
+    <div
+      data-testid="children"
+    >
+      <div
+        data-label="Auswahl Fahrzeug"
+        data-options="{}"
+        data-required="true"
+        data-testid="dropdown-menu-mock"
+      >
+        DropdownMenu Mock
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;

@@ -415,6 +415,12 @@ z.B.
 │       └── Button.tsx
 ```
 
+#### Weitere
+
+| Strategie                                                                                   |
+|---------------------------------------------------------------------------------------------|
+| [Query Resultate einheitlich verarbeiten](doc/loesungsstrategien/frontend/queryboundary.md) |
+
 ## Bausteinsicht
 
 ### Blackbox Gesamtsystem

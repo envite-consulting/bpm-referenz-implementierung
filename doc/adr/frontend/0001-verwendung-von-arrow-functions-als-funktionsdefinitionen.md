@@ -2,8 +2,46 @@
 
 * Status: beschlossen
 * Ersetzt:
-* Entscheidungsträger:
 * Datum: 2025-11-21
+* Entscheidung: _Variantenübergreifender Standard: Funktionen werden per Arrow Function als `const x = (...) => {}` definiert._
+
+__Inhaltsverzeichnis__
+
+* [Ergebnis der Entscheidung](#ergebnis-der-entscheidung)
+    * [Positive Folgen](#positive-folgen)
+    * [Negative Konsequenzen](#negative-konsequenzen)
+* [Kontext und Problemstellung](#kontext-und-problemstellung)
+* [Entscheidungsfaktoren](#entscheidungsfaktoren)
+    * [In Betracht gezogene Optionen](#in-betracht-gezogene-optionen)
+    * [Vor- und Nachteile der Optionen](#vor--und-nachteile-der-optionen)
+* [Links](#links)
+
+## Ergebnis der Entscheidung
+
+Gewählte Option:  
+**Variantenübergreifender Standard: Funktionen werden per Arrow Function als `const x = (...) => {}` definiert.**
+
+weil
+
+- die Codeausführung klar und linear bleibt,
+- TypeScript-Generics leichter und besser lesbar verwendet werden können,
+- moderne Bundler und Compiler Arrow Functions besser optimieren können,
+- dadurch ein einheitlicher Stil im gesamten Projekt entsteht.
+
+### Positive Folgen
+
+- Einheitliche Funktionsnotation im Code
+- Bessere Lesbarkeit und geringere kognitive Last
+- Einfachere Typinferenz und Deklaration generischer Funktionen
+- Weniger semantische Stolperfallen
+- Optimale Unterstützung für Tree-Shaking und Build-Optimierung
+- Klarer, moderner funktionaler Code-Stil
+
+### Negative Konsequenzen
+
+- Funktionen können nicht mehr vor ihrer Definition aufgerufen werden (wegen fehlendem Hoisting)
+- Erfordert bei einigen Teammitgliedern ggf. Gewöhnung
+- In seltenen Sonderfällen müssen Function Declarations weiterhin explizit genutzt werden
 
 ## Kontext und Problemstellung
 
@@ -45,33 +83,6 @@ Es soll entschieden werden, welche Schreibweise zum Standard wird, um Einheitlic
 1. Alle Funktionen als `const x = (...) => { ... }` deklarieren
 2. Weiterhin Funktionsdeklarationen (`function x(...) { ... }`) verwenden
 3. Mischung ohne festgelegten Standard
-
-## Ergebnis der Entscheidung
-
-Gewählte Option:  
-**Variantenübergreifender Standard: Funktionen werden per Arrow Function als `const x = (...) => {}` definiert.**
-
-weil
-
-- die Codeausführung klar und linear bleibt,
-- TypeScript-Generics leichter und besser lesbar verwendet werden können,
-- moderne Bundler und Compiler Arrow Functions besser optimieren können,
-- dadurch ein einheitlicher Stil im gesamten Projekt entsteht.
-
-### Positive Folgen
-
-- Einheitliche Funktionsnotation im Code
-- Bessere Lesbarkeit und geringere kognitive Last
-- Einfachere Typinferenz und Deklaration generischer Funktionen
-- Weniger semantische Stolperfallen
-- Optimale Unterstützung für Tree-Shaking und Build-Optimierung
-- Klarer, moderner funktionaler Code-Stil
-
-### Negative Konsequenzen
-
-- Funktionen können nicht mehr vor ihrer Definition aufgerufen werden (wegen fehlendem Hoisting)
-- Erfordert bei einigen Teammitgliedern ggf. Gewöhnung
-- In seltenen Sonderfällen müssen Function Declarations weiterhin explizit genutzt werden
 
 ## Vor- und Nachteile der Optionen
 

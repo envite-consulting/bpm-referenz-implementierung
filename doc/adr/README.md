@@ -52,4 +52,4 @@ Eine Hilfe sämtlicher Befehle erhält man mit
 ./adr generate toc
 ```
 
-* Erzeugt ein `toc.md` mit der Liste ADRs in dem Verzeichnis
+* Erzeugt ein `toc.md` mit der Liste der ADRs in dem Verzeichnis

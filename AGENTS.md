@@ -23,33 +23,49 @@ Das Projekt arbeitet eine Beispiel aus einer Fachlichkeit die den meisten Nutzer
       * Immutable Domänen Modelle (Value Object, Entity, Aggregate) dir Ihre Invariante abbilden, sich somit selbst validieren.
       * Domänen Events um den Zustand der Domäne zu verändern.
       * Domänen Services für Komplexe Operationen und übergreifende Validierungen.
-    * `backend/business-logic-modulith/technical` Modul kapselt technsich-wiederverwendbare Infrastruktur.
+    * `backend/business-logic-modulith/technical` Modul kapselt technisch-wiederverwendbare Infrastruktur.
 2. `backend/remote-engine`: 
   * Technologie: Maven, Java Projekt
   * Sinn und Zweck: Camunda Spring Boot Remote Engine
 
-**Frontend** wird unter `frontend/<FRAMEWOKR>` abgebildet. Aktuell gibt es nur React daher:
+**Frontend** wird unter `frontend/<FRAMEWORK>` abgebildet. Aktuell gibt es nur React daher:
 * `frontend/react`
 
 ## Dokumentation
 
 - Dokumentiert wird in der `README.md` unter der Überschrift `Architekturdokumentation`. Es wird das [arc42](https://arc42.org) format genutzt. Beschrieben werden nur die notwendigen Kapitel. Diagramme werden wenn möglich mit [PlantUML](https://plantuml.com/) umgesetzt.
-- Architekturentscheidungen (ADR) werden mit derm Tool [adr-j](https://github.com/adoble/adr-j/tree/main) in `doc/adr/<BAUSTEIN:frontend|backend>` abgelegt und in der `README.md` verlinkt.
+- Architekturentscheidungen (ADR) werden mit dem Tool [adr-j](https://github.com/adoble/adr-j/tree/main) in `doc/adr/` abgelegt und in der `README.md` verlinkt. Dabei gibt es für jeden Baustein eine sowie eine überfreigende Sektion:
+  - `doc/adr/general`: Baustein überfreigende Architekturentscheidungen
+  - `doc/adr/frontend`: Architekturentscheidungen die den Frontend Baustein betreffen
+  - `doc/adr/backend`: Architekturentscheidungen die den Backend Baustein betreffen
 
 ## Vorgaben und Qualitätssicherung
 
-- Beachte die Vorgaben in der Architekturdokumentation, spezielle Qualitätsanforderungen, Randbedingungen und Lösungsstrategien. Weiße auf Inkonsitenzen hin. 
+### Vorgaben
+
+- Beachte die Vorgaben in der Architekturdokumentation, spezielle Qualitätsanforderungen, Randbedingungen und Lösungsstrategien. Weißen auf Inkonsistenzen hin. 
 - Commits klein und überschaubar halten.
 - Jeder Commit muss kompilieren, die Tests müssen durchlaufen und die Dokumentation muss aktuell und konsistent sein.
 - Die README.md muss aktuell gehalten werden.
 
-## Qualitätssicherung
+### Qualitätssicherung
 
-**Backend**
-- Kompilieren: `mvnw compile`
-- Testen: `mvnw test`
+#### Backend
 
-**Frontend**
-- Linten: `npm run lint`
-- Kompilieren: `npm run build`
-- Testen: `npm run test`
+**Business Logic Modulith**
+
+- Kompilieren: `cd backend/business-logic-modulith && ./mvnw compile`
+- Testen: `cd backend/business-logic-modulith && ./mvnw test`
+
+**Remote Engine**
+
+- Kompilieren: `cd backend/remote-engine && ./mvnw compile`
+- Testen: `cd backend/remote-engine && ./mvnw test`
+
+#### Frontend
+
+**React SPA**
+
+- Linten: `cd frontend/react && npm run lint`
+- Kompilieren: `cd frontend/react && npm run build`
+- Testen: `cd frontend/react && npm run test`

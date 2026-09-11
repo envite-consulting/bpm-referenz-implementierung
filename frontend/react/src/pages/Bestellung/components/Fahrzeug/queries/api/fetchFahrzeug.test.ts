@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getFahrzeug, getFahrzeugOptions } from './fetchFahrzeug.ts';
 
 jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockedAxios = jest.mocked(axios);
 
 describe('getFahrzeug', () => {
   it('should fetch and parse Fahrzeug data successfully', async () => {

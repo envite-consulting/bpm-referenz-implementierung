@@ -12,6 +12,7 @@ import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.exception.AufgabeUpdateException;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiClient;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskVariableApi;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -35,11 +36,74 @@ class CamundaTaskApiClientTest {
     CamundaTaskMapper taskMapper = Mappers.getMapper(CamundaTaskMapper.class);
     CamundaVariableMapper variableMapper = Mappers.getMapper(CamundaVariableMapper.class);
 
-    classUnderTest = new CamundaTaskApiClient(taskMapper, taskApi, variableMapper);
+    classUnderTest = new CamundaTaskApiClient(
+            taskMapper, taskApi, new TaskVariableApi(apiClient), variableMapper);
   }
 
   @Nested
   class QueryTask {
+
+    @Test
+    void should_query_tasks_by_prozessinstanz() {
+      String prozessinstanzId = "prozessinstanz1";
+
+      stubFor(
+          get(urlPathEqualTo("%s/task".formatted(CAMUNDA_BASE_PATH)))
+              .withQueryParam("processInstanceId", equalTo(prozessinstanzId))
+              .willReturn(
+                  ok().withHeader("Content-Type", "application/json")
+                      .withBody(
+                          """
+                          [{
+                            "id": "taskId",
+                            "name": "My Task",
+                            "created": "2023-09-18T20:40:00.000+0000",
+                            "formKey": "FormKey",
+                            "priority": 70,
+                            "processInstanceId": "prozessinstanz1"
+                          }]
+                          """)));
+
+      List<Aufgabe> actual = classUnderTest.queryAllByProzessinstanz(prozessinstanzId);
+
+      assertThat(actual).hasSize(1);
+      assertThat(actual.getFirst().getPrioritaet()).isEqualTo(70);
+    }
+
+    @Test
+    void should_query_arbeitspaket_of_task() {
+      String taskId = "taskId";
+
+      stubFor(
+          get(urlEqualTo("%s/task/%s".formatted(CAMUNDA_BASE_PATH, taskId)))
+              .willReturn(
+                  ok().withHeader("Content-Type", "application/json")
+                      .withBody(
+                          """
+                          {
+                            "id": "taskId",
+                            "name": "My Task",
+                            "created": "2023-09-18T20:40:00.000+0000",
+                            "formKey": "FormKey",
+                            "priority": 50,
+                            "processInstanceId": "vorgang"
+                          }
+                          """)));
+      stubFor(
+          get(urlPathEqualTo(
+                  "%s/task/%s/variables/arbeitspaket".formatted(CAMUNDA_BASE_PATH, taskId)))
+              .willReturn(
+                  ok().withHeader("Content-Type", "application/json")
+                      .withBody(
+                          """
+                          {"type": "String", "value": "FAHRZEUG", "valueInfo": {}}
+                          """)));
+
+      Aufgabe actual = classUnderTest.queryById(taskId);
+
+      assertThat(actual.getArbeitspaket()).isEqualTo("FAHRZEUG");
+      assertThat(actual.getVorgangId()).isEqualTo("vorgang");
+    }
 
     @Test
     void should_query_task_by_id_successfully() {
@@ -60,7 +124,9 @@ class CamundaTaskApiClientTest {
                             "name": "My Task",
                             "assignee": "assignee",
                             "created": "%s",
-                            "formKey": "FormKey"
+                            "formKey": "FormKey",
+                            "priority": 50,
+                            "processInstanceId": "vorgang"
                           }
                           """
                               .formatted(createdDate))));
@@ -149,8 +215,8 @@ class CamundaTaskApiClientTest {
                       .withBody(
                           """
                             [
-                              { "id": "task1", "name": "name1", "assignee": "assignee1", "created": "%s", "formKey": "form1" },
-                              { "id": "task2", "name": "name2", "assignee": "assignee2", "created": "%s", "formKey": "form2" }
+                              { "id": "task1", "name": "name1", "assignee": "assignee1", "created": "%s", "formKey": "form1", "priority": 50, "processInstanceId": "vorgang" },
+                              { "id": "task2", "name": "name2", "assignee": "assignee2", "created": "%s", "formKey": "form2", "priority": 50, "processInstanceId": "vorgang" }
                             ]
                             """
                               .formatted(createdDate1, createdDate2))));

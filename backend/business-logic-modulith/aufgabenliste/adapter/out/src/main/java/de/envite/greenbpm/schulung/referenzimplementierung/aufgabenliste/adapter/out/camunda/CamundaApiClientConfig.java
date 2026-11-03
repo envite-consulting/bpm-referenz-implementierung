@@ -4,6 +4,7 @@ import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiClient
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessDefinitionApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.ProcessInstanceApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskVariableApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.testcoverage.ExcludeFromJacocoGeneratedReport;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,13 @@ class CamundaApiClientConfig {
   @Bean
   public TaskApi taskApi(ApiClient apiClient) {
     TaskApi api = new TaskApi();
+    api.setApiClient(apiClient);
+    return api;
+  }
+
+  @Bean
+  public TaskVariableApi taskVariableApi(ApiClient apiClient) {
+    TaskVariableApi api = new TaskVariableApi();
     api.setApiClient(apiClient);
     return api;
   }

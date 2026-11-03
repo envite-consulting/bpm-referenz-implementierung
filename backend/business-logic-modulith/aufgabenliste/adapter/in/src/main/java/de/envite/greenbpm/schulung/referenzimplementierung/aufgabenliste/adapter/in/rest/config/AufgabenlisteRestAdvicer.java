@@ -55,6 +55,14 @@ class AufgabenlisteRestAdvicer extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(ex, errorResource, new HttpHeaders(), NOT_FOUND, request);
   }
 
+  @ExceptionHandler(FolgeaufgabeNotFoundException.class)
+  ResponseEntity<Object> handleFolgeaufgabeNotFoundException(
+      FolgeaufgabeNotFoundException ex, WebRequest request) {
+
+    final ErrorResource errorResource = buildResource(ex);
+    return handleExceptionInternal(ex, errorResource, new HttpHeaders(), NOT_FOUND, request);
+  }
+
   @ExceptionHandler(AufgabeQueryException.class)
   public ResponseEntity<Object> handleAufgabeQueryException(
       AufgabeQueryException ex, WebRequest request) {

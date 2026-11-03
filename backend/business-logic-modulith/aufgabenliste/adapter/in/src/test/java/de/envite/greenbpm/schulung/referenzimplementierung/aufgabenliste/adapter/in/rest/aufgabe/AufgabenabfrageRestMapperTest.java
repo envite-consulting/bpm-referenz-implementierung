@@ -16,7 +16,8 @@ class AufgabenabfrageRestMapperTest {
   @Test
   void should_map_all_fields_to_resource() {
 
-    Aufgabe aufgabe = new Aufgabe("ID123", "My Task", "Test User 1", LocalDateTime.now(), "Ref1");
+    Aufgabe aufgabe = new Aufgabe(
+            "ID123", "My Task", "Test User 1", LocalDateTime.now(), "Ref1", 50, "Vorgang1", "FAHRZEUG");
 
     AufgabenabfrageResource result = classUnderTest.toResource(aufgabe);
 
@@ -26,6 +27,8 @@ class AufgabenabfrageRestMapperTest {
     softAssertions.assertThat(result.bearbeiter()).isEqualTo(aufgabe.getBearbeiter());
     softAssertions.assertThat(result.erstelldatum()).isEqualTo(aufgabe.getErstelldatum());
     softAssertions.assertThat(result.formularreferenz()).isEqualTo(aufgabe.getFormularreferenz());
+    softAssertions.assertThat(result.vorgangId()).isEqualTo(aufgabe.getVorgangId());
+    softAssertions.assertThat(result.arbeitspaket()).isEqualTo(aufgabe.getArbeitspaket());
     softAssertions.assertAll();
   }
 

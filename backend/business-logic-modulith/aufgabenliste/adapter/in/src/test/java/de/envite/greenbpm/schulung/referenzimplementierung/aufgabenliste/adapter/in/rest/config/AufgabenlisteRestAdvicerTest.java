@@ -52,6 +52,22 @@ class AufgabenlisteRestAdvicerTest {
   }
 
   @Test
+  void should_convert_FolgeaufgabeNotFoundException_to_404() throws Exception {
+    mockMvc
+        .perform(get("/error/folgeaufgabeNotFoundException"))
+        .andExpect(status().isNotFound())
+        .andExpect(
+            content()
+                .json(
+                    """
+                    {
+                      "name": "FolgeaufgabeNotFoundException",
+                      "errorMessage": "Das ist ein Test"
+                    }
+                    """));
+  }
+
+  @Test
   void should_convert_AufgabeNotFoundException_to_404() throws Exception {
     mockMvc
         .perform(get("/error/aufgabeNotFoundException"))

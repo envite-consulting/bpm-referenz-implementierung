@@ -182,6 +182,24 @@ unter Verwendung der Clean Architecture in Bausteine sowie deren Abhängigkeiten
 
 ##### Laufzeitsicht
 
+### Automatischer Sprung zur Folgeaufgabe
+
+Nach dem Abschließen einer Aufgabe fragt das Frontend
+`GET /vorgang/{vorgangId}/folgeaufgabe-vorschlag?letztesArbeitspaket=…&timeoutInMillis=…` ab und springt zur vorgeschlagenen
+Aufgabe. Camunda erzeugt die Folgeaufgabe nach einer asynchronen Fortsetzung eventuell erst etwas später. Daher fragt
+das Backend die offenen Aufgaben des Vorgangs alle 500 ms ab, standardmäßig bis zu einem Timeout von 3 Sekunden.
+
+- **Priorität:** Vorgeschlagen wird die offene Aufgabe mit der höchsten Priorität (`camunda:priority`, wie in Camunda
+  gilt: höhere Zahl = wichtiger). Bei Gleichstand gewinnt die ältere Aufgabe.
+- **Arbeitspaket:** Der Inputparameter `arbeitspaket` am User Task fasst zusammengehörige Aufgaben eines Vorgangs
+  zusammen. Hat die zuletzt bearbeitete Aufgabe ein Arbeitspaket, wird bis zum Timeout gewartet, bis die Aufgabe mit der
+  höchsten Priorität dazu passt. Danach wird die zuletzt ermittelte Aufgabe ohne passendes Arbeitspaket vorgeschlagen.
+  Eine Aufgabe mit höherer Priorität schlägt also immer eine Aufgabe desselben Arbeitspakets mit niedrigerer Priorität.
+  Bei gleicher Priorität gewinnt die Aufgabe desselben Arbeitspakets, auch gegen eine ältere Aufgabe. Das Alter
+  entscheidet erst, wenn Priorität und Arbeitspaket-Zugehörigkeit gleich sind.
+- **Kein Vorschlag:** Gibt es bis zum Timeout keine offene Aufgabe, antwortet das Backend mit `404`. Das Frontend kehrt
+  dann mit einem Hinweis zur Aufgabenliste zurück.
+
 Die [Laufzeitansicht](https://docs.arc42.org/section-6/) unten beschreibt das konkrete Verhalten und die Interaktionen
 der stereotypen Bausteine eines Systems, das Clean Architecture verwendet.
 

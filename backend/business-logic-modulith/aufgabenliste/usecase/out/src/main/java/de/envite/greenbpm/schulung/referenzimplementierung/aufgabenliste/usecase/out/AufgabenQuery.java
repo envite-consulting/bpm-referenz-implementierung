@@ -10,4 +10,6 @@ public interface AufgabenQuery {
   Aufgabe queryById(String aufgabenId) throws AufgabeNotFoundException, AufgabeQueryException;
 
   List<Aufgabe> queryAllByVorgang(String vorgangId) throws AufgabeQueryException;
+
+  List<Aufgabe> queryAllByProzessinstanz(String prozessinstanzId) throws AufgabeQueryException;
 }

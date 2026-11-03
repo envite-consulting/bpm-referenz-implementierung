@@ -27,8 +27,10 @@ class CamundaTaskMapperTest {
     Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     camundaTaskDto.created(date);
     camundaTaskDto.formKey("Form Key");
+    camundaTaskDto.priority(80);
+    camundaTaskDto.processInstanceId("Vorgang1");
 
-    Aufgabe result = classUnderTest.toDomain(camundaTaskDto);
+    Aufgabe result = classUnderTest.toDomain(camundaTaskDto, "FAHRZEUG");
 
     SoftAssertions softAssertions = new SoftAssertions();
     softAssertions.assertThat(result.getId()).isEqualTo(camundaTaskDto.getId());
@@ -38,13 +40,16 @@ class CamundaTaskMapperTest {
         .assertThat(result.getErstelldatum())
         .isEqualTo(LocalDateTime.of(2025, 8, 21, 0, 0));
     softAssertions.assertThat(result.getFormularreferenz()).isEqualTo(camundaTaskDto.getFormKey());
+    softAssertions.assertThat(result.getPrioritaet()).isEqualTo(camundaTaskDto.getPriority());
+    softAssertions.assertThat(result.getVorgangId()).isEqualTo(camundaTaskDto.getProcessInstanceId());
+    softAssertions.assertThat(result.getArbeitspaket()).isEqualTo("FAHRZEUG");
     softAssertions.assertAll();
   }
 
   @Test
   void should_return_null_when_source_is_null() {
 
-    Aufgabe result = classUnderTest.toDomain(null);
+    Aufgabe result = classUnderTest.toDomain(null, null);
 
     assertThat(result).isNull();
   }

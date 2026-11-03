@@ -11,10 +11,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 interface CamundaTaskMapper {
 
-  @Mapping(source = "assignee", target = "bearbeiter")
-  @Mapping(source = "created", target = "erstelldatum")
-  @Mapping(source = "formKey", target = "formularreferenz")
-  Aufgabe toDomain(TaskWithAttachmentAndCommentDto camundaTaskDto);
+  @Mapping(source = "camundaTaskDto.assignee", target = "bearbeiter")
+  @Mapping(source = "camundaTaskDto.created", target = "erstelldatum")
+  @Mapping(source = "camundaTaskDto.formKey", target = "formularreferenz")
+  @Mapping(source = "camundaTaskDto.priority", target = "prioritaet")
+  @Mapping(source = "camundaTaskDto.processInstanceId", target = "vorgangId")
+  Aufgabe toDomain(TaskWithAttachmentAndCommentDto camundaTaskDto, String arbeitspaket);
 
   default LocalDateTime map(Date date) {
     return date == null ? null : LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());

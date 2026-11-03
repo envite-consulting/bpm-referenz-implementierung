@@ -42,7 +42,7 @@ class AufgabenControllerTest {
 
       final AufgabenabfrageResource responseResource =
           new AufgabenabfrageResource(
-              aufgabenId, "My Task", "Test User", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1");
+              aufgabenId, "My Task", "Test User", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1", "vorgang", null);
 
       when(aufgabenabfrageMock.abfragen(aufgabenId)).thenReturn(abgefragteAufgabe);
       when(aufgabenabfrageMapperMock.toResource(abgefragteAufgabe)).thenReturn(responseResource);
@@ -68,10 +68,10 @@ class AufgabenControllerTest {
 
       final AufgabenabfrageResource responseResource1 =
           new AufgabenabfrageResource(
-              "ID1", "My Task 1", "Test User1", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1");
+              "ID1", "My Task 1", "Test User1", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1", "vorgang", null);
       final AufgabenabfrageResource responseResource2 =
           new AufgabenabfrageResource(
-              "ID2", "My Task ", "Test User2", LocalDateTime.of(2024, 1, 1, 0, 0), "Ref2");
+              "ID2", "My Task ", "Test User2", LocalDateTime.of(2024, 1, 1, 0, 0), "Ref2", "vorgang", null);
 
       when(aufgabenabfrageMock.abfragenAlleZuVorgang(vorgangId))
           .thenReturn(List.of(abgefragteAufgabe1, abgefragteAufgabe2));

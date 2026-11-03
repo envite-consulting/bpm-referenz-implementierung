@@ -9,11 +9,14 @@ import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase
 import de.envite.greenbpm.schulung.referenzimplementierung.aufgabenliste.usecase.out.AufgabenQuery;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.ApiException;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskApi;
+import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.api.TaskVariableApi;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.CompleteTaskDto;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.TaskWithAttachmentAndCommentDto;
 import de.envite.greenbpm.schulung.referenzimplementierung.camunda.api.model.UserIdDto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -22,8 +25,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
 
+  private static final String ARBEITSPAKET_VARIABLE = "arbeitspaket";
+
   private final CamundaTaskMapper taskMapper;
   private final TaskApi taskApi;
+  private final TaskVariableApi taskVariableApi;
   private final CamundaVariableMapper camundaVariableMapper;
 
   @Override
@@ -31,7 +37,7 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
     try {
       TaskWithAttachmentAndCommentDto taskDto = taskApi.getTask(taskId);
 
-      return taskMapper.toDomain(taskDto);
+      return toDomain(taskDto);
     } catch (ApiException e) {
 
       if (e.getCode() == HttpStatus.NOT_FOUND.value()) {
@@ -45,11 +51,22 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
 
   @Override
   public List<Aufgabe> queryAllByVorgang(String businessId) throws AufgabeQueryException {
+    return queryAll(null, businessId);
+  }
+
+  @Override
+  public List<Aufgabe> queryAllByProzessinstanz(String prozessinstanzId)
+      throws AufgabeQueryException {
+    return queryAll(prozessinstanzId, null);
+  }
+
+  private List<Aufgabe> queryAll(String prozessinstanzId, String businessId)
+      throws AufgabeQueryException {
     try {
 
       List<TaskWithAttachmentAndCommentDto> tasksDto =
           taskApi.getTasks(
-              null, null, null, null, businessId, null, null, null, null, null, null, null, null, null,
+              null, null, prozessinstanzId, null, businessId, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -58,7 +75,11 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
               null, null, null, null, null, null, null, null, null, null, null, null, null, null,
               null);
 
-      return tasksDto.stream().map(taskMapper::toDomain).toList();
+      List<Aufgabe> aufgaben = new ArrayList<>();
+      for (TaskWithAttachmentAndCommentDto taskDto : tasksDto) {
+        aufgaben.add(toDomain(taskDto));
+      }
+      return aufgaben;
     } catch (ApiException e) {
       throw new AufgabeQueryException("Aufgaben konnten nicht abgerufen werden.", e);
     }
@@ -103,6 +124,22 @@ class CamundaTaskApiClient implements AufgabenCommand, AufgabenQuery {
     } catch (ApiException e) {
       throw new AufgabeUpdateException(
           "Aufgabe mit ID %s konnte nicht abgegeben werden.".formatted(taskId), e);
+    }
+  }
+
+  private Aufgabe toDomain(TaskWithAttachmentAndCommentDto taskDto) throws ApiException {
+    return taskMapper.toDomain(taskDto, queryArbeitspaket(taskDto.getId()));
+  }
+
+  private String queryArbeitspaket(String taskId) throws ApiException {
+    try {
+      return Objects.toString(
+          taskVariableApi.getTaskVariable(taskId, ARBEITSPAKET_VARIABLE, false).getValue(), null);
+    } catch (ApiException e) {
+      if (e.getCode() == HttpStatus.NOT_FOUND.value()) {
+        return null;
+      }
+      throw e;
     }
   }
 }

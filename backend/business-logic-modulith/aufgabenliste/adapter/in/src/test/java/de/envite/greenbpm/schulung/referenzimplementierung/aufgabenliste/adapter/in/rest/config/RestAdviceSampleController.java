@@ -25,6 +25,11 @@ class RestAdviceSampleController {
     throw new AufgabeNotFoundException("Das ist ein Test");
   }
 
+  @GetMapping("/folgeaufgabeNotFoundException")
+  public ResponseEntity<Object> throwFolgeaufgabeNotFoundException() {
+    throw new FolgeaufgabeNotFoundException("Das ist ein Test");
+  }
+
   @GetMapping("/aufgabeQueryException")
   public ResponseEntity<Object> throwAufgabeQueryException() {
     throw new AufgabeQueryException("Fehler beim Abfragen", new RuntimeException("Ursache"));

@@ -14,18 +14,27 @@ public class Aufgabe extends Aggregate {
   private final String bearbeiter;
   private final LocalDateTime erstelldatum;
   private final String formularreferenz;
+  private final Integer prioritaet;
+  private final String vorgangId;
+  private final String arbeitspaket;
 
   public Aufgabe(
       String id,
       String name,
       String bearbeiter,
       LocalDateTime erstelldatum,
-      String formularreferenz) {
+      String formularreferenz,
+      Integer prioritaet,
+      String vorgangId,
+      String arbeitspaket) {
     this.id = id;
     this.name = name;
     this.bearbeiter = bearbeiter;
     this.erstelldatum = erstelldatum;
     this.formularreferenz = formularreferenz;
+    this.prioritaet = prioritaet;
+    this.vorgangId = vorgangId;
+    this.arbeitspaket = arbeitspaket;
 
     validate();
   }
@@ -36,6 +45,8 @@ public class Aufgabe extends Aggregate {
     validateNotNull(name, "Name");
     validateNotNull(erstelldatum, "Erstelldatum");
     validateNotNull(formularreferenz, "Formularreferenz");
+    validateNotNull(prioritaet, "Prioritaet");
+    validateNotNull(vorgangId, "Vorgang ID");
     evaluateValidations();
   }
 }

@@ -20,13 +20,23 @@ class AufgabeTest {
   private final String validBearbeiter = "Test Benutzer";
   private final LocalDateTime validErstelldatum = LocalDateTime.now();
   private final String validFormularreferenz = "Ref1";
+  private final Integer validPrioritaet = 50;
+  private final String validVorgangId = "Vorgang1";
+  private final String validArbeitspaket = "FAHRZEUG";
 
   @Test
   void should_create_valid_aufgabe() {
 
     Aufgabe aufgabe =
         new Aufgabe(
-            validAufgabeId, validName, validBearbeiter, validErstelldatum, validFormularreferenz);
+            validAufgabeId,
+            validName,
+            validBearbeiter,
+            validErstelldatum,
+            validFormularreferenz,
+            validPrioritaet,
+            validVorgangId,
+            validArbeitspaket);
 
     SoftAssertions softly = new SoftAssertions();
     softly.assertThat(aufgabe.getId()).isNotNull().isEqualTo(validAufgabeId);
@@ -34,6 +44,9 @@ class AufgabeTest {
     softly.assertThat(aufgabe.getBearbeiter()).isNotNull().isEqualTo(validBearbeiter);
     softly.assertThat(aufgabe.getErstelldatum()).isNotNull().isEqualTo(validErstelldatum);
     softly.assertThat(aufgabe.getFormularreferenz()).isNotNull().isEqualTo(validFormularreferenz);
+    softly.assertThat(aufgabe.getPrioritaet()).isNotNull().isEqualTo(validPrioritaet);
+    softly.assertThat(aufgabe.getVorgangId()).isNotNull().isEqualTo(validVorgangId);
+    softly.assertThat(aufgabe.getArbeitspaket()).isNotNull().isEqualTo(validArbeitspaket);
     softly.assertAll();
   }
 
@@ -41,7 +54,15 @@ class AufgabeTest {
   void should_create_valid_aufgabe_without_bearbeiter() {
 
     Aufgabe aufgabe =
-        new Aufgabe(validAufgabeId, validName, null, validErstelldatum, validFormularreferenz);
+        new Aufgabe(
+            validAufgabeId,
+            validName,
+            null,
+            validErstelldatum,
+            validFormularreferenz,
+            validPrioritaet,
+            validVorgangId,
+            null);
 
     SoftAssertions softly = new SoftAssertions();
     softly.assertThat(aufgabe.getId()).isNotNull().isEqualTo(validAufgabeId);
@@ -49,6 +70,9 @@ class AufgabeTest {
     softly.assertThat(aufgabe.getBearbeiter()).isNull();
     softly.assertThat(aufgabe.getErstelldatum()).isNotNull().isEqualTo(validErstelldatum);
     softly.assertThat(aufgabe.getFormularreferenz()).isNotNull().isEqualTo(validFormularreferenz);
+    softly.assertThat(aufgabe.getPrioritaet()).isNotNull().isEqualTo(validPrioritaet);
+    softly.assertThat(aufgabe.getVorgangId()).isNotNull().isEqualTo(validVorgangId);
+    softly.assertThat(aufgabe.getArbeitspaket()).isNull();
     softly.assertAll();
   }
 
@@ -60,9 +84,12 @@ class AufgabeTest {
       String name,
       String bearbeiter,
       LocalDateTime erstelldatum,
-      String formularreferenz) {
+      String formularreferenz,
+      Integer prioritaet,
+      String vorgangId) {
     assertThatThrownBy(
-            () -> new Aufgabe(aufgabeId, name, bearbeiter, erstelldatum, formularreferenz))
+            () -> new Aufgabe(
+                    aufgabeId, name, bearbeiter, erstelldatum, formularreferenz, prioritaet, vorgangId, null))
         .isInstanceOf(InvariantException.class)
         .hasMessageContaining(fieldName);
   }
@@ -76,22 +103,53 @@ class AufgabeTest {
             validName,
             validBearbeiter,
             validErstelldatum,
-            validFormularreferenz),
+            validFormularreferenz,
+            validPrioritaet,
+            validVorgangId),
         Arguments.of(
             "Name",
             validAufgabeId,
             null,
             validBearbeiter,
             validErstelldatum,
-            validFormularreferenz),
+            validFormularreferenz,
+            validPrioritaet,
+            validVorgangId),
         Arguments.of(
             "Erstelldatum",
             validAufgabeId,
             validName,
             validBearbeiter,
             null,
-            validFormularreferenz),
+            validFormularreferenz,
+            validPrioritaet,
+            validVorgangId),
         Arguments.of(
-            "Formularreferenz", validAufgabeId, validName, validBearbeiter, validErstelldatum, null));
+            "Formularreferenz",
+            validAufgabeId,
+            validName,
+            validBearbeiter,
+            validErstelldatum,
+            null,
+            validPrioritaet,
+            validVorgangId),
+        Arguments.of(
+            "Prioritaet",
+            validAufgabeId,
+            validName,
+            validBearbeiter,
+            validErstelldatum,
+            validFormularreferenz,
+            null,
+            validVorgangId),
+        Arguments.of(
+            "Vorgang ID",
+            validAufgabeId,
+            validName,
+            validBearbeiter,
+            validErstelldatum,
+            validFormularreferenz,
+            validPrioritaet,
+            null));
   }
 }

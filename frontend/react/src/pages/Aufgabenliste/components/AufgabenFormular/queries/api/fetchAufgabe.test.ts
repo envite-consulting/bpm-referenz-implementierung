@@ -13,6 +13,7 @@ describe('getAufgabe', () => {
       name: 'Aufgabe 1',
       bearbeiter: 'Assignee',
       formularreferenz: 'Ref1',
+      vorgangId: 'vorgang-1',
       erstelldatum: new Date(),
     };
 

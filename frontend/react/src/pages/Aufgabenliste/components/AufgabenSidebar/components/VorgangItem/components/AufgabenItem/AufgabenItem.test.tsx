@@ -9,6 +9,7 @@ describe('AufgabenItem', () => {
     bearbeiter: null,
     erstelldatum: new Date('2024-01-01T12:00:00Z'),
     formularreferenz: 'formular-1',
+    vorgangId: 'vorgang-1',
   };
 
   it('should render default without assignee', () => {

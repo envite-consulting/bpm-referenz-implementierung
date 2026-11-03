@@ -1,4 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
+import { useParams } from 'react-router-dom';
 import { VorgangItem } from './VorgangItem';
 import type { Aufgabe } from '@aufgabenliste/Aufgabe.types.ts';
 import type { Vorgang } from '@aufgabenSidebar/Vorgang.types.ts';
@@ -11,6 +12,7 @@ jest.mock('@vorgangItem/components/AufgabenItem/AufgabenItem.tsx');
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => jest.fn(),
+  useParams: jest.fn(() => ({})),
 }));
 
 describe('VorgangItem', () => {
@@ -30,6 +32,7 @@ describe('VorgangItem', () => {
       id: '1',
       name: 'Aufgabe 1',
       formularreferenz: 'formular-1',
+      vorgangId: 'vorgang-1',
       bearbeiter: 'admin',
       erstelldatum: new Date(),
     },
@@ -37,6 +40,7 @@ describe('VorgangItem', () => {
       id: '2',
       name: 'Aufgabe 2',
       formularreferenz: 'formular-2',
+      vorgangId: 'vorgang-1',
       bearbeiter: null,
       erstelldatum: new Date(),
     },
@@ -89,6 +93,34 @@ describe('VorgangItem', () => {
       fireEvent.click(getByTestId('vorgang-item'));
 
       expect(getByText('Fehler beim Laden')).toBeInTheDocument();
+    });
+
+    it('should expand automatically when it contains the selected Aufgabe', () => {
+      (useParams as jest.Mock).mockReturnValueOnce({ id: '2' });
+      (useAufgabenlisteQuery as jest.Mock).mockReturnValue({
+        aufgaben: baseAufgaben,
+        isLoading: false,
+        isError: false,
+      });
+
+      const { queryAllByTestId } = render(
+        <VorgangItem vorgang={baseVorgang} />,
+      );
+
+      expect(queryAllByTestId('aufgaben-item-mock')).toHaveLength(2);
+    });
+
+    it('should stay collapsed when it does not contain the selected Aufgabe', () => {
+      (useParams as jest.Mock).mockReturnValueOnce({ id: 'andere' });
+      (useAufgabenlisteQuery as jest.Mock).mockReturnValue({
+        aufgaben: baseAufgaben,
+        isLoading: false,
+        isError: false,
+      });
+
+      const { queryByTestId } = render(<VorgangItem vorgang={baseVorgang} />);
+
+      expect(queryByTestId('aufgaben-item-mock')).not.toBeInTheDocument();
     });
 
     it('should render list of Aufgaben when expanded', () => {

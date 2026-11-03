@@ -18,6 +18,7 @@ const baseAufgabe = {
   bearbeiter: null as string | null,
   erstelldatum: new Date(),
   formularreferenz: 'Test',
+  vorgangId: 'vorgang-1',
 };
 
 const renderWithRoute = () => (

@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { QUERY_KEYS as QUERY_KEYS_VORGANG } from '@aufgabenSidebar/queries/useVorganglisteQuery.ts';
 import { QUERY_KEYS as QUERY_KEYS_AUFGABE } from '@aufgabenFormular/queries/useAufgabeQuery.ts';
+import { QUERY_KEYS as QUERY_KEYS_AUFGABEN } from '@vorgangItem/queries/useAufgabenlisteQuery.ts';
 import { useAufgabeUpdate } from './useAufgabeUpdate.ts';
 
 jest.mock(
@@ -173,7 +174,7 @@ describe('useAufgabeUpdate', () => {
         queryKey: QUERY_KEYS_VORGANG.vorgangListe,
       });
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
+        queryKey: [QUERY_KEYS_AUFGABEN.aufgabenListe],
       });
     });
 
@@ -195,7 +196,7 @@ describe('useAufgabeUpdate', () => {
         queryKey: QUERY_KEYS_VORGANG.vorgangListe,
       });
       expect(queryClient.invalidateQueries).toHaveBeenCalledWith({
-        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
+        queryKey: [QUERY_KEYS_AUFGABEN.aufgabenListe],
       });
     });
   });

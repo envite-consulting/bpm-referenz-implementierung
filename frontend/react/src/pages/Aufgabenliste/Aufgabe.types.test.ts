@@ -8,6 +8,7 @@ describe('aufgabenItemAbfrageSchema', () => {
       bearbeiter: 'Assignee',
       erstelldatum: new Date(),
       formularreferenz: 'Ref1',
+      vorgangId: 'vorgang-1',
     };
 
     const result = aufgabeAbfrageSchema.safeParse(validData);
@@ -22,6 +23,7 @@ describe('aufgabenItemAbfrageSchema', () => {
       bearbeiter: 'Assignee',
       erstelldatum: new Date(),
       formularreferenz: 'Ref1',
+      vorgangId: 'vorgang-1',
     };
 
     const result = aufgabeAbfrageSchema.safeParse(invalidData);
@@ -41,6 +43,7 @@ describe('aufgabenItemAbfrageSchema', () => {
       bearbeiter: 'Assignee',
       erstelldatum: new Date(),
       formularreferenz: 'Ref1',
+      vorgangId: 'vorgang-1',
     };
 
     const result = aufgabeAbfrageSchema.safeParse(invalidData);

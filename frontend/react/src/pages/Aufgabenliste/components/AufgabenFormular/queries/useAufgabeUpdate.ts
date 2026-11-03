@@ -6,6 +6,7 @@ import {
 } from '@aufgabenliste/components/AufgabenFormular/queries/api/updateAufgabe.ts';
 import { QUERY_KEYS as QUERY_KEYS_VORGANG } from '@aufgabenSidebar/queries/useVorganglisteQuery.ts';
 import { QUERY_KEYS as QUERY_KEYS_AUFGABE } from '@aufgabenFormular/queries/useAufgabeQuery.ts';
+import { QUERY_KEYS as QUERY_KEYS_AUFGABEN } from '@vorgangItem/queries/useAufgabenlisteQuery.ts';
 
 export function useAufgabeUpdate(aufgabenId: string) {
   const queryClient = useQueryClient();
@@ -42,7 +43,7 @@ export function useAufgabeUpdate(aufgabenId: string) {
         queryKey: QUERY_KEYS_VORGANG.vorgangListe,
       });
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS_AUFGABE.aufgabe(aufgabenId),
+        queryKey: [QUERY_KEYS_AUFGABEN.aufgabenListe],
       });
     },
   });

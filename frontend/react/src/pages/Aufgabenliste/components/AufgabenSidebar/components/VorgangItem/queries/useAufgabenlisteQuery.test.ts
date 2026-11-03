@@ -66,6 +66,7 @@ describe('useAufgabenlisteQuery', () => {
         name: 'Aufgabe 1',
         bearbeiter: 'Max',
         formularreferenz: 'Ref1',
+        vorgangId: 'vorgang-1',
         erstelldatum: new Date(),
       },
       {
@@ -73,6 +74,7 @@ describe('useAufgabenlisteQuery', () => {
         name: 'Aufgabe 2',
         bearbeiter: null,
         formularreferenz: 'Ref2',
+        vorgangId: 'vorgang-1',
         erstelldatum: new Date(),
       },
     ];

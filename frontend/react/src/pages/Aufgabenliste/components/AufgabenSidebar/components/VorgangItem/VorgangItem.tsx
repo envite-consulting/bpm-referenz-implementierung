@@ -1,7 +1,7 @@
 import type { Vorgang } from '@aufgabenSidebar/Vorgang.types.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingSpin } from '@ui/LoadingSpin/LoadingSpin.tsx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AufgabenItem } from '@vorgangItem/components/AufgabenItem/AufgabenItem.tsx';
 import { useAufgabenlisteQuery } from '@vorgangItem/queries/useAufgabenlisteQuery.ts';
 
@@ -12,10 +12,20 @@ export type VorgangProps = {
 export function VorgangItem({ vorgang }: VorgangProps) {
   const { fachdaten } = vorgang;
   const navigate = useNavigate();
+  const { id: ausgewaehlteAufgabeId } = useParams<{ id: string }>();
   const [open, setOpen] = useState(false);
   const { aufgaben, isLoading, isError } = useAufgabenlisteQuery(
     vorgang.fachlicherSchluessel,
   );
+  const enthaeltAusgewaehlteAufgabe = aufgaben.some(
+    (aufgabe) => aufgabe.id === ausgewaehlteAufgabeId,
+  );
+
+  useEffect(() => {
+    if (enthaeltAusgewaehlteAufgabe) {
+      setOpen(true);
+    }
+  }, [enthaeltAusgewaehlteAufgabe]);
 
   const handleVorgangSelected = () => {
     setOpen(!open);
@@ -49,7 +59,7 @@ export function VorgangItem({ vorgang }: VorgangProps) {
             <AufgabenItem
               key={aufgabe.id}
               aufgabe={aufgabe}
-              selected={false}
+              selected={aufgabe.id === ausgewaehlteAufgabeId}
               onClick={() => handleAufgabeSelected(aufgabe.id)}
             />
           ))}

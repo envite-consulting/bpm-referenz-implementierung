@@ -61,6 +61,7 @@ describe('useAufgabeQuery', () => {
       name: 'Aufgabe 1',
       bearbeiter: 'Max',
       formularreferenz: 'Ref1',
+      vorgangId: 'vorgang-1',
       erstelldatum: new Date(),
     };
 

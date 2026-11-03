@@ -18,6 +18,7 @@ export const Standard: Story = {
       bearbeiter: null,
       erstelldatum: new Date(),
       formularreferenz: 'Test',
+      vorgangId: 'vorgang-1',
     },
   },
 };
@@ -30,6 +31,7 @@ export const WithAssignee: Story = {
       bearbeiter: 'Max',
       erstelldatum: new Date(),
       formularreferenz: 'Test',
+      vorgangId: 'vorgang-1',
     },
   },
 };
@@ -42,6 +44,7 @@ export const Selected: Story = {
       bearbeiter: 'Max',
       erstelldatum: new Date(),
       formularreferenz: 'Test',
+      vorgangId: 'vorgang-1',
     },
     selected: true,
   },

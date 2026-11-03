@@ -44,5 +44,16 @@ describe('Aufgabenliste', () => {
 
       expect(asFragment()).toMatchSnapshot();
     });
+
+    it('should render the hint passed by the navigation', () => {
+      useLocation.mockReturnValue({
+        pathname: '/aufgabenliste',
+        state: { hinweis: { label: 'Keine weitere Aufgabe', type: 'info' } },
+      } as never);
+
+      const { getByText } = render(<Aufgabenliste />);
+
+      expect(getByText('Keine weitere Aufgabe')).toBeInTheDocument();
+    });
   });
 });

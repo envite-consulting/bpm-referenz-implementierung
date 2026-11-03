@@ -436,6 +436,11 @@ z.B.
 ### Verteilungssicht lokale Entwicklung
 
 ![Verteilungssicht_lokale_Entwicklung](assets/verteilungssicht/verteilungssicht-lokale-entwicklung.svg)
+
+Modulith und Remote Engine speichern ihre Daten lokal in je einer H2-Datei (`business-logic-h2-database.mv.db` und
+`camunda-h2-database.mv.db`), jeweils relativ zum Startverzeichnis. Die Dateien gehören zusammen: Prozessinstanzen
+referenzieren Bestellungen über ihren Business Key. Daher immer beide Dateien gemeinsam löschen.
+
 ## Querschnittliche Konzepte
 
 ## Architekturentscheidungen

@@ -19,7 +19,7 @@
     </bpmn:startEvent>
     <bpmn:dataObjectReference id="DataObjectReference_1k867ok" name="- Hersteller&#10;- Modell" dataObjectRef="DataObject_1l17geh" />
     <bpmn:dataObject id="DataObject_1l17geh" />
-    <bpmn:userTask id="Activity_11ilezp" name="Anfragen genehmigen" camunda:formKey="Test">
+    <bpmn:userTask id="Activity_11ilezp" name="Anfragen genehmigen" camunda:formKey="Test" camunda:priority="100">
       <bpmn:incoming>Flow_1uj909v</bpmn:incoming>
       <bpmn:outgoing>Flow_0fb96gj</bpmn:outgoing>
       <bpmn:property id="Property_16jdb0b" name="__targetRef_placeholder" />
@@ -44,13 +44,13 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_07lgg9n" />
     </bpmn:endEvent>
     <bpmn:endEvent id="Event_0z57oq9" name="Hardwareanfrage genehmigt">
-      <bpmn:incoming>Flow_082wajl</bpmn:incoming>
+      <bpmn:incoming>Flow_1freigabe</bpmn:incoming>
       <bpmn:messageEventDefinition id="MessageEventDefinition_18fuw24" />
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0npwj37" sourceRef="StartEvent_1" targetRef="Activity_1nf4hv1" />
     <bpmn:sequenceFlow id="Flow_1uj909v" sourceRef="Activity_1nf4hv1" targetRef="Activity_11ilezp" />
     <bpmn:sequenceFlow id="Flow_0fb96gj" sourceRef="Activity_11ilezp" targetRef="Gateway_1g6wnau" />
-    <bpmn:sequenceFlow id="Flow_082wajl" name="Ja" sourceRef="Gateway_1g6wnau" targetRef="Event_0z57oq9" />
+    <bpmn:sequenceFlow id="Flow_082wajl" name="Ja" sourceRef="Gateway_1g6wnau" targetRef="Gateway_Aufteilung" />
     <bpmn:sequenceFlow id="Flow_11wrsx3" name="Nein" sourceRef="Gateway_1g6wnau" targetRef="Event_19dh75j">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -66,11 +66,64 @@
         <bpmn:targetRef>DataObjectReference_17sfs2z</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:task>
+    <bpmn:parallelGateway id="Gateway_Aufteilung" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_082wajl</bpmn:incoming>
+      <bpmn:outgoing>Flow_Fahrzeug</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Vertrag</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:userTask id="Activity_FahrzeugBestellen" name="Fahrzeug bestellen" camunda:formKey="Test" camunda:priority="80">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="arbeitspaket">FAHRZEUG</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Fahrzeug</bpmn:incoming>
+      <bpmn:outgoing>Flow_Zulassung</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_ZulassungBeauftragen" name="Zulassung beauftragen" camunda:asyncBefore="true" camunda:formKey="Test" camunda:priority="50">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="arbeitspaket">FAHRZEUG</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Zulassung</bpmn:incoming>
+      <bpmn:outgoing>Flow_FahrzeugFertig</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_VertragErstellen" name="Überlassungsvertrag erstellen" camunda:formKey="Test" camunda:priority="50">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="arbeitspaket">UEBERLASSUNG</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Vertrag</bpmn:incoming>
+      <bpmn:outgoing>Flow_Tankkarte</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_TankkarteBeantragen" name="Tankkarte beantragen" camunda:asyncBefore="true" camunda:formKey="Test" camunda:priority="50">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="arbeitspaket">UEBERLASSUNG</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Tankkarte</bpmn:incoming>
+      <bpmn:outgoing>Flow_VertragFertig</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="Gateway_Zusammenfuehrung">
+      <bpmn:incoming>Flow_FahrzeugFertig</bpmn:incoming>
+      <bpmn:incoming>Flow_VertragFertig</bpmn:incoming>
+      <bpmn:outgoing>Flow_1freigabe</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_Fahrzeug" sourceRef="Gateway_Aufteilung" targetRef="Activity_FahrzeugBestellen" />
+    <bpmn:sequenceFlow id="Flow_Zulassung" sourceRef="Activity_FahrzeugBestellen" targetRef="Activity_ZulassungBeauftragen" />
+    <bpmn:sequenceFlow id="Flow_FahrzeugFertig" sourceRef="Activity_ZulassungBeauftragen" targetRef="Gateway_Zusammenfuehrung" />
+    <bpmn:sequenceFlow id="Flow_Vertrag" sourceRef="Gateway_Aufteilung" targetRef="Activity_VertragErstellen" />
+    <bpmn:sequenceFlow id="Flow_Tankkarte" sourceRef="Activity_VertragErstellen" targetRef="Activity_TankkarteBeantragen" />
+    <bpmn:sequenceFlow id="Flow_VertragFertig" sourceRef="Activity_TankkarteBeantragen" targetRef="Gateway_Zusammenfuehrung" />
+    <bpmn:sequenceFlow id="Flow_1freigabe" sourceRef="Gateway_Zusammenfuehrung" targetRef="Event_0z57oq9" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1vjcpz5">
       <bpmndi:BPMNShape id="Participant_0vu54bv_di" bpmnElement="Participant_0vu54bv" isHorizontal="true">
-        <dc:Bounds x="160" y="282" width="790" height="368" />
+        <dc:Bounds x="160" y="282" width="1400" height="368" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
@@ -107,13 +160,31 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1q40lyr_di" bpmnElement="Event_0z57oq9">
-        <dc:Bounds x="792" y="442" width="36" height="36" />
+        <dc:Bounds x="1470" y="442" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="768" y="485" width="85" height="27" />
+          <dc:Bounds x="1446" y="485" width="85" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_13hmupf_di" bpmnElement="Activity_1nf4hv1">
         <dc:Bounds x="350" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Aufteilung_di" bpmnElement="Gateway_Aufteilung">
+        <dc:Bounds x="930" y="435" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_FahrzeugBestellen_di" bpmnElement="Activity_FahrzeugBestellen">
+        <dc:Bounds x="1040" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_ZulassungBeauftragen_di" bpmnElement="Activity_ZulassungBeauftragen">
+        <dc:Bounds x="1200" y="330" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_VertragErstellen_di" bpmnElement="Activity_VertragErstellen">
+        <dc:Bounds x="1040" y="510" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_TankkarteBeantragen_di" bpmnElement="Activity_TankkarteBeantragen">
+        <dc:Bounds x="1200" y="510" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_Zusammenfuehrung_di" bpmnElement="Gateway_Zusammenfuehrung">
+        <dc:Bounds x="1360" y="435" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0npwj37_di" bpmnElement="Flow_0npwj37">
         <di:waypoint x="298" y="460" />
@@ -129,7 +200,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_082wajl_di" bpmnElement="Flow_082wajl">
         <di:waypoint x="725" y="460" />
-        <di:waypoint x="792" y="460" />
+        <di:waypoint x="930" y="460" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="753" y="442" width="13" height="14" />
         </bpmndi:BPMNLabel>
@@ -142,8 +213,40 @@
           <dc:Bounds x="704" y="525" width="23" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Fahrzeug_di" bpmnElement="Flow_Fahrzeug">
+        <di:waypoint x="955" y="435" />
+        <di:waypoint x="955" y="370" />
+        <di:waypoint x="1040" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Zulassung_di" bpmnElement="Flow_Zulassung">
+        <di:waypoint x="1140" y="370" />
+        <di:waypoint x="1200" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_FahrzeugFertig_di" bpmnElement="Flow_FahrzeugFertig">
+        <di:waypoint x="1300" y="370" />
+        <di:waypoint x="1385" y="370" />
+        <di:waypoint x="1385" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Vertrag_di" bpmnElement="Flow_Vertrag">
+        <di:waypoint x="955" y="485" />
+        <di:waypoint x="955" y="550" />
+        <di:waypoint x="1040" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Tankkarte_di" bpmnElement="Flow_Tankkarte">
+        <di:waypoint x="1140" y="550" />
+        <di:waypoint x="1200" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_VertragFertig_di" bpmnElement="Flow_VertragFertig">
+        <di:waypoint x="1300" y="550" />
+        <di:waypoint x="1385" y="550" />
+        <di:waypoint x="1385" y="485" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1freigabe_di" bpmnElement="Flow_1freigabe">
+        <di:waypoint x="1410" y="460" />
+        <di:waypoint x="1470" y="460" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1olld7y_di" bpmnElement="Participant_0ixnl31" isHorizontal="true">
-        <dc:Bounds x="200" y="90" width="710" height="60" />
+        <dc:Bounds x="200" y="90" width="1340" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0z4275q" bpmnElement="Participant_1b9rbu8" isHorizontal="true">
@@ -179,8 +282,8 @@
         <di:waypoint x="880" y="150" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08iiulv_di" bpmnElement="Flow_08iiulv">
-        <di:waypoint x="810" y="442" />
-        <di:waypoint x="810" y="150" />
+        <di:waypoint x="1488" y="442" />
+        <di:waypoint x="1488" y="150" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1wkwcdz_di" bpmnElement="Flow_1wkwcdz">
         <di:waypoint x="560" y="420" />

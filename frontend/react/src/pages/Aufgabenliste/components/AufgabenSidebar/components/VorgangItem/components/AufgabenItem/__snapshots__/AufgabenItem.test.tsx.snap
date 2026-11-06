@@ -8,9 +8,13 @@ exports[`AufgabenItem should render assignee name with assignee 1`] = `
     role="button"
   >
     <div
-      class="font-medium"
+      class="flex items-start justify-between gap-2"
     >
-      Testaufgabe
+      <div
+        class="font-medium"
+      >
+        Testaufgabe
+      </div>
     </div>
     <div
       class="text-sm text-gray-600"
@@ -29,9 +33,13 @@ exports[`AufgabenItem should render default without assignee 1`] = `
     role="button"
   >
     <div
-      class="font-medium"
+      class="flex items-start justify-between gap-2"
     >
-      Testaufgabe
+      <div
+        class="font-medium"
+      >
+        Testaufgabe
+      </div>
     </div>
     <div
       class="text-sm text-gray-600"

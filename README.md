@@ -190,7 +190,9 @@ Aufgabe. Camunda erzeugt die Folgeaufgabe nach einer asynchronen Fortsetzung eve
 das Backend die offenen Aufgaben des Vorgangs alle 500 ms ab, standardmäßig bis zu einem Timeout von 3 Sekunden.
 
 - **Priorität:** Vorgeschlagen wird die offene Aufgabe mit der höchsten Priorität (`camunda:priority`, wie in Camunda
-  gilt: höhere Zahl = wichtiger). Bei Gleichstand gewinnt die ältere Aufgabe.
+  gilt: höhere Zahl = wichtiger). Bei Gleichstand gewinnt die ältere Aufgabe. In der Aufgabenübersicht wird die
+  Priorität je Aufgabe als Zahl angezeigt. Die Farbe richtet sich nach dem Camunda-Standardwert 50: rot = höher,
+  blau = gleich, grün = niedriger.
 - **Arbeitspaket:** Der Inputparameter `arbeitspaket` am User Task fasst zusammengehörige Aufgaben eines Vorgangs
   zusammen. Hat die zuletzt bearbeitete Aufgabe ein Arbeitspaket, wird bis zum Timeout gewartet, bis die Aufgabe mit der
   höchsten Priorität dazu passt. Danach wird die zuletzt ermittelte Aufgabe ohne passendes Arbeitspaket vorgeschlagen.

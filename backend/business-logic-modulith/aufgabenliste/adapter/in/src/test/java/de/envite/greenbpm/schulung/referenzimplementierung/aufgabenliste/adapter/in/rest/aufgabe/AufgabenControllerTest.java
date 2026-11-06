@@ -42,7 +42,7 @@ class AufgabenControllerTest {
 
       final AufgabenabfrageResource responseResource =
           new AufgabenabfrageResource(
-              aufgabenId, "My Task", "Test User", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1", "vorgang", null);
+              aufgabenId, "My Task", "Test User", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1", 80, "vorgang", null);
 
       when(aufgabenabfrageMock.abfragen(aufgabenId)).thenReturn(abgefragteAufgabe);
       when(aufgabenabfrageMapperMock.toResource(abgefragteAufgabe)).thenReturn(responseResource);
@@ -54,7 +54,7 @@ class AufgabenControllerTest {
               content()
                   .json(
                       """
-                              {"id":"id123","name":"My Task","bearbeiter":"Test User","erstelldatum":"2023-01-01T00:00:00","formularreferenz":"Ref1"}
+                              {"id":"id123","name":"My Task","bearbeiter":"Test User","erstelldatum":"2023-01-01T00:00:00","formularreferenz":"Ref1","prioritaet":80}
                               """));
     }
 
@@ -68,10 +68,10 @@ class AufgabenControllerTest {
 
       final AufgabenabfrageResource responseResource1 =
           new AufgabenabfrageResource(
-              "ID1", "My Task 1", "Test User1", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1", "vorgang", null);
+              "ID1", "My Task 1", "Test User1", LocalDateTime.of(2023, 1, 1, 0, 0), "Ref1", 80, "vorgang", null);
       final AufgabenabfrageResource responseResource2 =
           new AufgabenabfrageResource(
-              "ID2", "My Task ", "Test User2", LocalDateTime.of(2024, 1, 1, 0, 0), "Ref2", "vorgang", null);
+              "ID2", "My Task ", "Test User2", LocalDateTime.of(2024, 1, 1, 0, 0), "Ref2", 50, "vorgang", null);
 
       when(aufgabenabfrageMock.abfragenAlleZuVorgang(vorgangId))
           .thenReturn(List.of(abgefragteAufgabe1, abgefragteAufgabe2));
@@ -85,7 +85,7 @@ class AufgabenControllerTest {
               content()
                   .json(
                       """
-                              [{"id":"ID1","name":"My Task 1","bearbeiter":"Test User1","erstelldatum":"2023-01-01T00:00:00","formularreferenz":"Ref1"},{"id":"ID2","name":"My Task ","bearbeiter":"Test User2","erstelldatum":"2024-01-01T00:00:00","formularreferenz":"Ref2"}]
+                              [{"id":"ID1","name":"My Task 1","bearbeiter":"Test User1","erstelldatum":"2023-01-01T00:00:00","formularreferenz":"Ref1","prioritaet":80},{"id":"ID2","name":"My Task ","bearbeiter":"Test User2","erstelldatum":"2024-01-01T00:00:00","formularreferenz":"Ref2","prioritaet":50}]
                               """));
     }
   }

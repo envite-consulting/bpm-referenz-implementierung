@@ -8,6 +8,7 @@ describe('aufgabenItemAbfrageSchema', () => {
       bearbeiter: 'Assignee',
       erstelldatum: new Date(),
       formularreferenz: 'Ref1',
+      prioritaet: 50,
       vorgangId: 'vorgang-1',
     };
 

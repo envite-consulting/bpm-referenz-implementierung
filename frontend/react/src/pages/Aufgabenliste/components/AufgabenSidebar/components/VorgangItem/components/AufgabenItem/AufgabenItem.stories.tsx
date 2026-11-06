@@ -18,6 +18,7 @@ export const Standard: Story = {
       bearbeiter: null,
       erstelldatum: new Date(),
       formularreferenz: 'Test',
+      prioritaet: 50,
       vorgangId: 'vorgang-1',
     },
   },
@@ -31,6 +32,7 @@ export const WithAssignee: Story = {
       bearbeiter: 'Max',
       erstelldatum: new Date(),
       formularreferenz: 'Test',
+      prioritaet: 20,
       vorgangId: 'vorgang-1',
     },
   },
@@ -44,8 +46,23 @@ export const Selected: Story = {
       bearbeiter: 'Max',
       erstelldatum: new Date(),
       formularreferenz: 'Test',
+      prioritaet: 80,
       vorgangId: 'vorgang-1',
     },
     selected: true,
+  },
+};
+
+export const HighPriority: Story = {
+  args: {
+    aufgabe: {
+      id: '3',
+      name: 'Anfragen genehmigen',
+      bearbeiter: null,
+      erstelldatum: new Date(),
+      formularreferenz: 'Test',
+      prioritaet: 100,
+      vorgangId: 'vorgang-1',
+    },
   },
 };

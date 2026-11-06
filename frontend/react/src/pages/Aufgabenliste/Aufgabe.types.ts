@@ -6,6 +6,7 @@ export const aufgabeAbfrageSchema = z.object({
   bearbeiter: z.string().nullable().optional(),
   erstelldatum: z.coerce.date(),
   formularreferenz: z.string(),
+  prioritaet: z.number().int().optional(),
   vorgangId: z.string(),
   arbeitspaket: z.string().nullable().optional(),
 });

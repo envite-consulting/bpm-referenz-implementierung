@@ -8,5 +8,6 @@ record AufgabenabfrageResource(
     String bearbeiter,
     LocalDateTime erstelldatum,
     String formularreferenz,
+    Integer prioritaet,
     String vorgangId,
     String arbeitspaket) {}

@@ -1,6 +1,8 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AufgabenItem } from './AufgabenItem.tsx';
 import type { Aufgabe } from '@aufgabenliste/Aufgabe.types.ts';
+
+jest.mock('@ui/Badge/Badge.tsx');
 
 describe('AufgabenItem', () => {
   const defaultAufgabe: Aufgabe = {
@@ -27,4 +29,26 @@ describe('AufgabenItem', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('should not render priority badge without priority', () => {
+    render(<AufgabenItem aufgabe={defaultAufgabe} />);
+
+    expect(screen.queryByTestId('badge-mock')).not.toBeInTheDocument();
+  });
+
+  it.each([
+    [80, 'danger', 'Hohe Priorität'],
+    [50, 'info', 'Normale Priorität'],
+    [20, 'success', 'Niedrige Priorität'],
+  ])(
+    'should render priority %i as badge of type %s',
+    (prioritaet, type, titel) => {
+      render(<AufgabenItem aufgabe={{ ...defaultAufgabe, prioritaet }} />);
+
+      const badge = screen.getByTestId('badge-mock');
+      expect(badge).toHaveTextContent(String(prioritaet));
+      expect(badge).toHaveAttribute('type', type);
+      expect(screen.getByTitle(`${titel} (${prioritaet})`)).toBeInTheDocument();
+    },
+  );
 });
